@@ -1,0 +1,17 @@
+{
+  "type": "footer",
+  "name": "t:names.footer",
+  "sections": {
+    "carbex_footer": {
+      "type": "carbex-footer",
+      "settings": {
+        "brand_name": "CARBEX LAB",
+        "brand_text": "Practical protection and care for the equipment you trust on court.",
+        "newsletter_kicker": "Stay match ready",
+        "newsletter_heading": "Good gear deserves good care.",
+        "newsletter_text": "Join for product drops, care notes, and player-first tips."
+      }
+    }
+  },
+  "order": ["carbex_footer"]
+}

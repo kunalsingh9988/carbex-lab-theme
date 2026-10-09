@@ -1,0 +1,4 @@
+[environments.staging]
+store = "blynkdrinks.myshopify.com"
+theme = "191970115865"
+ignore = []

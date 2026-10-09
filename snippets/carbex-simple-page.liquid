@@ -1,0 +1,78 @@
+<div class="carbex-page">
+  <div class="carbex-page__inner">
+    <p class="carbex-page__eyebrow">{{ section.settings.eyebrow | default: 'Carbex Lab' | escape }}</p>
+    <h1>{{ page.title | escape }}</h1>
+    <div class="carbex-page__content">
+      {% if page.content != blank %}
+        {{ page.content }}
+      {% elsif page.handle == 'privacy' %}
+        <p><em>Last updated: {{ 'now' | date: '%B %Y' }}. This is placeholder content — replace it with your full privacy policy in the page editor.</em></p>
+        <h2>Information we collect</h2>
+        <p>When you visit Carbex Lab or place an order, we collect the details needed to run the store: your name, email address, shipping and billing addresses, and order history. We also collect standard device and browsing data (IP address, browser type, pages visited) to keep the site fast and secure.</p>
+        <h2>How we use your information</h2>
+        <p>We use your information to process and ship orders, respond to support requests, send order updates, and — only if you opt in — share product drops and care notes. We never sell your personal data.</p>
+        <ul>
+          <li>Fulfilling and delivering your orders</li>
+          <li>Providing customer support and warranty help</li>
+          <li>Improving the store experience and preventing fraud</li>
+          <li>Optional marketing emails you can unsubscribe from anytime</li>
+        </ul>
+        <h2>Cookies &amp; analytics</h2>
+        <p>We use cookies to keep your cart working, remember preferences, and understand how players use the site. You can disable cookies in your browser, though some features (like the cart) may stop working.</p>
+        <h2>Sharing &amp; processors</h2>
+        <p>We share data only with the services required to run the store — Shopify (storefront &amp; checkout), payment processors, and shipping carriers. Each processes data under its own privacy terms.</p>
+        <h2>Data retention &amp; your rights</h2>
+        <p>We keep order records as long as needed for legal, tax, and warranty purposes. You can ask us to access, correct, or delete your personal data at any time by emailing us through the contact page.</p>
+        <h2>Questions</h2>
+        <p>For anything privacy-related, reach us via the <a href="/pages/contact">contact page</a> and we'll get back to you quickly.</p>
+      {% elsif page.handle == 'terms' %}
+        <p><em>Last updated: {{ 'now' | date: '%B %Y' }}. This is placeholder content — replace it with your full terms of service in the page editor.</em></p>
+        <h2>Overview</h2>
+        <p>These terms govern your use of the Carbex Lab store and any purchase you make from it. By using the site or placing an order, you agree to these terms.</p>
+        <h2>Products &amp; orders</h2>
+        <p>We work hard to show products accurately — colors, finishes, and fit may vary slightly from photos. Orders are offers to purchase; we may refuse or cancel an order (with a full refund) for stock errors, pricing mistakes, or suspected fraud.</p>
+        <h2>Pricing &amp; payment</h2>
+        <p>Prices are listed in the store currency and may change without notice. Payment is charged at checkout through our secure payment providers.</p>
+        <h2>Shipping &amp; delivery</h2>
+        <p>Dispatch times and carriers are shown at checkout. Delivery estimates are guides, not guarantees — delays can happen at customs or with carriers.</p>
+        <h2>Returns &amp; refunds</h2>
+        <ul>
+          <li>Unused products can be returned within 30 days of delivery</li>
+          <li>Applied or installed edge tape can't be returned</li>
+          <li>Refunds are issued to the original payment method once items arrive back</li>
+        </ul>
+        <h2>Intellectual property</h2>
+        <p>All content on this site — the Carbex Lab name, logo, images, and copy — belongs to us. Don't reuse it without written permission.</p>
+        <h2>Limitation of liability</h2>
+        <p>Our products are designed to protect your paddle during normal play. We're not liable for damage caused by misuse, improper installation, or extreme conditions beyond normal court wear.</p>
+        <h2>Changes &amp; contact</h2>
+        <p>We may update these terms occasionally; the latest version always lives on this page. Questions? Reach us via the <a href="/pages/contact">contact page</a>.</p>
+      {% else %}
+        <p>{{ section.settings.fallback_one | default: "We're putting the finishing touches on this page. The details below are placeholder content and will be replaced with the full text shortly." }}</p>
+        <p>{{ section.settings.fallback_two | default: 'In the meantime, the essentials stay the same: Carbex Lab makes practical protection and care products for players who want their equipment to perform and last — and we stand behind every order.' }}</p>
+        <p>{{ section.settings.fallback_three | default: "Questions in the meantime? Reach us through the contact page and we'll get back to you quickly." }}</p>
+      {% endif %}
+    </div>
+    <a class="carbex-page__cta" href="{{ section.settings.cta_link | default: '/pages/shop' }}">{{ section.settings.cta_label | default: 'Shop Carbex Lab' | escape }}</a>
+  </div>
+</div>
+
+<style>
+  .carbex-page { background: #fff; padding: clamp(64px, 10vw, 140px) 0; }
+  .carbex-page__inner { margin: 0 auto; width: min(780px, calc(100% - 48px)); }
+  .carbex-page__eyebrow { color: #6b7627; font-size: .72rem; font-weight: 700; letter-spacing: .16em; margin: 0 0 18px; text-transform: uppercase; }
+  .carbex-page h1 { border-bottom: 1px solid #d9dcd4; font-size: clamp(2.4rem, 5.5vw, 4.2rem); font-weight: 500; letter-spacing: 0; line-height: 1.02; margin: 0; padding-bottom: clamp(28px, 4vw, 48px); }
+  .carbex-page__content { color: #4c514b; font-size: 1rem; line-height: 1.8; padding-top: clamp(32px, 4vw, 52px); }
+  .carbex-page__content p { margin: 0 0 1.4em; }
+  .carbex-page__content h2 { color: #151817; font-size: clamp(1.3rem, 2.4vw, 1.8rem); font-weight: 600; line-height: 1.2; margin: 2.2em 0 .8em; }
+  .carbex-page__content h3 { color: #151817; font-size: 1.1rem; font-weight: 700; margin: 2em 0 .7em; }
+  .carbex-page__content ul, .carbex-page__content ol { margin: 0 0 1.4em; padding-left: 1.3em; }
+  .carbex-page__content li { margin-bottom: .5em; }
+  .carbex-page__content a { color: #151817; text-decoration: underline; text-decoration-color: #c5e349; text-decoration-thickness: 2px; text-underline-offset: 3px; }
+  .carbex-page__cta { align-items: center; background: #151817; color: #fff; display: inline-flex; font-size: .8rem; font-weight: 700; margin-top: clamp(28px, 4vw, 44px); padding: 14px 26px; text-decoration: none; transition: background .2s ease, transform .2s ease; }
+  .carbex-page__cta:hover { background: #a9c72f; color: #151817; transform: translateY(-2px); }
+  @media screen and (max-width: 749px) {
+    .carbex-page { padding: 48px 0 72px; }
+    .carbex-page__inner { width: min(100% - 36px, 780px); }
+  }
+</style>

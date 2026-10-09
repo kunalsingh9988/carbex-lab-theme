@@ -1,0 +1,7 @@
+# OS junk
+.DS_Store
+**/.DS_Store
+
+# Packaged theme artifact
+carbex-lab-theme.zip
+*.zip

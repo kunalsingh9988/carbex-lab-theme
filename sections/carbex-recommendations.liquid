@@ -1,0 +1,18 @@
+{% comment %}theme-check-disable ValidScopedCSSClass{% endcomment %}
+{% comment %}Rendered by the product recommendations endpoint (section_id=carbex-recommendations); styles live in carbex-product-page.liquid.{% endcomment %}
+{% if recommendations.performed? and recommendations.products_count > 0 %}
+  {% for product in recommendations.products %}
+    <a class="carbex-recs-card" href="{{ product.url }}">
+      <div class="carbex-recs-card__media">
+        {% if product.featured_image %}
+          {{ product.featured_image | image_url: width: 800 | image_tag: loading: 'lazy', widths: '400,600,800', alt: product.title }}
+        {% endif %}
+      </div>
+      <div class="carbex-recs-card__meta"><h3>{{ product.title | escape }}</h3><span>{{ product.price | money }}</span></div>
+    </a>
+  {% endfor %}
+{% endif %}
+
+{% schema %}
+{"name":"Carbex recommendations","settings":[]}
+{% endschema %}

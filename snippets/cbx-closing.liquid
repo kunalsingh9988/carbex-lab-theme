@@ -1,0 +1,31 @@
+{% comment %}
+  Figma "Closing banner" — shared across pages.
+  Params: heading, text, btn_label, btn_url, img_d, img_m (optional overrides).
+{% endcomment %}
+{%- assign heading = heading | default: 'Keep Your Gear Ready for the Next Point.' -%}
+{%- assign text = text | default: 'Replaceable protective layer that takes routine wear and contact instead of the exposed paddle edge.' -%}
+{%- assign btn_label = btn_label | default: 'Explore Products' -%}
+{%- assign btn_url = btn_url | default: routes.all_products_collection_url -%}
+{%- if img_d == blank -%}{%- assign img_d = 'cbx-closing-desktop.png' -%}{%- endif -%}
+{%- if img_m == blank -%}{%- assign img_m = 'cbx-closing-mobile.png' -%}{%- endif -%}
+
+<section class="cbx-closing cbx-band cbx-on-dark" style="--band-h: 600px; --band-hm: 430px; --band-focal: 50% 45%;">
+  <div class="cbx-band__media">
+    <picture>
+      <source media="(max-width: 989px)" srcset="{% if img_m.width %}{{ img_m | image_url: width: 1080 }}{% else %}{{ img_m | asset_url }}{% endif %}">
+      {%- if img_d.width -%}
+        <img src="{{ img_d | image_url: width: 1920 }}" alt="{{ heading | escape }}" width="1920" height="600" loading="lazy">
+      {%- else -%}
+        <img src="{{ img_d | asset_url }}" alt="{{ heading | escape }}" width="1920" height="600" loading="lazy">
+      {%- endif -%}
+    </picture>
+  </div>
+  <div class="cbx-band__grad"></div>
+  <div class="cbx-band__copy" style="width: 570px;">
+    <h2 class="cbx-h-xl">{{ heading }}</h2>
+    <p class="cbx-lead">{{ text }}</p>
+    <div class="cbx-btn-row" style="margin-top: 10px;">
+      <a class="cbx-btn cbx-btn--white" href="{{ btn_url }}">{{ btn_label }}</a>
+    </div>
+  </div>
+</section>

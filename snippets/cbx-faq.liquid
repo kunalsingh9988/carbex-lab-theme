@@ -1,0 +1,157 @@
+{%- render 'cbx-theme' -%}
+{% comment %}
+  Figma FAQ page body. Params: s = section.settings, blocks (type 'faq_group' with child 'faq' not supported —
+  groups are fixed per design: Sizing / Installation / Care & replacement / About CARBEX LAB;
+  editable via faq_* settings + page-level faq blocks map across groups if provided).
+{% endcomment %}
+
+{%- assign all_faqs = blocks | where: 'type', 'faq' -%}
+
+<div class="cbx-page cbx-faqpage">
+  {%- comment -%} 1 · HERO (550px) {%- endcomment -%}
+  {%- assign hero_d = s.hero_image | default: 'cbx-faq-hero.png' -%}
+  {%- assign hero_m = s.hero_image_m | default: 'cbx-faq-hero.png' -%}
+  {%- assign hero_heading_v = s.hero_heading | default: 'Everything You Need to Know' -%}
+  {%- assign hero_text_v = s.hero_text | default: 'Clear answers about sizing, installation, care and everyday use.' -%}
+  {%- render 'cbx-band',
+    band_h: 550,
+    band_hm: 287,
+    focal: '75% 55%',
+    tight: true,
+    img_d: hero_d,
+    img_m: hero_m,
+    heading: hero_heading_v,
+    heading_tag: 'h1',
+    heading_cls: 'cbx-h-hero',
+    text: hero_text_v
+  -%}
+
+  {%- comment -%} 2 · GROUPED ACCORDIONS {%- endcomment -%}
+  <section class="cbx-section cbx-faqpage__groups">
+    {%- assign group_names = 'Sizing|Installation|Care & replacement|About CARBEX LAB' | split: '|' -%}
+    {%- assign group_keys = 'sizing|installation|care|about' | split: '|' -%}
+    {%- for group_key in group_keys -%}
+      {%- assign gname = group_names[forloop.index0] -%}
+      {%- assign lkey = 'label_' | append: group_key -%}
+      {%- assign glabel = s[lkey] | default: gname -%}
+      <div class="cbx-faqgroup">
+        <p class="cbx-faqgroup__label">{{ glabel }}</p>
+        <div class="cbx-faqgroup__acc">
+          <div class="cbx-acc__line"></div>
+          {%- case group_key -%}
+            {%- when 'sizing' -%}
+              <details class="cbx-acc__item cbx-acc__item--page" open>
+                <summary><p class="cbx-acc__q">Which width do I need?</p><span class="cbx-acc__icon"><img class="cbx-i-plus" src="{{ 'cbx-icon-add.svg' | asset_url }}" alt="" width="24" height="24"><img class="cbx-i-minus" src="{{ 'cbx-icon-minus.svg' | asset_url }}" alt="" width="24" height="24"></span></summary>
+                <p class="cbx-acc__a">30 mm tape for 16 mm paddles, 26 mm tape for 14 mm paddles. Measure your paddle's thickness first.</p>
+              </details>
+              <div class="cbx-acc__line"></div>
+              <details class="cbx-acc__item cbx-acc__item--page">
+                <summary><p class="cbx-acc__q">How much tape is included?</p><span class="cbx-acc__icon"><img class="cbx-i-plus" src="{{ 'cbx-icon-add.svg' | asset_url }}" alt="" width="24" height="24"><img class="cbx-i-minus" src="{{ 'cbx-icon-minus.svg' | asset_url }}" alt="" width="24" height="24"></span></summary>
+                <p class="cbx-acc__a">Each pack includes 4 strips of about 800 mm each — one strip covers one full paddle edge.</p>
+              </details>
+              <div class="cbx-acc__line"></div>
+              <details class="cbx-acc__item cbx-acc__item--page">
+                <summary><p class="cbx-acc__q">Will it fit my paddle?</p><span class="cbx-acc__icon"><img class="cbx-i-plus" src="{{ 'cbx-icon-add.svg' | asset_url }}" alt="" width="24" height="24"><img class="cbx-i-minus" src="{{ 'cbx-icon-minus.svg' | asset_url }}" alt="" width="24" height="24"></span></summary>
+                <p class="cbx-acc__a">It's made for standard 14 mm and 16 mm paddles. Pick the width that matches your paddle's thickness — 26 mm for 14 mm paddles, 30 mm for 16 mm paddles.</p>
+              </details>
+              <div class="cbx-acc__line"></div>
+            {%- when 'installation' -%}
+              <details class="cbx-acc__item cbx-acc__item--page">
+                <summary><p class="cbx-acc__q">How do I install it?</p><span class="cbx-acc__icon"><img class="cbx-i-plus" src="{{ 'cbx-icon-add.svg' | asset_url }}" alt="" width="24" height="24"><img class="cbx-i-minus" src="{{ 'cbx-icon-minus.svg' | asset_url }}" alt="" width="24" height="24"></span></summary>
+                <p class="cbx-acc__a">Clean the edge, peel back a short section of liner, center the tape over the edge, apply gradually around the paddle, then trim the excess at the throat. Full guide on the <a href="{{ routes.root_url }}pages/installation">installation page</a>.</p>
+              </details>
+              <div class="cbx-acc__line"></div>
+              <details class="cbx-acc__item cbx-acc__item--page">
+                <summary><p class="cbx-acc__q">How do I get it centered?</p><span class="cbx-acc__icon"><img class="cbx-i-plus" src="{{ 'cbx-icon-add.svg' | asset_url }}" alt="" width="24" height="24"><img class="cbx-i-minus" src="{{ 'cbx-icon-minus.svg' | asset_url }}" alt="" width="24" height="24"></span></summary>
+                <p class="cbx-acc__a">Fold the strip in half to find the middle, then start at the center of the top edge so the notches line up with the corners.</p>
+              </details>
+              <div class="cbx-acc__line"></div>
+              <details class="cbx-acc__item cbx-acc__item--page">
+                <summary><p class="cbx-acc__q">Can I trim the tape?</p><span class="cbx-acc__icon"><img class="cbx-i-plus" src="{{ 'cbx-icon-add.svg' | asset_url }}" alt="" width="24" height="24"><img class="cbx-i-minus" src="{{ 'cbx-icon-minus.svg' | asset_url }}" alt="" width="24" height="24"></span></summary>
+                <p class="cbx-acc__a">Yes — the strip is notched and made to be trimmed. Cut any excess at the throat with scissors for a clean finish.</p>
+              </details>
+              <div class="cbx-acc__line"></div>
+              <details class="cbx-acc__item cbx-acc__item--page">
+                <summary><p class="cbx-acc__q">Why is my tape lifting at the edge?</p><span class="cbx-acc__icon"><img class="cbx-i-plus" src="{{ 'cbx-icon-add.svg' | asset_url }}" alt="" width="24" height="24"><img class="cbx-i-minus" src="{{ 'cbx-icon-minus.svg' | asset_url }}" alt="" width="24" height="24"></span></summary>
+                <p class="cbx-acc__a">The edge needs to be clean and fully dry before application. Peel back, clean again, and press firmly along the full strip.</p>
+              </details>
+              <div class="cbx-acc__line"></div>
+            {%- when 'care' -%}
+              <details class="cbx-acc__item cbx-acc__item--page">
+                <summary><p class="cbx-acc__q">Will the tape scuff?</p><span class="cbx-acc__icon"><img class="cbx-i-plus" src="{{ 'cbx-icon-add.svg' | asset_url }}" alt="" width="24" height="24"><img class="cbx-i-minus" src="{{ 'cbx-icon-minus.svg' | asset_url }}" alt="" width="24" height="24"></span></summary>
+                <p class="cbx-acc__a">Yes — that's the point. The tape takes the scuffs and scrapes so the paddle edge underneath stays clean.</p>
+              </details>
+              <div class="cbx-acc__line"></div>
+              <details class="cbx-acc__item cbx-acc__item--page">
+                <summary><p class="cbx-acc__q">When should I replace it?</p><span class="cbx-acc__icon"><img class="cbx-i-plus" src="{{ 'cbx-icon-add.svg' | asset_url }}" alt="" width="24" height="24"><img class="cbx-i-minus" src="{{ 'cbx-icon-minus.svg' | asset_url }}" alt="" width="24" height="24"></span></summary>
+                <p class="cbx-acc__a">Replace it when the surface looks worn, edges start lifting, or it stops sitting flush — most players get weeks of regular play per strip.</p>
+              </details>
+              <div class="cbx-acc__line"></div>
+              <details class="cbx-acc__item cbx-acc__item--page">
+                <summary><p class="cbx-acc__q">How do I keep my paddle clean?</p><span class="cbx-acc__icon"><img class="cbx-i-plus" src="{{ 'cbx-icon-add.svg' | asset_url }}" alt="" width="24" height="24"><img class="cbx-i-minus" src="{{ 'cbx-icon-minus.svg' | asset_url }}" alt="" width="24" height="24"></span></summary>
+                <p class="cbx-acc__a">Wipe the face and edge with a soft, slightly damp cloth after play. A dedicated paddle surface cleaner is coming soon.</p>
+              </details>
+              <div class="cbx-acc__line"></div>
+            {%- when 'about' -%}
+              <details class="cbx-acc__item cbx-acc__item--page">
+                <summary><p class="cbx-acc__q">What is CARBEX LAB?</p><span class="cbx-acc__icon"><img class="cbx-i-plus" src="{{ 'cbx-icon-add.svg' | asset_url }}" alt="" width="24" height="24"><img class="cbx-i-minus" src="{{ 'cbx-icon-minus.svg' | asset_url }}" alt="" width="24" height="24"></span></summary>
+                <p class="cbx-acc__a">CARBEX LAB makes straightforward products that help pickleball players protect, clean, and maintain their paddles.</p>
+              </details>
+              <div class="cbx-acc__line"></div>
+              <details class="cbx-acc__item cbx-acc__item--page">
+                <summary><p class="cbx-acc__q">What products does CARBEX LAB currently offer?</p><span class="cbx-acc__icon"><img class="cbx-i-plus" src="{{ 'cbx-icon-add.svg' | asset_url }}" alt="" width="24" height="24"><img class="cbx-i-minus" src="{{ 'cbx-icon-minus.svg' | asset_url }}" alt="" width="24" height="24"></span></summary>
+                <p class="cbx-acc__a">Our first product is replaceable edge guard tape in 26 mm and 30 mm widths. A paddle surface cleaner is coming soon.</p>
+              </details>
+              <div class="cbx-acc__line"></div>
+              <details class="cbx-acc__item cbx-acc__item--page">
+                <summary><p class="cbx-acc__q">Is the paddle in your photos for sale?</p><span class="cbx-acc__icon"><img class="cbx-i-plus" src="{{ 'cbx-icon-add.svg' | asset_url }}" alt="" width="24" height="24"><img class="cbx-i-minus" src="{{ 'cbx-icon-minus.svg' | asset_url }}" alt="" width="24" height="24"></span></summary>
+                <p class="cbx-acc__a">No — paddles shown in our photography are for demonstration only. We sell protective tape and care products, not paddles.</p>
+              </details>
+              <div class="cbx-acc__line"></div>
+          {%- endcase -%}
+        </div>
+      </div>
+    {%- endfor -%}
+
+    {%- comment -%} 3 · STILL HAVE A QUESTION {%- endcomment -%}
+    <div class="cbx-helpbox">
+      <div class="cbx-helpbox__text">
+        <p class="cbx-helpbox__title">{{ s.help_heading | default: 'Still have a question?' }}</p>
+        <p class="cbx-helpbox__sub">{{ s.help_text | default: 'Our team is happy to help.' }}</p>
+      </div>
+      <a class="cbx-helpbox__btn" href="{{ s.help_link | default: '/pages/contact' }}">{{ s.help_label | default: 'Contact us' }}</a>
+    </div>
+  </section>
+
+  {%- comment -%} 4 · CLOSING BANNER {%- endcomment -%}
+  {%- render 'cbx-closing', img_d: s.closing_image, img_m: s.closing_image_m -%}
+</div>
+
+<style>
+  .cbx-faqpage__groups { display: flex; flex-direction: column; gap: 50px; padding-top: 100px; padding-bottom: 120px; }
+  .cbx-faqgroup { display: flex; gap: 60px; align-items: flex-start; width: 100%; }
+  .cbx-faqgroup__label { flex: 0 0 300px; padding-top: 14px; font-size: 14px; font-weight: 600; line-height: 20px; letter-spacing: 1.68px; text-transform: uppercase; color: var(--cbx-teal); margin: 0; white-space: nowrap; }
+  .cbx-faqgroup__acc { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 10px; }
+
+  /* open item gets the black bar treatment */
+  .cbx-acc__item--page summary { padding: 10px 10px 10px 0; }
+  .cbx-acc__item--page[open] summary { background: var(--cbx-ink); padding-left: 20px; }
+  .cbx-acc__item--page[open] .cbx-acc__q { color: #fff; }
+  .cbx-acc__item--page .cbx-acc__a { padding: 0 10px 4px 0; }
+  .cbx-acc__item--page[open] .cbx-acc__a { padding-left: 20px; }
+  .cbx-acc__item--page .cbx-acc__a a { color: var(--cbx-teal); text-decoration: underline; }
+
+  .cbx-helpbox { background: var(--cbx-mist); border-radius: 10px; display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 40px 48px; width: 100%; }
+  .cbx-helpbox__title { font-size: 30px; font-weight: 500; line-height: 40px; margin: 0 0 6px; }
+  .cbx-helpbox__sub { font-size: 18px; line-height: 28px; color: var(--cbx-body); margin: 0; }
+  .cbx-helpbox__btn { background: var(--cbx-ink); color: #fff; font-size: 18px; line-height: 28px; padding: 10px 30px; border-radius: 24px; border: 1px solid rgba(2,2,2,.1); text-decoration: none; white-space: nowrap; transition: background .2s ease; }
+  .cbx-helpbox__btn:hover { background: var(--cbx-teal); }
+
+  @media screen and (max-width: 989px) {
+    .cbx-faqpage__groups { gap: 36px; padding-top: 60px; padding-bottom: 72px; }
+    .cbx-faqgroup { flex-direction: column; gap: 14px; }
+    .cbx-faqgroup__label { flex: none; padding-top: 0; }
+    .cbx-helpbox { flex-direction: column; align-items: flex-start; padding: 28px 24px; }
+    .cbx-helpbox__title { font-size: 24px; line-height: 32px; }
+  }
+</style>

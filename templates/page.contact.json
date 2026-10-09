@@ -1,0 +1,9 @@
+{
+  "sections": {
+    "main": {
+      "type": "carbex-contact-page",
+      "settings": {}
+    }
+  },
+  "order": ["main"]
+}

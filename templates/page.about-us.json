@@ -1,0 +1,16 @@
+{
+  "sections": {
+    "main": {
+      "type": "carbex-about-page",
+      "blocks": {
+        "craft-1": {"type": "craft_point", "settings": {"text": "Precision-cut widths for a factory-clean edge"}},
+        "craft-2": {"type": "craft_point", "settings": {"text": "Adhesive that holds — and removes cleanly"}},
+        "craft-3": {"type": "craft_point", "settings": {"text": "Carbon-fiber finish that matches premium paddles"}},
+        "craft-4": {"type": "craft_point", "settings": {"text": "Zero added bulk at the edge"}}
+      },
+      "block_order": ["craft-1", "craft-2", "craft-3", "craft-4"],
+      "settings": {}
+    }
+  },
+  "order": ["main"]
+}

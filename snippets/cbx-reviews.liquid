@@ -1,0 +1,55 @@
+{% comment %}
+  Figma "Real reviews" section: centered title, Amazon rating line, 3 quote cards
+  with teal left rule. Params: title, rating_text, link_text, link_url, blocks
+  (section blocks with settings: quote, name, meta). Falls back to the 3 approved
+  Amazon quotes when no blocks are passed.
+{% endcomment %}
+{%- assign title = title | default: 'Real reviews from players' -%}
+{%- assign rating_text = rating_text | default: '4.2 ★ · 206 ratings on Amazon' -%}
+{%- assign link_text = link_text | default: 'Read reviews on Amazon →' -%}
+{%- assign link_url = link_url | default: 'https://www.amazon.com' -%}
+
+<div class="cbx-reviews">
+  <h2 class="cbx-h-xl cbx-center">{{ title }}</h2>
+  <div class="cbx-reviews__rating">
+    <p class="cbx-lead cbx-stars" style="color: var(--cbx-body);">{{ rating_text }}</p>
+    {%- if link_text != blank -%}
+      <a class="cbx-reviews__link" href="{{ link_url }}">{{ link_text }}</a>
+    {%- endif -%}
+  </div>
+  <div class="cbx-reviews__grid">
+    {%- if blocks != blank -%}
+      {%- for block in blocks -%}
+        <figure class="cbx-quote" {{ block.shopify_attributes }}>
+          <blockquote class="cbx-quote__text">{{ block.settings.quote | default: block.settings.text }}</blockquote>
+          <figcaption class="cbx-quote__cite">
+            <p class="cbx-quote__name">{{ block.settings.name | default: block.settings.author }}</p>
+            <p class="cbx-quote__meta">{{ block.settings.meta | default: block.settings.source | default: 'Verified Amazon review' }}</p>
+          </figcaption>
+        </figure>
+      {%- endfor -%}
+    {%- else -%}
+      <figure class="cbx-quote">
+        <blockquote class="cbx-quote__text">“After using my paddle for a couple months my tape is in pretty rough shape, but the paddle underneath is still in great shape, so this tape has done its job.”</blockquote>
+        <figcaption class="cbx-quote__cite">
+          <p class="cbx-quote__name">Leighanne G.</p>
+          <p class="cbx-quote__meta">Verified Amazon review</p>
+        </figcaption>
+      </figure>
+      <figure class="cbx-quote">
+        <blockquote class="cbx-quote__text">“Put this around my new paddle & thankful that I did, cuz I scrapped the top of it but was saved by this guard.”</blockquote>
+        <figcaption class="cbx-quote__cite">
+          <p class="cbx-quote__name">RoseMary L.</p>
+          <p class="cbx-quote__meta">Verified Amazon review</p>
+        </figcaption>
+      </figure>
+      <figure class="cbx-quote">
+        <blockquote class="cbx-quote__text">“I tend to scrape my paddle on the floor when picking up the ball a lot and the fence when shooting for ATPs at our local courts and it's holding up well.”</blockquote>
+        <figcaption class="cbx-quote__cite">
+          <p class="cbx-quote__name">Ash</p>
+          <p class="cbx-quote__meta">Verified Amazon review</p>
+        </figcaption>
+      </figure>
+    {%- endif -%}
+  </div>
+</div>

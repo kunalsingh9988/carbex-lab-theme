@@ -1,0 +1,9 @@
+{
+  "sections": {
+    "main": {
+      "type": "carbex-shop-page",
+      "settings": {}
+    }
+  },
+  "order": ["main"]
+}

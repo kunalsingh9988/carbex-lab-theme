@@ -1,0 +1,31 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "type": "header",
+  "name": "t:names.header",
+  "sections": {
+    "carbex_header": {
+      "type": "carbex-header",
+      "name": "Carbex header",
+      "settings": {
+        "announcement_text": "Paddle Surface Cleaner — Coming Soon",
+        "announcement_link_label": "Learn More.",
+        "support_label": "Contact / Support",
+        "shop_label": "Shop Edge Guard",
+        "show_search": true,
+        "show_wishlist": true,
+        "show_account": true
+      }
+    }
+  },
+  "order": [
+    "carbex_header"
+  ]
+}

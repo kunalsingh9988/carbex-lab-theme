@@ -1,0 +1,101 @@
+{% liquid
+  assign demo_handles = '26mm-edge-guard-tape,30mm-edge-guard-tape,26mm-tape-pack,30mm-tape-pack,carbon-edge-tape,black-carbon-paddle' | split: ','
+  assign demo_titles = '26mm Edge Guard Tape,30mm Edge Guard Tape,26mm Tape + Tapes,30mm Tape + Tapes,Carbon Edge Tape,Carbex Black Carbon Paddle' | split: ','
+  assign demo_assets = 'carbex-pouch-26-front.png,carbex-pouch-30-front.png,carbex-pouch-26-with-tapes.png,carbex-pouch-30-with-tapes.png,carbex-tape-float.png,carbex-paddle-front.png' | split: ','
+  assign requested_handle = request.path | split: '/' | last
+  assign demo_index = nil
+
+  for handle in demo_handles
+    if handle == requested_handle
+      assign demo_index = forloop.index0
+      break
+    endif
+  endfor
+%}
+
+{% if demo_index != nil %}
+  <main class="carbex-demo-product" data-demo-product>
+    <section class="carbex-demo-product__intro">
+      <div class="carbex-demo-product__gallery">
+        <div class="carbex-demo-product__main-image">
+          <img src="{{ demo_assets[demo_index] | asset_url }}" loading="eager" width="1200" height="1200" alt="{{ demo_titles[demo_index] | escape }}">
+        </div>
+        <div class="carbex-demo-product__thumbs" aria-label="Product gallery">
+          {% for asset in demo_assets limit: 4 %}
+            <button type="button" class="carbex-demo-product__thumb{% if forloop.index0 == demo_index %} is-active{% endif %}" data-demo-image="{{ asset | asset_url }}" aria-label="View product image {{ forloop.index }}">
+              <img src="{{ asset | asset_url }}" loading="lazy" width="160" height="160" alt="">
+            </button>
+          {% endfor %}
+        </div>
+      </div>
+      <div class="carbex-demo-product__details">
+        <a class="carbex-demo-product__back" href="{{ routes.all_products_collection_url }}">Back to the range</a>
+        <p class="carbex-demo-product__eyebrow">CARBEX LAB / PROTECTION</p>
+        <h1>{{ demo_titles[demo_index] | escape }}</h1>
+        <p class="carbex-demo-product__rating">★★★★★ <span>4.9 from 120+ players</span></p>
+        <p class="carbex-demo-product__copy">Lightweight, carbon-fiber-inspired protection made to keep your paddle looking sharp through real court wear.</p>
+        <div class="carbex-demo-product__details-list">
+          <div><strong>TotalEdge Armor</strong><span>Built for everyday impacts and edge wear.</span></div>
+          <div><strong>PrecisionWrap Fit</strong><span>Clean, trim-to-fit application for your paddle.</span></div>
+          <div><strong>FeatherLite Feel</strong><span>Protects your gear without changing your game.</span></div>
+        </div>
+        <a class="carbex-demo-product__button" href="{{ routes.all_products_collection_url }}">Explore the range <span aria-hidden="true">↗</span></a>
+        <p class="carbex-demo-product__note">This visual product page will automatically be replaced by the full Shopify product page once this item is added to the catalogue.</p>
+      </div>
+    </section>
+    <section class="carbex-demo-product__story">
+      <div><p class="carbex-demo-product__eyebrow">THE CARBEX DIFFERENCE</p><h2>Made to play on.</h2><p>Clean installation, dependable materials, and a finish that feels considered from the first point to the last.</p></div>
+      <img src="{{ 'carbex-paddle-edge.png' | asset_url }}" loading="lazy" width="1200" height="1200" alt="Carbex edge protection detail">
+    </section>
+  </main>
+  <script>
+    document.body.classList.add('carbex-demo-product-active');
+    document.querySelectorAll('[data-demo-image]').forEach((button) => {
+      button.addEventListener('click', () => {
+        const image = document.querySelector('.carbex-demo-product__main-image img');
+        image.src = button.dataset.demoImage;
+        document.querySelectorAll('[data-demo-image]').forEach((thumb) => thumb.classList.toggle('is-active', thumb === button));
+      });
+    });
+  </script>
+{% endif %}
+
+{% stylesheet %}
+  body.carbex-demo-product-active [id*="__main"],
+  body.carbex-demo-product-active [id*="product_list"] { display: none; }
+  .carbex-demo-product { background: #fbfbf8; color: #151817; }
+  .carbex-demo-product__intro, .carbex-demo-product__story { margin: 0 auto; width: min(1380px, calc(100% - 48px)); }
+  .carbex-demo-product__intro { display: grid; gap: clamp(48px, 8vw, 128px); grid-template-columns: minmax(0, 1.15fr) minmax(340px, .85fr); padding: clamp(56px, 8vw, 120px) 0 clamp(88px, 11vw, 160px); }
+  .carbex-demo-product__main-image { aspect-ratio: 1; background: #f0f0ec; overflow: hidden; }
+  .carbex-demo-product__main-image img { display: block; height: 100%; object-fit: contain; width: 100%; }
+  .carbex-demo-product__thumbs { display: grid; gap: 10px; grid-template-columns: repeat(4, 1fr); margin-top: 14px; }
+  .carbex-demo-product__thumb { aspect-ratio: 1; background: #f0f0ec; border: 1px solid transparent; cursor: pointer; padding: 0; }
+  .carbex-demo-product__thumb.is-active { border-color: #151817; }
+  .carbex-demo-product__thumb img { display: block; height: 100%; object-fit: contain; width: 100%; }
+  .carbex-demo-product__details { align-self: center; max-width: 520px; }
+  .carbex-demo-product__back { color: #6d716b; display: inline-block; font-size: .78rem; margin-bottom: 42px; text-decoration: none; }
+  .carbex-demo-product__eyebrow { color: #6b7627; font-size: .72rem; font-weight: 700; letter-spacing: .16em; margin: 0 0 20px; }
+  .carbex-demo-product h1 { font-size: clamp(2.3rem, 4.8vw, 4.9rem); font-weight: 500; letter-spacing: 0; line-height: .98; margin: 0; }
+  .carbex-demo-product h2 { font-size: clamp(2rem, 4vw, 4rem); font-weight: 500; letter-spacing: 0; line-height: 1; margin: 0; }
+  .carbex-demo-product__rating { color: #a1bd2e; font-size: .85rem; letter-spacing: .12em; margin: 28px 0 0; }
+  .carbex-demo-product__rating span { color: #6d716b; letter-spacing: 0; margin-left: 10px; }
+  .carbex-demo-product__copy { color: #686e68; font-size: 1rem; line-height: 1.7; margin: 26px 0 0; max-width: 44ch; }
+  .carbex-demo-product__details-list { border-block: 1px solid #d9dcd4; display: grid; gap: 18px; margin-top: 34px; padding: 24px 0; }
+  .carbex-demo-product__details-list div { display: grid; gap: 5px; }
+  .carbex-demo-product__details-list strong { font-size: .86rem; }
+  .carbex-demo-product__details-list span { color: #737972; font-size: .82rem; }
+  .carbex-demo-product__button { align-items: center; background: #151817; color: #fff; display: inline-flex; font-size: .88rem; font-weight: 700; gap: 44px; margin-top: 28px; padding: 15px 18px; text-decoration: none; }
+  .carbex-demo-product__button:hover { background: #a9c72f; color: #151817; }
+  .carbex-demo-product__note { color: #737972; font-size: .72rem; line-height: 1.55; margin: 14px 0 0; max-width: 46ch; }
+  .carbex-demo-product__story { align-items: center; display: grid; gap: clamp(42px, 9vw, 150px); grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); padding-bottom: clamp(88px, 12vw, 180px); }
+  .carbex-demo-product__story > div > p:last-child { color: #6c726b; font-size: 1rem; line-height: 1.75; margin: 28px 0 0; max-width: 40ch; }
+  .carbex-demo-product__story img { background: #e9eae5; display: block; height: 100%; object-fit: cover; width: 100%; }
+  @media (max-width: 749px) { .carbex-demo-product__intro, .carbex-demo-product__story { display: flex; flex-direction: column; gap: 48px; width: min(100% - 36px, 1380px); } .carbex-demo-product__intro { padding-bottom: 88px; padding-top: 60px; } .carbex-demo-product__back { margin-bottom: 32px; } .carbex-demo-product__details { max-width: none; } .carbex-demo-product__story { align-items: stretch; padding-bottom: 88px; } }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Carbex demo product",
+  "settings": []
+}
+{% endschema %}

@@ -1,0 +1,215 @@
+{% comment %}
+  CARBEX LAB design system — shared tokens + components matching the Figma file
+  (Carbex-Lab, Montserrat / Roboto Mono, navy + teal palette, pill buttons).
+  Rendered once per section; duplicate <style> output is harmless.
+{% endcomment %}
+<style>
+  :root {
+    --cbx-ink: #020202;
+    --cbx-navy: #0d1622;
+    --cbx-navy-deep: #0b1018;
+    --cbx-paper: #ffffff;
+    --cbx-mist: #f8f8f8;
+    --cbx-header: #fafafa;
+    --cbx-body: #3b3f45;
+    --cbx-muted: #6b7079;
+    --cbx-teal: #13a9bd;
+    --cbx-teal-tint: #e9f7f9;
+    --cbx-eyebrow-light: #cfe3ea;
+    --cbx-line: rgba(2, 2, 2, 0.1);
+    --cbx-field: rgba(2, 2, 2, 0.1);
+    --cbx-font: 'Montserrat', sans-serif;
+    --cbx-mono: 'Roboto Mono', monospace;
+  }
+
+  .cbx-page { font-family: var(--cbx-font); color: var(--cbx-ink); background: var(--cbx-paper); }
+  .cbx-page *, .cbx-page *::before, .cbx-page *::after { box-sizing: border-box; }
+  .cbx-page img { display: block; max-width: 100%; }
+  .cbx-page a { color: inherit; text-decoration: none; }
+
+  /* ---------- Type ---------- */
+  .cbx-h-hero { font-size: 60px; font-weight: 500; line-height: 70px; letter-spacing: 0; margin: 0; }
+  .cbx-h-xl { font-size: 50px; font-weight: 500; line-height: 60px; letter-spacing: 0; margin: 0; }
+  .cbx-h-md { font-size: 40px; font-weight: 500; line-height: 50px; letter-spacing: 0; margin: 0; }
+  .cbx-h-sm { font-size: 24px; font-weight: 500; line-height: 34px; margin: 0; }
+  .cbx-lead { font-size: 18px; font-weight: 400; line-height: 28px; margin: 0; }
+  .cbx-lead-lg { font-size: 20px; font-weight: 400; line-height: 32px; margin: 0; }
+  .cbx-body { font-size: 18px; font-weight: 400; line-height: 28px; color: var(--cbx-body); margin: 0; }
+  .cbx-small { font-size: 16px; line-height: 24px; margin: 0; }
+  .cbx-eyebrow {
+    font-size: 14px; font-weight: 600; line-height: 20px; letter-spacing: 1.68px;
+    text-transform: uppercase; color: var(--cbx-teal); margin: 0;
+  }
+  .cbx-eyebrow--light { color: var(--cbx-eyebrow-light); }
+  .cbx-eyebrow--muted { color: var(--cbx-muted); }
+  .cbx-mono { font-family: var(--cbx-mono); font-weight: 400; }
+  .cbx-center { text-align: center; }
+  .cbx-on-dark .cbx-h-hero, .cbx-on-dark .cbx-h-xl { color: #fff; }
+  .cbx-on-dark .cbx-lead { color: rgba(255, 255, 255, 0.85); }
+
+  /* ---------- Buttons (pill, radius 24) ---------- */
+  .cbx-btn {
+    display: inline-flex; align-items: center; justify-content: center;
+    padding: 10px 30px; border-radius: 24px; border: 1px solid transparent;
+    font-family: var(--cbx-font); font-size: 18px; font-weight: 400; line-height: 28px;
+    cursor: pointer; white-space: nowrap; transition: transform 0.15s ease, background 0.15s ease;
+  }
+  .cbx-btn:hover { transform: translateY(-1px); }
+  .cbx-btn--white { background: #fff; color: var(--cbx-ink); border-color: rgba(2, 2, 2, 0.1); }
+  .cbx-btn--dark { background: var(--cbx-ink); color: #fff; border-color: rgba(2, 2, 2, 0.1); }
+  .cbx-btn--ghost,
+  .cbx-btn--ghost:link,
+  .cbx-btn--ghost:visited,
+  .cbx-btn--ghost:hover { background: rgba(255, 255, 255, 0.1); color: #fff !important; border-color: rgba(255, 255, 255, 0.1); }
+  .cbx-btn--outline { background: #fff; color: var(--cbx-ink); border-color: var(--cbx-ink); }
+  .cbx-btn--sm { font-size: 16px; line-height: 24px; padding: 11px 30px; }
+  .cbx-btn--xs { font-size: 14px; line-height: 20px; padding: 10px 20px; }
+
+  /* ---------- Image band (desktop overlay / mobile split) ---------- */
+  .cbx-band {
+    position: relative; overflow: hidden;
+    height: var(--band-h, 600px); background: var(--cbx-navy);
+  }
+  .cbx-band__media { position: absolute; inset: 0; }
+  .cbx-band__media img { width: 100%; height: 100%; object-fit: cover; object-position: var(--band-focal, 50% 50%); }
+  .cbx-band__grad {
+    position: absolute; inset: 0;
+    background: linear-gradient(90deg, rgba(0, 0, 0, 0.45) 0%, rgba(0, 0, 0, 0) 55%);
+  }
+  .cbx-band__copy {
+    position: absolute; left: 200px; top: 0; bottom: 0;
+    width: 560px; display: flex; flex-direction: column; justify-content: center; gap: 20px;
+  }
+  .cbx-band__copy .cbx-btn-row { display: flex; gap: 20px; align-items: flex-start; margin-top: 10px; }
+  .cbx-band--tight .cbx-band__copy { justify-content: flex-start; padding-top: var(--band-pt, 146px); }
+
+  /* ---------- Section shells ---------- */
+  .cbx-section { padding: 120px 200px; }
+  .cbx-section--wide { padding-left: 50px; padding-right: 50px; }
+  .cbx-section--mist { background: var(--cbx-mist); }
+
+  /* ---------- Reviews ---------- */
+  .cbx-reviews { display: flex; flex-direction: column; align-items: center; }
+  .cbx-reviews__rating { display: flex; gap: 20px; align-items: center; margin-top: 16px; }
+  .cbx-reviews__rating .cbx-stars { color: var(--cbx-body); }
+  .cbx-reviews__link { color: var(--cbx-teal); font-weight: 500; font-size: 18px; line-height: 28px; }
+  .cbx-reviews__grid { display: flex; gap: 30px; align-items: stretch; width: 100%; margin-top: 66px; }
+  .cbx-quote {
+    position: relative; flex: 1 0 0; min-width: 0; background: #fff;
+    border-left: 3px solid var(--cbx-teal);
+    display: flex; flex-direction: column; justify-content: space-between; gap: 24px;
+    padding: 34px 34px 30px;
+  }
+  .cbx-quote__text { font-size: 18px; line-height: 30px; margin: 0; }
+  .cbx-quote__cite { display: flex; flex-direction: column; gap: 2px; }
+  .cbx-quote__name { font-size: 16px; font-weight: 600; line-height: 24px; margin: 0; }
+  .cbx-quote__meta { font-size: 14px; line-height: 20px; color: var(--cbx-muted); margin: 0; }
+  .cbx-quote--sm { padding: 18px 22px 18px 22px; gap: 8px; border: 1px solid #e5e5e5; border-left: 3px solid var(--cbx-teal); }
+  .cbx-quote--sm .cbx-quote__text { font-size: 17px; line-height: 26px; }
+  .cbx-quote--sm .cbx-quote__meta { font-size: 14px; }
+
+  /* ---------- Accordion ---------- */
+  .cbx-acc { display: flex; flex-direction: column; gap: 10px; }
+  .cbx-acc__line { height: 1px; background: rgba(2, 2, 2, 0.1); width: 100%; }
+  .cbx-acc__item summary {
+    display: flex; align-items: center; gap: 10px; padding: 10px 10px 10px 0;
+    list-style: none; cursor: pointer;
+  }
+  .cbx-acc__item summary::-webkit-details-marker { display: none; }
+  .cbx-acc__q { flex: 1; font-size: 18px; font-weight: 500; line-height: 28px; margin: 0; }
+  .cbx-acc__icon { flex: none; width: 24px; height: 24px; }
+  .cbx-acc__icon img { width: 100%; height: 100%; }
+  .cbx-acc__icon .cbx-i-minus { display: none; }
+  .cbx-acc__item[open] summary { background: var(--cbx-ink); padding-left: 20px; color: #fff; }
+  .cbx-acc__item[open] .cbx-acc__q { color: #fff; }
+  .cbx-acc__item[open] .cbx-i-plus { display: none; }
+  .cbx-acc__item[open] .cbx-i-minus { display: block; }
+  .cbx-acc__a { font-size: 18px; line-height: 28px; color: var(--cbx-body); margin: 0; padding: 0 10px 10px 0; }
+
+  /* ---------- FAQ split (heading left / accordion right) ---------- */
+  .cbx-faqwrap { display: flex; gap: 50px; align-items: flex-start; }
+  .cbx-faqwrap__side { width: 500px; flex: none; display: flex; flex-direction: column; gap: 24px; }
+  .cbx-faqwrap__more { font-size: 18px; font-weight: 500; line-height: 28px; text-decoration: underline; }
+  .cbx-faqwrap__acc { width: 970px; flex: none; }
+  .cbx-faqgroup { display: flex; gap: 60px; align-items: flex-start; }
+  .cbx-faqgroup__label { width: 300px; flex: none; padding-top: 14px; }
+  .cbx-faqgroup__acc { width: 1160px; flex: none; }
+
+  /* ---------- Facts card ---------- */
+  .cbx-facts {
+    background: var(--cbx-mist); border-radius: 8px; padding: 24px 26px;
+    display: flex; flex-direction: column; gap: 12px;
+  }
+  .cbx-facts__title { font-size: 16px; font-weight: 600; line-height: 24px; margin: 0; }
+  .cbx-fact { display: flex; gap: 16px; font-size: 15px; line-height: 22px; }
+  .cbx-fact dt { width: 140px; flex: none; color: var(--cbx-muted); font-weight: 400; margin: 0; }
+  .cbx-fact dd { font-weight: 500; margin: 0; }
+
+  /* ---------- Tip callout ---------- */
+  .cbx-tip {
+    position: relative; background: var(--cbx-teal-tint); padding: 18px 24px;
+    display: flex; flex-direction: column; gap: 4px; width: 100%;
+  }
+  .cbx-tip::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: var(--cbx-teal); }
+  .cbx-tip__label { font-size: 12px; font-weight: 600; line-height: 16px; letter-spacing: 1.2px; text-transform: uppercase; color: var(--cbx-teal); margin: 0; }
+  .cbx-tip__text { font-size: 17px; line-height: 26px; margin: 0; }
+
+  /* ---------- Closing banner ---------- */
+  .cbx-closing { background: var(--cbx-navy); }
+
+  /* ---------- Mobile ---------- */
+  @media screen and (max-width: 989px) {
+    .cbx-h-hero { font-size: 36px; line-height: 44px; }
+    .cbx-h-xl { font-size: 30px; line-height: 40px; }
+    .cbx-h-md { font-size: 28px; line-height: 36px; }
+    .cbx-h-sm { font-size: 20px; line-height: 28px; }
+    .cbx-lead { font-size: 16px; line-height: 26px; }
+    .cbx-lead-lg { font-size: 16px; line-height: 26px; }
+    .cbx-body { font-size: 16px; line-height: 26px; }
+    .cbx-eyebrow { font-size: 12px; line-height: 18px; letter-spacing: 1.44px; }
+    .cbx-btn { font-size: 16px; line-height: 26px; padding: 11px 30px; }
+
+    .cbx-section { padding: 50px 20px; }
+
+    /* Band: copy on navy band above the image (no overlay) */
+    .cbx-band { display: flex; flex-direction: column; height: auto; }
+    .cbx-band__copy {
+      position: static; order: 0; width: auto; padding: 40px 20px; gap: 14px;
+      background: var(--cbx-navy);
+    }
+    .cbx-band__copy .cbx-btn-row { flex-direction: column; gap: 10px; margin-top: 4px; }
+    .cbx-band--tight .cbx-band__copy { padding-top: 40px; }
+    .cbx-band__media {
+      position: relative; order: 1; inset: auto;
+      height: var(--band-hm, 430px); width: 100%;
+    }
+    .cbx-band__grad { display: none; }
+
+    .cbx-reviews__grid { flex-direction: column; gap: 16px; margin-top: 34px; }
+    .cbx-reviews__rating { flex-direction: column; gap: 12px; align-items: center; }
+    .cbx-reviews__link { font-size: 16px; line-height: 24px; }
+    .cbx-quote { padding: 24px 24px 22px; gap: 18px; }
+    .cbx-quote__text { font-size: 16px; line-height: 26px; }
+    .cbx-quote__name { font-size: 14px; line-height: 20px; }
+    .cbx-quote__meta { font-size: 13px; line-height: 18px; }
+
+    .cbx-faqwrap { flex-direction: column; gap: 16px; }
+    .cbx-faqwrap__side { width: 100%; gap: 16px; }
+    .cbx-faqwrap__acc { width: 100%; }
+    .cbx-faqgroup { flex-direction: column; gap: 10px; }
+    .cbx-faqgroup__label { width: 100%; padding-top: 0; }
+    .cbx-faqgroup__acc { width: 100%; }
+    .cbx-acc__q { font-size: 16px; line-height: 24px; }
+    .cbx-acc__a { font-size: 16px; line-height: 26px; }
+    .cbx-acc__item[open] summary { padding-left: 14px; }
+    .cbx-faqwrap__more { font-size: 16px; line-height: 24px; }
+
+    .cbx-facts { padding: 20px; gap: 10px; }
+    .cbx-facts__title { font-size: 15px; line-height: 22px; }
+    .cbx-fact { font-size: 14px; line-height: 20px; gap: 12px; }
+    .cbx-fact dt { width: 100px; }
+    .cbx-tip { padding: 16px 18px 16px 20px; }
+    .cbx-tip__label { font-size: 11px; letter-spacing: 1.1px; }
+    .cbx-tip__text { font-size: 15px; line-height: 24px; }
+  }
+</style>

@@ -1,0 +1,323 @@
+{%- render 'cbx-theme' -%}
+<div class="cbx-page cbx-header-section">
+  {%- if section.settings.announcement_text != blank -%}
+    <div class="cbx-announce">
+      <p class="cbx-announce__text">
+        {{ section.settings.announcement_text }}
+        {%- if section.settings.announcement_link_label != blank -%}
+          <a class="cbx-announce__link" href="{{ section.settings.announcement_link_url | default: routes.all_products_collection_url }}">{{ section.settings.announcement_link_label }}</a>
+        {%- endif -%}
+      </p>
+    </div>
+  {%- endif -%}
+
+  <header class="cbx-header">
+    <div class="cbx-header__left">
+      <button class="cbx-header__burger" type="button" aria-label="Menu" aria-expanded="false" data-cbx-drawer-open>
+        <img src="{{ 'cbx-icon-hamburger.svg' | asset_url }}" alt="" width="24" height="24">
+      </button>
+      {%- if section.settings.show_search -%}
+        <button class="cbx-header__icon cbx-header__icon--search" type="button" aria-label="Search" on:click="#search-modal/showDialog">
+          <img src="{{ 'cbx-icon-search.svg' | asset_url }}" alt="" width="24" height="24">
+        </button>
+      {%- endif -%}
+    </div>
+
+    <nav class="cbx-header__nav" aria-label="Main">
+      {%- if section.settings.menu != blank -%}
+        {%- for link in section.settings.menu.links -%}
+          <a class="cbx-header__link{% if link.active %} cbx-header__link--active{% endif %}" href="{{ link.url }}"{% if link.active %} aria-current="page"{% endif %}>
+            {{- link.title -}}
+            {%- if link.links != blank -%}<img class="cbx-header__caret" src="{{ 'cbx-icon-arrow-down.svg' | asset_url }}" alt="" width="20" height="20">{%- endif -%}
+          </a>
+        {%- endfor -%}
+      {%- else -%}
+        <a class="cbx-header__link" href="{{ routes.root_url }}pages/about-us">About</a>
+        <a class="cbx-header__link cbx-header__link--active" href="{{ routes.all_products_collection_url }}">Shop<img class="cbx-header__caret" src="{{ 'cbx-icon-arrow-down.svg' | asset_url }}" alt="" width="20" height="20"></a>
+        <a class="cbx-header__link" href="{{ routes.root_url }}pages/about-us">Why CARBEX LAB</a>
+        <a class="cbx-header__link" href="{{ routes.root_url }}pages/installation">Installation</a>
+        <a class="cbx-header__link" href="{{ routes.root_url }}pages/faq">FAQ's</a>
+      {%- endif -%}
+    </nav>
+
+    <a class="cbx-header__logo" href="{{ routes.root_url }}" aria-label="{{ shop.name }}">
+      {%- if section.settings.logo != blank -%}
+        <img src="{{ section.settings.logo | image_url: width: 428 }}" alt="{{ shop.name }}" width="214" height="36">
+      {%- else -%}
+        <img src="{{ 'cbx-logo.svg' | asset_url }}" alt="{{ shop.name }}" width="214" height="36">
+      {%- endif -%}
+    </a>
+
+    <div class="cbx-header__actions">
+      {%- if section.settings.support_label != blank -%}
+        <a class="cbx-header__support" href="{{ section.settings.support_url | default: routes.root_url | append: 'pages/contact' }}">{{ section.settings.support_label }}</a>
+      {%- endif -%}
+      <span class="cbx-header__sep" aria-hidden="true"></span>
+      {%- if section.settings.shop_label != blank -%}
+        <a class="cbx-header__support cbx-header__support--accent" href="{{ section.settings.shop_url | default: routes.all_products_collection_url }}">{{ section.settings.shop_label }}</a>
+      {%- endif -%}
+      <span class="cbx-header__sep" aria-hidden="true"></span>
+      {%- if section.settings.show_search -%}
+        <button class="cbx-header__icon cbx-header__icon--desktop-only" type="button" aria-label="Search" on:click="#search-modal/showDialog">
+          <img src="{{ 'cbx-icon-search.svg' | asset_url }}" alt="" width="24" height="24">
+        </button>
+      {%- endif -%}
+      {%- if section.settings.show_wishlist -%}
+        <a class="cbx-header__icon" href="{{ routes.account_url }}" aria-label="Wishlist">
+          <img src="{{ 'cbx-icon-heart.svg' | asset_url }}" alt="" width="24" height="24">
+        </a>
+      {%- endif -%}
+      {%- if section.settings.show_account -%}
+        <a class="cbx-header__icon" href="{{ routes.account_url }}" aria-label="Account">
+          <img src="{{ 'cbx-icon-profile.svg' | asset_url }}" alt="" width="24" height="24">
+        </a>
+      {%- endif -%}
+      {%- if settings.cart_type == 'drawer' and template.name != 'cart' -%}
+        <button
+          class="cbx-header__icon cbx-header__cart"
+          type="button"
+          aria-label="{{ 'accessibility.cart' | t }}"
+          on:click="#cart-drawer/toggle"
+          aria-haspopup="dialog"
+          aria-controls="cart-drawer"
+          data-testid="cart-drawer-trigger"
+        >
+          <img src="{{ 'cbx-icon-cart.svg' | asset_url }}" alt="" width="24" height="24">
+          {%- if cart.item_count > 0 -%}<span class="cbx-header__count">{{ cart.item_count }}</span>{%- endif -%}
+        </button>
+      {%- else -%}
+        <a class="cbx-header__icon cbx-header__cart" href="{{ routes.cart_url }}" aria-label="{{ 'accessibility.cart' | t }}">
+          <img src="{{ 'cbx-icon-cart.svg' | asset_url }}" alt="" width="24" height="24">
+          {%- if cart.item_count > 0 -%}<span class="cbx-header__count">{{ cart.item_count }}</span>{%- endif -%}
+        </a>
+      {%- endif -%}
+    </div>
+  </header>
+
+  <div class="cbx-drawer" data-cbx-drawer aria-hidden="true">
+    <div class="cbx-drawer__scrim" data-cbx-drawer-close></div>
+    <div class="cbx-drawer__panel" role="dialog" aria-label="Menu">
+      <div class="cbx-drawer__top">
+        <img src="{{ 'cbx-logo.svg' | asset_url }}" alt="{{ shop.name }}" width="150" height="28">
+        <button class="cbx-drawer__close" type="button" aria-label="Close menu" data-cbx-drawer-close>
+          <img src="{{ 'cbx-icon-close.svg' | asset_url }}" alt="" width="22" height="22">
+        </button>
+      </div>
+      <nav class="cbx-drawer__nav" aria-label="Mobile">
+        {%- if section.settings.menu != blank -%}
+          {%- for link in section.settings.menu.links -%}
+            <a class="cbx-drawer__link" href="{{ link.url }}">{{ link.title }}</a>
+          {%- endfor -%}
+        {%- else -%}
+          <a class="cbx-drawer__link" href="{{ routes.root_url }}pages/about-us">About</a>
+          <a class="cbx-drawer__link" href="{{ routes.all_products_collection_url }}">Shop</a>
+          <a class="cbx-drawer__link" href="{{ routes.root_url }}pages/about-us">Why CARBEX LAB</a>
+          <a class="cbx-drawer__link" href="{{ routes.root_url }}pages/installation">Installation</a>
+          <a class="cbx-drawer__link" href="{{ routes.root_url }}pages/faq">FAQs</a>
+        {%- endif -%}
+      </nav>
+      <div class="cbx-drawer__foot">
+        <a class="cbx-btn cbx-btn--dark" href="{{ routes.all_products_collection_url }}">Shop CARBEX LAB</a>
+        <a class="cbx-drawer__support" href="{{ routes.root_url }}pages/contact">Contact us</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .cbx-header-section { position: relative; z-index: 60; }
+
+  .cbx-announce {
+    background: var(--cbx-ink); color: #fff; height: 36px;
+    display: flex; align-items: center; justify-content: center; padding: 0 20px;
+  }
+  .cbx-announce__text { font-size: 14px; font-weight: 500; line-height: 24px; margin: 0; text-align: center; }
+  .cbx-announce__link { color: #fff; font-weight: 500; margin-left: 10px; text-decoration: underline; text-underline-position: from-font; }
+  .cbx-announce__link:hover { color: var(--cbx-teal); }
+
+  .cbx-header {
+    position: relative;
+    display: grid; grid-template-columns: 1fr auto 1fr; align-items: center;
+    height: 84px; padding: 0 50px;
+    background: var(--cbx-header);
+  }
+  .cbx-header__left { display: none; }
+  .cbx-header__nav { display: flex; gap: 20px; align-items: center; }
+  .cbx-header__link { display: inline-flex; align-items: center; gap: 4px; font-size: 16px; font-weight: 400; line-height: 26px; white-space: nowrap; }
+  .cbx-header__caret { width: 20px; height: 20px; flex: none; }
+  .cbx-header__link:hover { color: var(--cbx-teal); }
+  .cbx-header__link--active { border-bottom: 1px solid var(--cbx-ink); }
+  .cbx-header__logo { justify-self: center; display: flex; align-items: center; }
+  .cbx-header__logo img { width: 214px; height: 36px; }
+  .cbx-header__actions { display: flex; gap: 20px; align-items: center; justify-content: flex-end; }
+  .cbx-header__sep { width: 1px; height: 26px; background: var(--cbx-line); flex: none; }
+  .cbx-header__support { font-size: 16px; font-weight: 400; line-height: 26px; white-space: nowrap; }
+  .cbx-header__support:hover { color: var(--cbx-teal); }
+  .cbx-header__support--accent { border-bottom: 1px solid var(--cbx-ink); }
+  .cbx-header__icon {
+    display: flex; align-items: center; justify-content: center;
+    background: none; border: 0; padding: 4px; cursor: pointer; color: var(--cbx-ink);
+  }
+  .cbx-header__icon img, .cbx-header__burger img { width: 24px; height: 24px; flex: none; }
+  .cbx-header__cart { position: relative; }
+  .cbx-header__count {
+    position: absolute; top: -4px; right: -6px;
+    min-width: 16px; height: 16px; border-radius: 8px;
+    background: var(--cbx-teal); color: #fff;
+    font-size: 10px; font-weight: 600; line-height: 16px; text-align: center; padding: 0 4px;
+  }
+  .cbx-header__burger { display: none; background: none; border: 0; padding: 4px; cursor: pointer; }
+
+  /* Sticky like the stock header */
+  #header-group:has(.cbx-header-section) { position: sticky; top: 0; z-index: 100; }
+
+  /* Drawer */
+  .cbx-drawer { position: fixed; inset: 0; z-index: 200; visibility: hidden; pointer-events: none; }
+  .cbx-drawer[aria-hidden='false'] { visibility: visible; pointer-events: auto; }
+  .cbx-drawer__scrim { position: absolute; inset: 0; background: rgba(2, 2, 2, 0.5); opacity: 0; transition: opacity 0.25s ease; }
+  .cbx-drawer[aria-hidden='false'] .cbx-drawer__scrim { opacity: 1; }
+  .cbx-drawer__panel {
+    position: absolute; top: 0; left: 0; bottom: 0; width: min(340px, 86vw);
+    background: #fff; display: flex; flex-direction: column;
+    transform: translateX(-100%); transition: transform 0.28s ease;
+  }
+  .cbx-drawer[aria-hidden='false'] .cbx-drawer__panel { transform: none; }
+  .cbx-drawer__top { display: flex; align-items: center; justify-content: space-between; padding: 18px 20px; border-bottom: 1px solid var(--cbx-line); }
+  .cbx-drawer__top > img { width: 150px; height: auto; flex: none; }
+  .cbx-drawer__close { background: none; border: 0; padding: 4px; cursor: pointer; }
+  .cbx-drawer__close img { width: 22px; height: 22px; }
+  .cbx-drawer__nav { display: flex; flex-direction: column; padding: 12px 0; }
+  .cbx-drawer__link { padding: 14px 20px; font-size: 17px; font-weight: 500; line-height: 24px; border-bottom: 1px solid rgba(2,2,2,0.06); }
+  .cbx-drawer__foot { margin-top: auto; display: flex; flex-direction: column; gap: 14px; padding: 20px; align-items: center; }
+  .cbx-drawer__support { font-size: 15px; font-weight: 500; text-decoration: underline; }
+
+  @media screen and (max-width: 1180px) {
+    .cbx-header { padding: 0 30px; }
+    .cbx-header__nav { gap: 14px; }
+    .cbx-header__actions { gap: 14px; }
+  }
+  @media screen and (max-width: 989px) {
+    .cbx-header { display: flex; height: 70px; padding: 0 20px; justify-content: space-between; }
+    .cbx-header__left { display: flex; align-items: center; gap: 5px; }
+    .cbx-header__burger { display: flex; align-items: center; }
+    .cbx-header__nav { display: none; }
+    .cbx-header__logo img { width: 178px; height: 30px; }
+    .cbx-header__actions { gap: 5px; }
+    .cbx-header__support, .cbx-header__sep, .cbx-header__icon--desktop-only { display: none; }
+    .cbx-announce__text { font-size: 12px; }
+  }
+</style>
+
+<script>
+  (function () {
+    var group = document.getElementById('header-group');
+    if (!group) return;
+    function setHeights() {
+      document.body.style.setProperty('--header-height', group.offsetHeight + 'px');
+      document.body.style.setProperty('--header-group-height', group.offsetHeight + 'px');
+    }
+    setHeights();
+    window.addEventListener('resize', setHeights);
+    if ('ResizeObserver' in window) new ResizeObserver(setHeights).observe(group);
+
+    var drawer = document.querySelector('[data-cbx-drawer]');
+    var openBtn = document.querySelector('[data-cbx-drawer-open]');
+    if (!drawer || !openBtn) return;
+    function toggle(open) {
+      drawer.setAttribute('aria-hidden', open ? 'false' : 'true');
+      openBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      document.documentElement.style.overflow = open ? 'hidden' : '';
+    }
+    openBtn.addEventListener('click', function () { toggle(true); });
+    drawer.querySelectorAll('[data-cbx-drawer-close]').forEach(function (el) {
+      el.addEventListener('click', function () { toggle(false); });
+    });
+    drawer.addEventListener('keydown', function (e) { if (e.key === 'Escape') toggle(false); });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Carbex header",
+  "class": "cbx-header-wrap",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Announcement bar"
+    },
+    {
+      "type": "text",
+      "id": "announcement_text",
+      "label": "Text",
+      "default": "Paddle Surface Cleaner — Coming Soon"
+    },
+    {
+      "type": "text",
+      "id": "announcement_link_label",
+      "label": "Link label",
+      "default": "Learn More."
+    },
+    {
+      "type": "url",
+      "id": "announcement_link_url",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Header"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo (defaults to Carbex logo)"
+    },
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Menu",
+      "default": "main-menu"
+    },
+    {
+      "type": "text",
+      "id": "support_label",
+      "label": "Support link label",
+      "default": "Contact / Support"
+    },
+    {
+      "type": "url",
+      "id": "support_url",
+      "label": "Support link"
+    },
+    {
+      "type": "text",
+      "id": "shop_label",
+      "label": "Right link label",
+      "default": "Shop Edge Guard"
+    },
+    {
+      "type": "url",
+      "id": "shop_url",
+      "label": "Right link"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_search",
+      "label": "Show search",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_wishlist",
+      "label": "Show wishlist icon",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_account",
+      "label": "Show account icon",
+      "default": true
+    }
+  ],
+  "presets": [{ "name": "Carbex header" }]
+}
+{% endschema %}

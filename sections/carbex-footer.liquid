@@ -1,0 +1,210 @@
+{%- render 'cbx-theme' -%}
+<footer class="cbx-page cbx-footer" data-section-id="{{ section.id }}">
+  <div class="cbx-footer__top">
+    <div class="cbx-footer__brand">
+      <a class="cbx-footer__logo" href="{{ routes.root_url }}">
+        {% if section.settings.logo != blank %}
+          {{ section.settings.logo | image_url: width: 428 | image_tag: loading: 'lazy', widths: '214,428', alt: shop.name }}
+        {% else %}
+          <img src="{{ 'cbx-logo.svg' | asset_url }}" width="214" height="36" loading="lazy" alt="{{ shop.name }}">
+        {% endif %}
+      </a>
+      <p class="cbx-footer__statement">{{ section.settings.brand_text }}</p>
+    </div>
+
+    {% assign footer_shop_menu = linklists[section.settings.shop_menu] %}
+    {% assign footer_company_menu = linklists[section.settings.company_menu] %}
+    {% assign footer_help_menu = linklists[section.settings.help_menu] %}
+    <nav class="cbx-footer__column" aria-label="Shop">
+      <h2 class="cbx-footer__heading">{% if footer_shop_menu != blank %}{{ footer_shop_menu.title }}{% else %}Shop{% endif %}</h2>
+      <ul role="list">
+        {% if footer_shop_menu != blank %}
+          {% for link in footer_shop_menu.links %}<li><a href="{{ link.url }}">{{ link.title }}</a></li>{% endfor %}
+        {% else %}
+          <li><a href="{{ routes.root_url }}products/carbex-pouch-26-front">Edge Guard Tape</a></li>
+          <li><a href="{{ routes.all_products_collection_url }}">All Products</a></li>
+          <li><a href="{{ routes.root_url }}pages/installation">Installation Guide</a></li>
+        {% endif %}
+      </ul>
+    </nav>
+
+    <nav class="cbx-footer__column" aria-label="Company">
+      <h2 class="cbx-footer__heading">{% if footer_company_menu != blank %}{{ footer_company_menu.title }}{% else %}Company{% endif %}</h2>
+      <ul role="list">
+        {% if footer_company_menu != blank %}
+          {% for link in footer_company_menu.links %}<li><a href="{{ link.url }}">{{ link.title }}</a></li>{% endfor %}
+        {% else %}
+          <li><a href="{{ routes.root_url }}pages/about-us">About CARBEX LAB</a></li>
+          <li><a href="{{ routes.root_url }}#reviews">Reviews</a></li>
+        {% endif %}
+      </ul>
+    </nav>
+
+    <nav class="cbx-footer__column" aria-label="Help">
+      <h2 class="cbx-footer__heading">{% if footer_help_menu != blank %}{{ footer_help_menu.title }}{% else %}Help{% endif %}</h2>
+      <ul role="list">
+        {% if footer_help_menu != blank %}
+          {% for link in footer_help_menu.links %}<li><a href="{{ link.url }}">{{ link.title }}</a></li>{% endfor %}
+        {% else %}
+          <li><a href="{{ routes.root_url }}pages/faq">FAQ</a></li>
+          <li><a href="{{ routes.root_url }}pages/contact">Contact Us</a></li>
+          <li><a href="{{ routes.root_url }}pages/terms">Shipping &amp; Returns</a></li>
+          <li><a href="{{ routes.root_url }}pages/contact">Track Order</a></li>
+        {% endif %}
+      </ul>
+    </nav>
+
+    <div class="cbx-footer__right">
+      {% if section.settings.show_newsletter %}
+      <div class="cbx-footer__column">
+        <h2 class="cbx-footer__heading">{{ section.settings.newsletter_heading }}</h2>
+        {% form 'customer', class: 'cbx-footer__form' %}
+          <input type="hidden" name="contact[tags]" value="newsletter">
+          <label class="visually-hidden" for="CbxFooterEmail-{{ section.id }}">Email address</label>
+          <input id="CbxFooterEmail-{{ section.id }}" type="email" name="contact[email]" value="{{ form.email }}" placeholder="{{ section.settings.placeholder | escape }}" autocomplete="email" required>
+          <button type="submit">{{ section.settings.button_label | escape }}</button>
+          {% if form.posted_successfully? %}<p class="cbx-footer__success">{{ section.settings.success_message | escape }}</p>{% endif %}
+          {% if form.errors %}<p class="cbx-footer__error">{{ form.errors | default_errors | strip_html }}</p>{% endif %}
+        {% endform %}
+      </div>
+      {% endif %}
+      <div class="cbx-footer__column cbx-footer__social-col">
+        <h2 class="cbx-footer__heading">{{ section.settings.social_heading }}</h2>
+        <div class="cbx-footer__socials" aria-label="Social links">
+          <a {% if section.settings.facebook_url != blank %}href="{{ section.settings.facebook_url }}"{% else %}href="#"{% endif %} target="_blank" rel="noopener" aria-label="Facebook"><img src="{{ 'cbx-icon-facebook.svg' | asset_url }}" alt="" width="24" height="24"></a>
+          <a {% if section.settings.instagram_url != blank %}href="{{ section.settings.instagram_url }}"{% else %}href="#"{% endif %} target="_blank" rel="noopener" aria-label="Instagram"><img src="{{ 'cbx-icon-instagram.svg' | asset_url }}" alt="" width="24" height="24"></a>
+          <a {% if section.settings.whatsapp_url != blank %}href="{{ section.settings.whatsapp_url }}"{% else %}href="#"{% endif %} target="_blank" rel="noopener" aria-label="WhatsApp"><img src="{{ 'cbx-icon-whatsapp.svg' | asset_url }}" alt="" width="24" height="24"></a>
+          <a {% if section.settings.tiktok_url != blank %}href="{{ section.settings.tiktok_url }}"{% else %}href="#"{% endif %} target="_blank" rel="noopener" aria-label="TikTok"><img src="{{ 'cbx-icon-tiktok.svg' | asset_url }}" alt="" width="24" height="24"></a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cbx-footer__bottom">
+    <div class="cbx-footer__rule"></div>
+    <div class="cbx-footer__bottomrow">
+      <p class="cbx-footer__copy">© {{ 'now' | date: '%Y' }} {{ section.settings.brand_name | escape }}. {{ section.settings.rights_text | escape }}</p>
+      <div class="cbx-footer__policies">
+        <a href="{{ routes.root_url }}pages/privacy">{{ section.settings.privacy_label | escape }}</a>
+        <span>|</span>
+        <a href="{{ routes.root_url }}pages/terms">{{ section.settings.terms_label | escape }}</a>
+        <span>|</span>
+        <a href="{{ routes.root_url }}pages/terms">{{ section.settings.shipping_label | escape }}</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .cbx-footer { background: #fff; color: var(--cbx-ink); font-family: var(--cbx-font); }
+
+  .cbx-footer__top {
+    display: flex; align-items: flex-start; justify-content: space-between;
+    gap: 50px; padding: 90px 50px 50px;
+  }
+  .cbx-footer__brand { width: 260px; flex: none; display: flex; flex-direction: column; gap: 30px; }
+  .cbx-footer__logo img { display: block; height: 36px; width: 214px; }
+  .cbx-footer__statement { font-size: 18px; line-height: 28px; margin: 0; }
+
+  .cbx-footer__column { display: flex; flex-direction: column; gap: 10px; }
+  .cbx-footer__heading {
+    font-size: 18px; font-weight: 500; line-height: 28px; margin: 0 0 6px;
+    border-bottom: 1px solid var(--cbx-line); padding-bottom: 4px;
+    align-self: stretch; text-align: center;
+  }
+  .cbx-footer__column ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 5px; align-items: center; }
+  .cbx-footer__column a { font-size: 18px; font-weight: 400; line-height: 28px; color: var(--cbx-ink); white-space: nowrap; }
+  .cbx-footer__column a:hover { color: var(--cbx-teal); }
+
+  .cbx-footer__right { display: flex; flex-direction: column; gap: 30px; }
+  .cbx-footer__form { display: flex; gap: 5px; width: 400px; max-width: 100%; }
+  .cbx-footer__form input {
+    flex: 1; min-width: 0; height: 48px; padding: 10px 30px;
+    background: #fff; border: 1px solid rgba(2, 2, 2, 0.05); border-radius: 24px;
+    font-family: var(--cbx-font); font-size: 18px; line-height: 28px; color: var(--cbx-ink); outline: none;
+    box-shadow: 0 0 0 1px rgba(2, 2, 2, 0.03);
+  }
+  .cbx-footer__form input::placeholder { color: rgba(2, 2, 2, 0.5); }
+  .cbx-footer__form input:focus { border-color: var(--cbx-teal); }
+  .cbx-footer__form button {
+    height: 48px; padding: 10px 30px; border: 0; border-radius: 24px;
+    background: var(--cbx-ink); color: #fff; font-family: var(--cbx-font);
+    font-size: 18px; line-height: 28px; cursor: pointer; white-space: nowrap;
+  }
+  .cbx-footer__success { color: var(--cbx-teal); font-size: 14px; margin: 8px 0 0; }
+  .cbx-footer__error { color: #c0392b; font-size: 14px; margin: 8px 0 0; }
+
+  .cbx-footer__socials { display: flex; gap: 5px; justify-content: center; }
+  .cbx-footer__socials a {
+    display: flex; align-items: center; justify-content: center;
+    padding: 10px; border-radius: 24px; background: #fff;
+    border: 1px solid rgba(2, 2, 2, 0.1);
+    transition: border-color 0.15s ease;
+  }
+  .cbx-footer__socials a:hover { border-color: var(--cbx-teal); }
+  .cbx-footer__socials img { width: 24px; height: 24px; }
+
+  .cbx-footer__bottom { padding: 0 50px 30px; }
+  .cbx-footer__rule { height: 1px; background: var(--cbx-line); }
+  .cbx-footer__bottomrow {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 20px; padding-top: 30px;
+  }
+  .cbx-footer__copy, .cbx-footer__policies { font-size: 18px; line-height: 28px; margin: 0; }
+  .cbx-footer__policies { display: flex; gap: 10px; align-items: center; white-space: nowrap; }
+  .cbx-footer__policies a { color: var(--cbx-ink); }
+  .cbx-footer__policies a:hover { color: var(--cbx-teal); }
+  .cbx-footer__policies span { color: var(--cbx-muted); }
+
+  @media screen and (max-width: 1280px) {
+    .cbx-footer__top { flex-wrap: wrap; gap: 40px; padding: 70px 50px 40px; }
+    .cbx-footer__right { flex-direction: row; flex-wrap: wrap; gap: 30px 60px; }
+    .cbx-footer__form { width: 100%; max-width: 400px; }
+  }
+  @media screen and (max-width: 989px) {
+    .cbx-footer__top { flex-direction: column; align-items: center; gap: 40px; padding: 50px 20px 40px; text-align: center; }
+    .cbx-footer__brand { width: auto; align-items: center; gap: 20px; }
+    .cbx-footer__top > .cbx-footer__column { width: 100%; max-width: 300px; }
+    .cbx-footer__column a, .cbx-footer__statement { font-size: 16px; line-height: 26px; }
+    .cbx-footer__right { align-items: center; width: 100%; }
+    .cbx-footer__form { width: 100%; }
+    .cbx-footer__form input, .cbx-footer__form button { font-size: 16px; height: 46px; }
+    .cbx-footer__bottom { padding: 0 20px 30px; }
+    .cbx-footer__bottomrow { flex-direction: column; gap: 12px; text-align: center; }
+    .cbx-footer__copy, .cbx-footer__policies { font-size: 14px; line-height: 22px; }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Carbex footer",
+  "settings": [
+    {"type":"header","content":"Brand"},
+    {"type":"image_picker","id":"logo","label":"Logo image (defaults to Carbex logo)"},
+    {"type":"text","id":"brand_name","label":"Brand name","default":"CARBEX LAB"},
+    {"type":"textarea","id":"brand_text","label":"Brand statement","default":"Practical protection and care for pickleball equipment."},
+    {"type":"header","content":"Menus"},
+    {"type":"link_list","id":"shop_menu","label":"Shop menu"},
+    {"type":"link_list","id":"company_menu","label":"Company menu"},
+    {"type":"link_list","id":"help_menu","label":"Help menu"},
+    {"type":"header","content":"Newsletter"},
+    {"type":"checkbox","id":"show_newsletter","label":"Show newsletter signup","default":true},
+    {"type":"text","id":"newsletter_heading","label":"Newsletter heading","default":"Newsletter"},
+    {"type":"text","id":"placeholder","label":"Email placeholder","default":"Email"},
+    {"type":"text","id":"button_label","label":"Button label","default":"Send"},
+    {"type":"text","id":"success_message","label":"Success message","default":"You're on the list."},
+    {"type":"text","id":"social_heading","label":"Social heading","default":"Social Links"},
+    {"type":"header","content":"Social links"},
+    {"type":"url","id":"facebook_url","label":"Facebook URL"},
+    {"type":"url","id":"instagram_url","label":"Instagram URL"},
+    {"type":"url","id":"whatsapp_url","label":"WhatsApp URL"},
+    {"type":"url","id":"tiktok_url","label":"TikTok URL"},
+    {"type":"header","content":"Bottom bar"},
+    {"type":"text","id":"rights_text","label":"Rights text","default":"All rights reserved."},
+    {"type":"text","id":"privacy_label","label":"Privacy link label","default":"Privacy Policy"},
+    {"type":"text","id":"terms_label","label":"Terms link label","default":"Terms & Conditions"},
+    {"type":"text","id":"shipping_label","label":"Shipping link label","default":"Shipping & Returns"}
+  ],
+  "presets": [{"name":"Carbex footer"}]
+}
+{% endschema %}

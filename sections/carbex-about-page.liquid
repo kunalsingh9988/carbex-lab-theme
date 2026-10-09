@@ -1,0 +1,62 @@
+{% render 'carbex-about-body' %}
+
+{% schema %}
+{
+  "name": "Carbex about page",
+  "blocks": [
+    {
+      "type": "review",
+      "name": "Review",
+      "settings": [
+        {"type": "text", "id": "source", "label": "Source", "default": "Verified Amazon review"},
+        {"type": "textarea", "id": "text", "label": "Quote"},
+        {"type": "text", "id": "author", "label": "Author"}
+      ]
+    },
+    {
+      "type": "faq",
+      "name": "FAQ",
+      "settings": [
+        {"type": "text", "id": "question", "label": "Question"},
+        {"type": "textarea", "id": "answer", "label": "Answer"}
+      ]
+    },
+    {
+      "type": "craft_point",
+      "name": "Craft point",
+      "settings": [
+        {"type": "text", "id": "text", "label": "Text"}
+      ]
+    }
+  ],
+  "settings": [
+    {"type": "header", "content": "Hero"},
+    {"type": "image_picker", "id": "hero_image", "label": "Desktop hero image"},
+    {"type": "image_picker", "id": "hero_image_m", "label": "Mobile hero image"},
+    {"type": "text", "id": "hero_heading", "label": "Heading", "default": "Built for Better Paddle Care"},
+    {"type": "textarea", "id": "hero_text", "label": "Text", "default": "CARBEX LAB creates straightforward products designed to help pickleball players protect, clean, and maintain their paddles."},
+    {"type": "header", "content": "Statement"},
+    {"type": "text", "id": "center_heading", "label": "Heading", "default": "Care Beyond the Game"},
+    {"type": "textarea", "id": "center_p1", "label": "Paragraph 1", "default": "Your paddle is part of every point, every session, and every game. CARBEX LAB is focused on the simple things that help you take better care of it."},
+    {"type": "textarea", "id": "center_p2", "label": "Paragraph 2", "default": "From replaceable edge protection to practical surface care, we create products around real paddle-maintenance needs."},
+    {"type": "header", "content": "Image band"},
+    {"type": "image_picker", "id": "band_image", "label": "Desktop image"},
+    {"type": "image_picker", "id": "band_image_m", "label": "Mobile image"},
+    {"type": "header", "content": "Our approach"},
+    {"type": "text", "id": "approach_eyebrow", "label": "Eyebrow", "default": "Our approach"},
+    {"type": "text", "id": "approach_heading", "label": "Statement", "default": "GOOD PADDLE CARE DOESN'T NEED TO BE COMPLICATED."},
+    {"type": "textarea", "id": "approach_text", "label": "Body", "default": "We look at how paddles actually wear: edge contact, scuffs and everyday grime. Then we build simple products around it that are easy to understand and easy to use. Clear sizing, honest details, and nothing overstated."},
+    {"type": "image_picker", "id": "approach_image", "label": "Cutout image"},
+    {"type": "header", "content": "Reviews"},
+    {"type": "text", "id": "reviews_heading", "label": "Heading", "default": "Real feedback from real players"},
+    {"type": "url", "id": "reviews_link_url", "label": "Amazon reviews link"},
+    {"type": "header", "content": "FAQ"},
+    {"type": "text", "id": "faq_heading", "label": "Heading", "default": "Frequently asked questions"},
+    {"type": "text", "id": "faq_more_label", "label": "Link label", "default": "See all FAQs →"},
+    {"type": "header", "content": "Closing banner"},
+    {"type": "image_picker", "id": "closing_image", "label": "Desktop image"},
+    {"type": "image_picker", "id": "closing_image_m", "label": "Mobile image"}
+  ],
+  "presets": [{"name": "Carbex about page"}]
+}
+{% endschema %}

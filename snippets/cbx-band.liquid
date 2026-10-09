@@ -1,0 +1,71 @@
+{% comment %}
+  Figma image band: desktop = full-bleed image + left gradient + copy overlay.
+  Mobile = dark copy band stacked above the square/portrait image.
+  Params:
+    id          - element id (optional)
+    band_h      - desktop height px (default 600)
+    band_hm     - mobile height px (default 430)
+    focal       - object-position for desktop image (default '50% 50%')
+    img_d       - desktop image (image object or asset filename string)
+    img_m       - mobile image (image object or asset filename string; falls back to img_d)
+    eyebrow     - eyebrow text (optional)
+    eyebrow_mod - 'light' | 'muted' | '' (default teal)
+    heading     - heading text
+    heading_tag - 'h1' | 'h2' (default h2)
+    heading_cls - cbx-h-hero (60/70) | cbx-h-xl (50/60) — default cbx-h-xl
+    text        - supporting paragraph (optional)
+    btn_label / btn_url / btn_style (white|ghost|dark|outline)
+    btn2_label / btn2_url / btn2_style (optional second button)
+    tight       - true = copy top-aligned w/ padding instead of vertically centered
+{% endcomment %}
+{%- assign band_h = band_h | default: 600 -%}
+{%- assign band_hm = band_hm | default: 430 -%}
+{%- assign heading_tag = heading_tag | default: 'h2' -%}
+{%- assign heading_cls = heading_cls | default: 'cbx-h-xl' -%}
+{%- assign focal = focal | default: '50% 50%' -%}
+{%- if img_m == blank -%}{%- assign img_m = img_d -%}{%- endif -%}
+
+<section
+  class="cbx-band cbx-on-dark{% if tight %} cbx-band--tight{% endif %}"
+  {% if id %}id="{{ id }}"{% endif %}
+  style="--band-h: {{ band_h }}px; --band-hm: {{ band_hm }}px; --band-focal: {{ focal }};"
+>
+  <div class="cbx-band__media">
+    <picture>
+      {%- if img_m != blank -%}
+        <source media="(max-width: 989px)" srcset="{% if img_m.width %}{{ img_m | image_url: width: 1080 }}{% else %}{{ img_m | asset_url }}{% endif %}">
+      {%- endif -%}
+      {%- if img_d.width -%}
+        <img
+          src="{{ img_d | image_url: width: 1920 }}"
+          srcset="{{ img_d | image_url: width: 1200 }} 1200w, {{ img_d | image_url: width: 1920 }} 1920w"
+          sizes="100vw"
+          alt="{{ img_d.alt | default: heading | escape }}"
+          width="1920" height="{{ band_h }}" loading="lazy"
+        >
+      {%- else -%}
+        <img src="{{ img_d | asset_url }}" alt="{{ heading | escape }}" width="1920" height="{{ band_h }}" loading="lazy">
+      {%- endif -%}
+    </picture>
+  </div>
+  <div class="cbx-band__grad"></div>
+  <div class="cbx-band__copy">
+    {%- if eyebrow != blank -%}
+      <p class="cbx-eyebrow{% if eyebrow_mod %} cbx-eyebrow--{{ eyebrow_mod }}{% endif %}">{{ eyebrow }}</p>
+    {%- endif -%}
+    <{{ heading_tag }} class="{{ heading_cls }}">{{ heading }}</{{ heading_tag }}>
+    {%- if text != blank -%}
+      <p class="cbx-lead">{{ text }}</p>
+    {%- endif -%}
+    {%- if btn_label != blank or btn2_label != blank -%}
+      <div class="cbx-btn-row">
+        {%- if btn_label != blank -%}
+          <a class="cbx-btn cbx-btn--{{ btn_style | default: 'white' }}" href="{{ btn_url | default: routes.all_products_collection_url }}">{{ btn_label }}</a>
+        {%- endif -%}
+        {%- if btn2_label != blank -%}
+          <a class="cbx-btn cbx-btn--{{ btn2_style | default: 'ghost' }}" href="{{ btn2_url | default: routes.all_products_collection_url }}">{{ btn2_label }}</a>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+  </div>
+</section>

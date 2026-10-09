@@ -1,0 +1,42 @@
+{% comment %}
+  Figma accordion items with divider lines. Params:
+    blocks     - array of blocks (settings.question / settings.answer)
+    open_first - if true, first item renders open (black bar state)
+  Falls back to the core tape FAQ items when no blocks exist.
+{% endcomment %}
+<div class="cbx-acc">
+  <div class="cbx-acc__line"></div>
+  {%- if blocks != blank -%}
+    {%- for block in blocks -%}
+      <details class="cbx-acc__item" {% if open_first and forloop.first %}open{% endif %} {{ block.shopify_attributes }}>
+        <summary>
+          <p class="cbx-acc__q">{{ block.settings.question }}</p>
+          <span class="cbx-acc__icon">
+            <img class="cbx-i-plus" src="{{ 'cbx-icon-add.svg' | asset_url }}" alt="" width="24" height="24">
+            <img class="cbx-i-minus" src="{{ 'cbx-icon-minus.svg' | asset_url }}" alt="" width="24" height="24">
+          </span>
+        </summary>
+        {%- if block.settings.answer != blank -%}
+          <p class="cbx-acc__a">{{ block.settings.answer }}</p>
+        {%- endif -%}
+      </details>
+      <div class="cbx-acc__line"></div>
+    {%- endfor -%}
+  {%- else -%}
+    {%- assign defaults = 'Which width do I need?|30 mm tape for 16 mm paddles, 26 mm tape for 14 mm paddles. Measure your paddle&#39;s thickness first.|open;How much tape is included?|Each pack includes 4 pre-cut strips — one strip covers one full paddle edge.;How do I install it?|Clean the edge, peel the liner, center the tape at the top edge, apply gradually and trim at the throat. See the installation guide for the full walkthrough.;Will the tape scuff?|Yes — that&#39;s the point. The tape takes the scuffs and scrapes so the paddle edge underneath stays clean. Replace it when it looks worn.;What products does CARBEX LAB currently offer?|Paddle Edge Guard Tape in 26 mm and 30 mm widths. A paddle surface cleaner is coming soon.' | split: ';' -%}
+    {%- for item in defaults -%}
+      {%- assign parts = item | split: '|' -%}
+      <details class="cbx-acc__item" {% if parts[2] == 'open' %}open{% endif %}>
+        <summary>
+          <p class="cbx-acc__q">{{ parts[0] }}</p>
+          <span class="cbx-acc__icon">
+            <img class="cbx-i-plus" src="{{ 'cbx-icon-add.svg' | asset_url }}" alt="" width="24" height="24">
+            <img class="cbx-i-minus" src="{{ 'cbx-icon-minus.svg' | asset_url }}" alt="" width="24" height="24">
+          </span>
+        </summary>
+        <p class="cbx-acc__a">{{ parts[1] }}</p>
+      </details>
+      <div class="cbx-acc__line"></div>
+    {%- endfor -%}
+  {%- endif -%}
+</div>
