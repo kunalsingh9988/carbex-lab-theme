@@ -332,25 +332,29 @@
     /* ---- Variants ---- */
     const select = root.querySelector('[data-variant-select]');
     const variants = {{ product.variants | json }} || [];
-    const selected = [{% for option in product.options_with_values %}{{ option.selected_value | json }}{% unless forloop.last %},{% endunless %}{% endfor %}];
+    const fallbackVariantId = {{ current_variant.id | default: 0 | json }};
+    const selected = {{ current_variant.options | json }} || [{% for option in product.options_with_values %}{{ option.selected_value | json }}{% unless forloop.last %},{% endunless %}{% endfor %}];
 
     const resolveVariant = () => variants.find((v) => v.options.every((o, i) => o === selected[i]));
     const atc = root.querySelector('.cbx-pdp__atc');
     const addLabel = root.querySelector('[data-add-label]');
+    const addLabelTxt = {{ s.add_to_cart_label | default: 'Add to Cart' | json }};
+    const soldOutTxt = {{ s.sold_out_label | default: 'Sold out' | json }};
+    const unavailableTxt = {{ s.unavailable_label | default: 'Unavailable' | json }};
 
     const applyVariant = () => {
       const variant = resolveVariant();
-      if (!variant || !select) return;
-      select.value = String(variant.id);
-      const opt = select.selectedOptions[0];
-      if (opt && opt.disabled && atc) {
-        atc.disabled = true;
-        if (addLabel) addLabel.textContent = {{ s.sold_out_label | default: 'Sold out' | json }};
-      } else {
-        const available = variant.available !== false;
-        if (atc) atc.disabled = !available;
-        if (addLabel) addLabel.textContent = available ? {{ s.add_to_cart_label | default: 'Add to Cart' | json }} : {{ s.sold_out_label | default: 'Sold out' | json }};
+      if (!variant) {
+        if (select) select.value = '';
+        if (atc) atc.disabled = true;
+        if (addLabel) addLabel.textContent = unavailableTxt;
+        updatePrices();
+        return;
       }
+      if (select) select.value = String(variant.id);
+      const available = variant.available !== false;
+      if (atc) atc.disabled = !available;
+      if (addLabel) addLabel.textContent = available ? addLabelTxt : soldOutTxt;
       updatePrices();
     };
 
@@ -396,9 +400,9 @@
     }));
     [select, qtyInput, ...bundleBoxes].forEach((el) => el && el.addEventListener('change', updatePrices));
     if (qtyInput) qtyInput.addEventListener('input', updatePrices);
-    updatePrices();
+    applyVariant();
 
-    /* ---- Add to cart (handles bundle items via AJAX) ---- */
+    /* ---- Add to cart (main + bundle items via AJAX, native fallback) ---- */
     const form = root.querySelector('.cbx-pdp__form');
     const formMessage = root.querySelector('.cbx-pdp__msg');
     const stickySubmit = root.querySelector('[data-sticky-submit]');
@@ -416,22 +420,43 @@
       stickyBar.classList.add('is-visible');
     }
     if (form) form.addEventListener('submit', async (event) => {
-      const checked = [...root.querySelectorAll('[data-bundle-item]:checked')];
-      if (!checked.length) return;
       event.preventDefault();
       const data = new FormData(form);
-      const items = [{ id: Number(data.get('id')), quantity: Number(data.get('quantity')) || 1 }]
-        .concat(checked.map((box) => ({ id: Number(box.value), quantity: 1 })));
+      const resolved = resolveVariant();
+      let variantId = Number(data.get('id')) || (resolved && resolved.id) || fallbackVariantId;
+      if (!variantId) {
+        if (formMessage) formMessage.textContent = unavailableTxt;
+        return;
+      }
+      const items = [{ id: variantId, quantity: Math.max(1, Number(data.get('quantity')) || 1) }]
+        .concat([...root.querySelectorAll('[data-bundle-item]:checked')].map((box) => ({ id: Number(box.value), quantity: 1 })));
+      if (atc) atc.disabled = true;
       try {
         const response = await fetch('{{ routes.cart_add_url }}.js', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
           body: JSON.stringify({ items }),
         });
-        if (!response.ok) throw new Error('add failed');
+        if (!response.ok) {
+          const body = await response.json().catch(() => ({}));
+          throw new Error(body.description || body.message || {{ s.error_message | default: 'Something went wrong — please try again.' | json }});
+        }
         window.location.href = '{{ routes.cart_url }}';
       } catch (error) {
-        if (formMessage) formMessage.textContent = {{ s.error_message | default: 'Something went wrong — please try again.' | json }};
+        if (error instanceof TypeError) {
+          /* Network-level failure — fall back to the browser's native form post */
+          if (select) {
+            select.value = String(variantId);
+          } else {
+            let idField = form.querySelector('input[name="id"]');
+            if (!idField) { idField = document.createElement('input'); idField.type = 'hidden'; idField.name = 'id'; form.appendChild(idField); }
+            idField.value = variantId;
+          }
+          form.submit();
+          return;
+        }
+        if (formMessage) formMessage.textContent = error.message || {{ s.error_message | default: 'Something went wrong — please try again.' | json }};
+        if (atc) atc.disabled = false;
       }
     });
 
