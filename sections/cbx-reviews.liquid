@@ -1,0 +1,47 @@
+{%- render 'cbx-theme' -%}
+<section class="cbx-page cbx-section{% if section.settings.mist %} cbx-section--mist{% endif %}"{% if section.settings.anchor %} id="{{ section.settings.anchor }}"{% endif %}>
+  {%- render 'cbx-reviews',
+    title: section.settings.reviews_heading,
+    rating_text: section.settings.reviews_rating,
+    link_text: section.settings.reviews_link_label,
+    link_url: section.settings.reviews_link_url,
+    blocks: section.blocks
+  -%}
+</section>
+
+{% schema %}
+{
+  "name": "Carbex reviews",
+  "tag": "section",
+  "class": "cbx-reviews-sec",
+  "settings": [
+    { "type": "text", "id": "anchor", "label": "Anchor ID", "default": "reviews" },
+    { "type": "text", "id": "reviews_heading", "label": "Heading", "default": "Real reviews from players" },
+    { "type": "text", "id": "reviews_rating", "label": "Rating line", "default": "4.2 ★ · 206 ratings on Amazon" },
+    { "type": "text", "id": "reviews_link_label", "label": "Link label", "default": "Read reviews on Amazon →" },
+    { "type": "url", "id": "reviews_link_url", "label": "Link URL" },
+    { "type": "checkbox", "id": "mist", "label": "Mist background", "default": true }
+  ],
+  "blocks": [
+    {
+      "type": "review",
+      "name": "Review",
+      "settings": [
+        { "type": "textarea", "id": "quote", "label": "Quote" },
+        { "type": "text", "id": "name", "label": "Name" },
+        { "type": "text", "id": "meta", "label": "Meta line", "default": "Verified Amazon review" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Carbex reviews",
+      "blocks": [
+        { "type": "review", "settings": { "quote": "“After using my paddle for a couple months my tape is in pretty rough shape, but the paddle underneath is still in great shape, so this tape has done its job.”", "name": "Leighanne G.", "meta": "Verified Amazon review" } },
+        { "type": "review", "settings": { "quote": "“Put this around my new paddle & thankful that I did, cuz I scrapped the top of it but was saved by this guard.”", "name": "RoseMary L.", "meta": "Verified Amazon review" } },
+        { "type": "review", "settings": { "quote": "“I tend to scrape my paddle on the floor when picking up the ball a lot and the fence when shooting for ATPs at our local courts and it's holding up well.”", "name": "Ash", "meta": "Verified Amazon review" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

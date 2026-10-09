@@ -1,0 +1,27 @@
+{% comment %}
+  Carbex centered statement — About page "Care Beyond the Game".
+  Params: s — hash exposing center_heading, center_p1, center_p2.
+{% endcomment %}
+{%- assign s = s | default: section.settings -%}
+
+<section class="cbx-section cbx-about__center">
+  <div class="cbx-about__center-col">
+    <h2 class="cbx-h-xl cbx-center">{{ s.center_heading | default: 'Care Beyond the Game' }}</h2>
+    <div class="cbx-about__center-copy">
+      <p>{{ s.center_p1 | default: 'Your paddle is part of every point, every session, and every game. CARBEX LAB is focused on the simple things that help you take better care of it.' }}</p>
+      <p>{{ s.center_p2 | default: 'From replaceable edge protection to practical surface care, we create products around real paddle-maintenance needs.' }}</p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .cbx-about__center { display: flex; justify-content: center; }
+  .cbx-about__center-col { width: 750px; max-width: 100%; display: flex; flex-direction: column; gap: 30px; align-items: center; }
+  .cbx-about__center-copy { display: flex; flex-direction: column; gap: 10px; }
+  .cbx-about__center-copy p { font-size: 24px; line-height: 34px; text-align: center; margin: 0; }
+
+  @media screen and (max-width: 989px) {
+    .cbx-about__center-col { width: 100%; gap: 16px; }
+    .cbx-about__center-copy p { font-size: 18px; line-height: 28px; }
+  }
+</style>

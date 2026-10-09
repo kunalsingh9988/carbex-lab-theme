@@ -1,0 +1,36 @@
+{% comment %}
+  Carbex FAQ band — heading + "See all FAQs" link left, accordion right.
+  Params:
+    s          — hash exposing faq_heading, faq_more_label, faq_more_url,
+                 faq_open_first (bool), faq_mist (bool — mist background),
+                 faq_anchor (id)
+    blocks     — faq blocks with settings.question / settings.answer (optional)
+    preset     — 'about' | 'install' renders page-specific default questions
+                 instead of the standard tape FAQs when no blocks are present
+    mist       — force mist background regardless of s.faq_mist
+    heading    — explicit heading override (falls back to s.faq_heading)
+    more_label / more_url — explicit "See all FAQs" overrides
+{% endcomment %}
+{%- assign s = s | default: section.settings -%}
+{%- assign faq_open = s.faq_open_first | default: true -%}
+{%- assign mist_v = false -%}
+{%- if mist == true or mist == 'mist' or s.faq_mist == true -%}{%- assign mist_v = true -%}{%- endif -%}
+{%- assign heading_v = heading | default: s.faq_heading | default: 'Frequently asked questions' -%}
+{%- assign more_label_v = more_label | default: s.faq_more_label | default: 'See all FAQs →' -%}
+{%- assign more_url_v = more_url | default: s.faq_more_url | default: '/pages/faq' -%}
+
+<section class="cbx-section{% if mist_v %} cbx-section--mist{% endif %}"{% if s.faq_anchor %} id="{{ s.faq_anchor }}"{% endif %}>
+  <div class="cbx-faqwrap">
+    <div class="cbx-faqwrap__side">
+      <h2 class="cbx-h-xl">{{ heading_v }}</h2>
+      <a class="cbx-faqwrap__more" href="{{ more_url_v }}">{{ more_label_v }}</a>
+    </div>
+    <div class="cbx-faqwrap__acc">
+      {%- if blocks != blank -%}
+        {%- render 'cbx-faq-items', blocks: blocks, open_first: faq_open -%}
+      {%- else -%}
+        {%- render 'cbx-faq-items', preset: preset, open_first: faq_open -%}
+      {%- endif -%}
+    </div>
+  </div>
+</section>

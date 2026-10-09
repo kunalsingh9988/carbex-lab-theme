@@ -1,91 +1,40 @@
 {%- render 'cbx-theme' -%}
 {%- assign s = s | default: section.settings -%}
 {%- assign blocks = blocks | default: section.blocks -%}
-{%- assign product_1 = all_products[s.product_1] -%}
-{%- if product_1 == blank -%}
-  {%- assign product_1 = all_products['carbex-lab-pickleball-paddle-edge-guard-tape'] | default: collections.all.products.first -%}
-{%- endif -%}
 
 <div class="cbx-page">
   {%- comment -%} ============ 1 · HERO ============ {%- endcomment -%}
-  <section class="cbx-band cbx-on-dark cbx-hero" style="--band-h: 680px; --band-hm: 538px;">
-    <div class="cbx-band__media">
-      <picture>
-        <source media="(max-width: 989px)" srcset="{% if s.hero_image_m != blank %}{{ s.hero_image_m | image_url: width: 1080 }}{% else %}{{ 'cbx-hero-mobile.png' | asset_url }}{% endif %}">
-        {%- if s.hero_image != blank -%}
-          <img src="{{ s.hero_image | image_url: width: 1920 }}" srcset="{{ s.hero_image | image_url: width: 1200 }} 1200w, {{ s.hero_image | image_url: width: 1920 }} 1920w" sizes="100vw" alt="{{ s.hero_heading | escape }}" width="1920" height="680" fetchpriority="high">
-        {%- else -%}
-          <img src="{{ 'cbx-hero-desktop.png' | asset_url }}" alt="{{ s.hero_heading | escape }}" width="1920" height="680" fetchpriority="high">
-        {%- endif -%}
-      </picture>
-    </div>
-    <div class="cbx-band__grad"></div>
-    <div class="cbx-band__copy cbx-hero__copy">
-      <h1 class="cbx-h-hero">{{ s.hero_heading | default: 'Practical protection and care for pickleball equipment.' }}</h1>
-      <p class="cbx-lead">{{ s.hero_text | default: 'CARBEX LAB is a pickleball paddle care and protection brand. We make practical products that help players protect, clean, and maintain the equipment they use.' }}</p>
-      <div class="cbx-btn-row">
-        {%- if s.hero_btn1_label != blank -%}
-          <a class="cbx-btn cbx-btn--white" href="{{ s.hero_btn1_url | default: routes.all_products_collection_url }}">{{ s.hero_btn1_label }}</a>
-        {%- endif -%}
-        {%- if s.hero_btn2_label != blank -%}
-          <a class="cbx-btn cbx-btn--ghost" href="{{ s.hero_btn2_url | default: routes.all_products_collection_url }}">{{ s.hero_btn2_label }}</a>
-        {%- endif -%}
-      </div>
-    </div>
-  </section>
+  {%- assign hero_img_d = s.hero_image | default: 'cbx-hero-desktop.png' -%}
+  {%- assign hero_img_m = s.hero_image_m | default: 'cbx-hero-mobile.png' -%}
+  {%- assign hero_hd = s.hero_height_d | default: 680 -%}
+  {%- assign hero_hm = s.hero_height_m | default: 538 -%}
+  {%- assign hero_head = s.hero_heading | default: 'Practical protection and care for pickleball equipment.' -%}
+  {%- assign hero_txt = s.hero_text | default: 'CARBEX LAB is a pickleball paddle care and protection brand. We make practical products that help players protect, clean, and maintain the equipment they use.' -%}
+  {%- assign hero_dt = s.hero_dots | default: true -%}
+  {%- render 'cbx-band',
+    band_cls: 'cbx-hero',
+    copy_cls: 'cbx-hero__copy',
+    band_h: hero_hd,
+    band_hm: hero_hm,
+    focal: s.hero_focal,
+    img_d: hero_img_d,
+    img_m: hero_img_m,
+    heading: hero_head,
+    heading_tag: 'h1',
+    heading_cls: 'cbx-h-hero',
+    text: hero_txt,
+    btn_label: s.hero_btn1_label,
+    btn_url: s.hero_btn1_url,
+    btn_style: 'white',
+    btn2_label: s.hero_btn2_label,
+    btn2_url: s.hero_btn2_url,
+    btn2_style: 'ghost',
+    dots: hero_dt,
+    fetchpriority: 'high'
+  -%}
 
   {%- comment -%} ============ 2 · SHOP CARDS ============ {%- endcomment -%}
-  <section class="cbx-section cbx-section--wide cbx-shop">
-    <h2 class="cbx-h-xl cbx-center cbx-shop__title">{{ s.shop_heading | default: 'Shop CARBEX LAB' }}</h2>
-    <div class="cbx-shop__grid">
-      {%- comment -%} Card 1 — product-driven {%- endcomment -%}
-      <div class="cbx-card">
-        <a class="cbx-card__media" href="{{ product_1.url | default: '#' }}">
-          {%- if s.card1_image != blank -%}
-            <img src="{{ s.card1_image | image_url: width: 1172 }}" alt="{{ s.card1_title | escape }}" width="586" height="586" loading="lazy">
-          {%- elsif product_1.featured_image -%}
-            <img src="{{ product_1.featured_image | image_url: width: 1172 }}" alt="{{ product_1.title | escape }}" width="586" height="586" loading="lazy">
-          {%- else -%}
-            <img src="{{ 'cbx-card-paddle.png' | asset_url }}" alt="{{ s.card1_title | escape }}" width="586" height="586" loading="lazy">
-          {%- endif -%}
-        </a>
-        <div class="cbx-card__body">
-          <h3 class="cbx-h-sm">{{ s.card1_title | default: product_1.title | default: 'Paddle Edge Guard Tape' }}</h3>
-          <p class="cbx-card__desc">{{ s.card1_desc | default: 'A replaceable protective layer applied around the outside edge of a pickleball paddle.' }}</p>
-          <p class="cbx-card__price">
-            {%- if product_1 != blank -%}
-              {%- assign opt = product_1.options_with_values.first -%}
-              {%- if product_1.variants.size > 1 and opt.values.size > 1 -%}
-                {{ opt.values | join: ' or ' }} · {{ product_1.price | money }}
-              {%- else -%}
-                {{ product_1.price | money }}
-              {%- endif -%}
-            {%- else -%}
-              {{ s.card1_price | default: '26 mm or 30 mm · $15.99' }}
-            {%- endif -%}
-          </p>
-          <a class="cbx-btn cbx-btn--dark cbx-card__btn" href="{{ product_1.url | default: routes.all_products_collection_url }}">{{ s.card1_btn | default: 'Shop Edge Guard' }}</a>
-        </div>
-      </div>
-
-      {%- comment -%} Card 2 — coming soon {%- endcomment -%}
-      <div class="cbx-card">
-        <div class="cbx-card__media">
-          {%- if s.card2_image != blank -%}
-            <img src="{{ s.card2_image | image_url: width: 1172 }}" alt="{{ s.card2_title | escape }}" width="586" height="586" loading="lazy">
-          {%- else -%}
-            <img src="{{ 'cbx-card-cleaner.png' | asset_url }}" alt="{{ s.card2_title | escape }}" width="586" height="586" loading="lazy">
-          {%- endif -%}
-        </div>
-        <div class="cbx-card__body">
-          <h3 class="cbx-h-sm">{{ s.card2_title | default: 'Paddle Surface Cleaner' }}</h3>
-          <p class="cbx-card__desc">{{ s.card2_desc | default: 'Remove everyday dirt and grime without overcomplicating paddle care.' }}</p>
-          <p class="cbx-card__tag">{{ s.card2_tag | default: 'Coming soon' }}</p>
-          <a class="cbx-btn cbx-btn--outline cbx-card__btn" href="{{ s.card2_btn_url | default: routes.root_url | append: 'pages/contact' }}">{{ s.card2_btn | default: 'Notify me' }}</a>
-        </div>
-      </div>
-    </div>
-  </section>
+  {%- render 'cbx-sec-cards', s: s -%}
 
   {%- comment -%} ============ 3 · ABOUT BAND ============ {%- endcomment -%}
   {%- assign band_img_d_v = s.band_image | default: 'cbx-band-about-desktop.png' -%}
@@ -122,43 +71,15 @@
   </section>
 
   {%- comment -%} ============ 5 · GALLERY ============ {%- endcomment -%}
-  <section class="cbx-section cbx-gallery">
-    <h2 class="cbx-h-xl cbx-center">{{ s.gallery_heading | default: 'On the court' }}</h2>
-    <div class="cbx-gallery__grid">
-      {%- for i in (1..6) -%}
-        {%- assign key = 'tile_' | append: i -%}
-        {%- assign tile = s[key] -%}
-        <div class="cbx-gallery__tile">
-          {%- if tile != blank -%}
-            <img src="{{ tile | image_url: width: 980 }}" alt="CARBEX LAB on the court {{ i }}" width="490" height="490" loading="lazy">
-          {%- else -%}
-            <img src="{{ 'cbx-court-' | append: i | append: '.png' | asset_url }}" alt="CARBEX LAB on the court {{ i }}" width="490" height="490" loading="lazy">
-          {%- endif -%}
-        </div>
-      {%- endfor -%}
-    </div>
-    <div class="cbx-gallery__credit">
-      {%- if s.gallery_credit_url != blank -%}
-        <a href="{{ s.gallery_credit_url }}" target="_blank" rel="noopener">{{ s.gallery_credit | default: 'Photo: Pickleland' }}</a>
-      {%- else -%}
-        <span>{{ s.gallery_credit | default: 'Photo: Pickleland' }}</span>
-      {%- endif -%}
-    </div>
-  </section>
+  {%- render 'cbx-sec-gallery', s: s -%}
 
   {%- comment -%} ============ 6 · FAQ ============ {%- endcomment -%}
   {%- assign faq_blocks = blocks | where: 'type', 'faq' -%}
-  <section class="cbx-section cbx-section--mist" id="carbex-faq">
-    <div class="cbx-faqwrap">
-      <div class="cbx-faqwrap__side">
-        <h2 class="cbx-h-xl">{{ s.faq_heading | default: 'Frequently asked questions' }}</h2>
-        <a class="cbx-faqwrap__more" href="{{ s.faq_more_url | default: '/pages/faq' }}">{{ s.faq_more_label | default: 'See all FAQs →' }}</a>
-      </div>
-      <div class="cbx-faqwrap__acc">
-        {%- render 'cbx-faq-items', blocks: faq_blocks, open_first: true -%}
-      </div>
-    </div>
-  </section>
+  {%- render 'cbx-sec-faqwrap',
+    s: s,
+    blocks: faq_blocks,
+    mist: true
+  -%}
 
   {%- comment -%} ============ 7 · CLOSING BANNER ============ {%- endcomment -%}
   {%- render 'cbx-closing',
@@ -172,52 +93,9 @@
 </div>
 
 <style>
-  .cbx-hero__copy { gap: 30px; top: 108px; bottom: auto; justify-content: flex-start; padding-top: 0; }
-
-
-  .cbx-shop { display: flex; flex-direction: column; gap: 30px; align-items: center; }
-  .cbx-shop__title { margin-bottom: 0; }
-  .cbx-shop__grid { display: flex; gap: 30px; justify-content: center; align-items: stretch; }
-  .cbx-card { background: var(--cbx-mist); width: 586px; display: flex; flex-direction: column; overflow: hidden; }
-  .cbx-card__media { display: block; aspect-ratio: 1; overflow: hidden; }
-  .cbx-card__media img { width: 100%; height: 100%; object-fit: cover; }
-  .cbx-card__body { display: flex; flex-direction: column; gap: 14px; padding: 30px 30px 36px; align-items: flex-start; flex: 1; }
-  .cbx-card__desc { font-size: 18px; line-height: 28px; color: var(--cbx-body); margin: 0; }
-  .cbx-card__price { font-size: 20px; font-weight: 600; line-height: 30px; margin: 0; }
-  .cbx-card__tag { font-size: 14px; font-weight: 600; line-height: 20px; letter-spacing: 1.4px; text-transform: uppercase; color: var(--cbx-muted); margin: 0; }
-  .cbx-card__btn { margin-top: 6px; }
-
-  .cbx-gallery { display: flex; flex-direction: column; gap: 50px; align-items: center; }
-  .cbx-gallery__grid { display: grid; grid-template-columns: repeat(3, 490px); gap: 25px; }
-  .cbx-gallery__tile { overflow: hidden; aspect-ratio: 1; }
-  .cbx-gallery__tile img { width: 100%; height: 100%; object-fit: cover; }
-  .cbx-gallery__credit { width: 100%; }
-  .cbx-gallery__credit a, .cbx-gallery__credit span { font-size: 14px; line-height: 20px; color: var(--cbx-muted); }
-  .cbx-gallery__credit a:hover { color: var(--cbx-teal); }
-
-  @media screen and (max-width: 1280px) {
-    .cbx-gallery__grid { grid-template-columns: repeat(3, 1fr); width: 100%; }
-    .cbx-card { width: calc(50% - 15px); }
-    .cbx-shop__grid { width: 100%; }
-  }
+  .cbx-hero__copy { gap: 30px; top: 108px; bottom: auto; justify-content: flex-start; }
   @media screen and (max-width: 989px) {
     .cbx-hero__copy { gap: 16px; }
     .cbx-hero__copy .cbx-btn-row { flex-direction: column; gap: 10px; }
-
-
-    /* Cards become horizontal rows */
-    .cbx-shop__grid { flex-direction: column; gap: 12px; }
-    .cbx-card { flex-direction: row; align-items: stretch; width: 100%; }
-    .cbx-card__media { width: 140px; flex: none; aspect-ratio: auto; }
-    .cbx-card__media img { height: 100%; }
-    .cbx-card__body { padding: 16px; gap: 8px; }
-    .cbx-card .cbx-h-sm { font-size: 18px; line-height: 26px; }
-    .cbx-card__desc { display: none; }
-    .cbx-card__price { font-size: 16px; line-height: 24px; }
-    .cbx-card__tag { font-size: 12px; line-height: 18px; letter-spacing: 1.2px; }
-    .cbx-card__btn { margin-top: 2px; font-size: 14px; line-height: 20px; padding: 10px 20px; }
-
-    .cbx-gallery { gap: 24px; }
-    .cbx-gallery__grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
   }
 </style>

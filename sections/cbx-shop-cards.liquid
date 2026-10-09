@@ -1,0 +1,28 @@
+{%- render 'cbx-theme' -%}
+{%- render 'cbx-sec-cards', s: section.settings -%}
+
+{% schema %}
+{
+  "name": "Carbex shop cards",
+  "tag": "section",
+  "class": "cbx-page cbx-shop-cards-sec",
+  "settings": [
+    { "type": "text", "id": "shop_heading", "label": "Heading", "default": "Shop CARBEX LAB" },
+    { "type": "header", "content": "Card 1 — product" },
+    { "type": "product", "id": "product_1", "label": "Featured product" },
+    { "type": "image_picker", "id": "card1_image", "label": "Image override" },
+    { "type": "text", "id": "card1_title", "label": "Title override" },
+    { "type": "textarea", "id": "card1_desc", "label": "Description", "default": "A replaceable protective layer applied around the outside edge of a pickleball paddle." },
+    { "type": "text", "id": "card1_price", "label": "Price fallback text", "default": "26 mm or 30 mm · $15.99" },
+    { "type": "text", "id": "card1_btn", "label": "Button label", "default": "Shop Edge Guard" },
+    { "type": "header", "content": "Card 2 — coming soon" },
+    { "type": "image_picker", "id": "card2_image", "label": "Image" },
+    { "type": "text", "id": "card2_title", "label": "Title", "default": "Paddle Surface Cleaner" },
+    { "type": "textarea", "id": "card2_desc", "label": "Description", "default": "Remove everyday dirt and grime without overcomplicating paddle care." },
+    { "type": "text", "id": "card2_tag", "label": "Tag", "default": "Coming soon" },
+    { "type": "text", "id": "card2_btn", "label": "Button label", "default": "Notify me" },
+    { "type": "url", "id": "card2_btn_url", "label": "Button link" }
+  ],
+  "presets": [ { "name": "Carbex shop cards" } ]
+}
+{% endschema %}

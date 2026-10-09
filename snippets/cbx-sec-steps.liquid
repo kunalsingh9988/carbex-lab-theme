@@ -1,0 +1,101 @@
+{% comment %}
+  Carbex installation steps — intro heading, main photo, 5 step cards, tip.
+  Params:
+    s      — hash exposing intro_heading, intro_text, main_image, main_image_m,
+             tip_label, tip_text
+    blocks — step blocks with settings: image, title, text
+{% endcomment %}
+{%- assign s = s | default: section.settings -%}
+{%- assign step_blocks = blocks | where: 'type', 'step' -%}
+
+<section class="cbx-section cbx-install__body">
+  <h2 class="cbx-h-xl cbx-center">{{ s.intro_heading | default: 'Install Your Edge Guard' }}</h2>
+  <p class="cbx-lead cbx-center cbx-install__intro">{{ s.intro_text | default: 'Each pack has 4 strips, one per paddle. Have a soft cloth and scissors ready.' }}</p>
+
+  <div class="cbx-install__main">
+    <picture>
+      <source media="(max-width: 989px)" srcset="{% if s.main_image_m != blank %}{{ s.main_image_m | image_url: width: 1080 }}{% else %}{{ 'cbx-install-main-mobile.png' | asset_url }}{% endif %}">
+      {% if s.main_image != blank %}
+        <img src="{{ s.main_image | image_url: width: 1520 }}" alt="Everything you need to install edge guard tape" width="1520" height="703" loading="lazy">
+      {% else %}
+        <img src="{{ 'cbx-install-main.png' | asset_url }}" alt="Everything you need to install edge guard tape" width="1520" height="703" loading="lazy">
+      {% endif %}
+    </picture>
+  </div>
+
+  <div class="cbx-steps">
+    {%- if step_blocks.size > 0 -%}
+      {%- for block in step_blocks -%}
+        <div class="cbx-step" {{ block.shopify_attributes }}>
+          <div class="cbx-step__media">
+            {%- if block.settings.image != blank -%}
+              <img src="{{ block.settings.image | image_url: width: 600 }}" alt="{{ block.settings.title | escape }}" width="290" height="288" loading="lazy">
+            {%- else -%}
+              <img src="{{ 'cbx-step-' | append: forloop.index | append: '.png' | asset_url }}" alt="{{ block.settings.title | escape }}" width="290" height="288" loading="lazy">
+            {%- endif -%}
+          </div>
+          <div class="cbx-step__text">
+            <p class="cbx-step__num">Step {{ forloop.index }}</p>
+            <h3>{{ block.settings.title | escape }}</h3>
+            <p>{{ block.settings.text | escape }}</p>
+          </div>
+        </div>
+      {%- endfor -%}
+    {%- else -%}
+      {%- assign step_titles = 'Clean|Peel|Center|Apply|Trim' | split: '|' -%}
+      {%- assign step_texts = 'Clean and dry the paddle edge thoroughly before applying the tape.|Peel back a short section of the removable liner to begin.|Center the tape over the paddle edge and press it firmly into place.|Continue gradually around the paddle, keeping the tape centered.|Trim any excess tape at the throat, then press firmly along the full installed edge.' | split: '|' -%}
+      {%- for i in (0..4) -%}
+        <div class="cbx-step">
+          <div class="cbx-step__media">
+            <picture>
+              <source media="(max-width: 989px)" srcset="{{ 'cbx-step-' | append: forloop.index | append: '-m.png' | asset_url }}">
+              <img src="{{ 'cbx-step-' | append: forloop.index | append: '.png' | asset_url }}" alt="{{ step_titles[i] }}" width="290" height="288" loading="lazy">
+            </picture>
+          </div>
+          <div class="cbx-step__text">
+            <p class="cbx-step__num">Step {{ forloop.index }}</p>
+            <h3>{{ step_titles[i] }}</h3>
+            <p>{{ step_texts[i] }}</p>
+          </div>
+        </div>
+      {%- endfor -%}
+    {%- endif -%}
+  </div>
+
+  <div class="cbx-tip">
+    <p class="cbx-tip__label">{{ s.tip_label | default: 'Step 3 tip' }}</p>
+    <p class="cbx-tip__text">{{ s.tip_text | default: 'Fold the strip in half to find the middle, then start at the center of the top edge so the notches line up with the corners.' }}</p>
+  </div>
+</section>
+
+<style>
+  .cbx-install__body { display: flex; flex-direction: column; align-items: center; }
+  .cbx-install__intro { color: var(--cbx-body); margin-top: 16px; }
+  .cbx-install__main { width: 100%; margin-top: 50px; }
+  .cbx-install__main img { width: 100%; height: auto; display: block; }
+
+  .cbx-steps { display: flex; gap: 20px; width: 100%; margin-top: 24px; align-items: stretch; }
+  .cbx-step { flex: 1; min-width: 0; background: var(--cbx-mist); display: flex; flex-direction: column; overflow: hidden; }
+  .cbx-step__media { height: 288px; overflow: hidden; }
+  .cbx-step__media picture { display: block; width: 100%; height: 100%; }
+  .cbx-step__media img { width: 100%; height: 100%; object-fit: cover; }
+  .cbx-step__text { display: flex; flex-direction: column; gap: 6px; padding: 18px 20px 24px; }
+  .cbx-step__num { font-size: 12px; font-weight: 600; line-height: 16px; letter-spacing: 1.2px; text-transform: uppercase; color: var(--cbx-teal); margin: 0; }
+  .cbx-step__text h3 { font-size: 24px; font-weight: 500; line-height: 32px; margin: 0; }
+  .cbx-step__text p:last-child { font-size: 16px; line-height: 24px; color: var(--cbx-body); margin: 0; }
+  .cbx-install__body .cbx-tip { margin-top: 20px; }
+
+  @media screen and (max-width: 1280px) {
+    .cbx-steps { flex-wrap: wrap; }
+    .cbx-step { flex: 1 1 30%; }
+  }
+  @media screen and (max-width: 989px) {
+    .cbx-install__intro { margin-top: 10px; font-size: 16px; line-height: 26px; }
+    .cbx-install__main { margin-top: 30px; }
+    .cbx-steps { flex-direction: column; gap: 14px; margin-top: 16px; }
+    .cbx-step { flex: none; width: 100%; }
+    .cbx-step__media { height: auto; aspect-ratio: 4 / 3; }
+    .cbx-step__text h3 { font-size: 20px; line-height: 28px; }
+    .cbx-step__text p:last-child { font-size: 15px; line-height: 24px; }
+  }
+</style>

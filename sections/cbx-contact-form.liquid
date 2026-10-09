@@ -1,29 +1,33 @@
+{%- render 'cbx-theme' -%}
 {%- render 'cbx-contact', s: section.settings -%}
 
 {% schema %}
 {
-  "name": "Carbex contact",
+  "name": "Carbex contact form",
+  "tag": "section",
+  "class": "cbx-contact-sec",
   "settings": [
     { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Contact / Support" },
     { "type": "text", "id": "heading", "label": "Heading", "default": "We're Here to Help" },
     { "type": "textarea", "id": "intro", "label": "Intro", "default": "From choosing the right width to getting your installation right, send us your question and we'll help." },
-    { "type": "image_picker", "id": "photo", "label": "Side photo" },
-    { "type": "header", "content": "Form" },
+    { "type": "image_picker", "id": "photo", "label": "Side photo (desktop)" },
+    { "type": "header", "content": "Form fields" },
     { "type": "text", "id": "first_label", "label": "First name label", "default": "First name*" },
     { "type": "text", "id": "first_placeholder", "label": "First name placeholder", "default": "Name" },
     { "type": "text", "id": "last_label", "label": "Last name label", "default": "Last name*" },
     { "type": "text", "id": "last_placeholder", "label": "Last name placeholder", "default": "Name" },
     { "type": "text", "id": "email_label", "label": "Email label", "default": "Email address*" },
     { "type": "text", "id": "email_placeholder", "label": "Email placeholder", "default": "you@example.com" },
-    { "type": "text", "id": "topic_label", "label": "Subject label", "default": "What can we help with?*" },
-    { "type": "text", "id": "topic_placeholder", "label": "Subject placeholder", "default": "Select" },
+    { "type": "text", "id": "topic_label", "label": "Topic label", "default": "What can we help with?*" },
+    { "type": "text", "id": "topic_placeholder", "label": "Topic placeholder", "default": "Select" },
     { "type": "text", "id": "message_label", "label": "Message label", "default": "Message*" },
     { "type": "text", "id": "message_placeholder", "label": "Message placeholder", "default": "Tell us what you need help with" },
+    { "type": "header", "content": "Submit" },
     { "type": "text", "id": "button_label", "label": "Button label", "default": "Send message" },
     { "type": "text", "id": "success_message", "label": "Success message", "default": "Thanks — we've received your message and will get back to you soon." },
     { "type": "text", "id": "alt_text_prefix", "label": "Alt contact prefix", "default": "Prefer email?" },
-    { "type": "text", "id": "alt_email", "label": "Alt contact email", "default": "hello@carbexlab.com" }
+    { "type": "text", "id": "alt_email", "label": "Alt email", "default": "hello@carbexlab.com" }
   ],
-  "presets": [{ "name": "Carbex contact" }]
+  "presets": [ { "name": "Carbex contact form" } ]
 }
 {% endschema %}

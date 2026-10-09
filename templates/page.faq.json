@@ -1,0 +1,23 @@
+{
+  "sections": {
+    "hero": {
+      "type": "cbx-hero",
+      "settings": {
+        "hero_default": "faq",
+        "hero_heading": "Everything You Need to Know",
+        "hero_text": "Clear answers about sizing, installation, care and everyday use.",
+        "hero_heading_tag": "h1",
+        "hero_height_d": 560,
+        "hero_height_m": 290,
+        "hero_focal": "75% 55%",
+        "hero_tight": true,
+        "hero_btn1_label": "",
+        "hero_eager": true
+      }
+    },
+    "groups": { "type": "cbx-faq-groups", "settings": {} },
+    "helpbox": { "type": "cbx-helpbox", "settings": {} },
+    "closing": { "type": "cbx-closing", "settings": {} }
+  },
+  "order": ["hero", "groups", "helpbox", "closing"]
+}

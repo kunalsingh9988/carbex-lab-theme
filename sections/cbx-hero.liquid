@@ -1,0 +1,98 @@
+{%- render 'cbx-theme' -%}
+{%- render 'cbx-sec-hero', s: section.settings -%}
+
+{% schema %}
+{
+  "name": "Carbex hero band",
+  "tag": "section",
+  "class": "cbx-page cbx-hero-sec",
+  "settings": [
+    { "type": "header", "content": "Content" },
+    { "type": "text", "id": "hero_anchor", "label": "Anchor ID" },
+    { "type": "text", "id": "hero_eyebrow", "label": "Eyebrow" },
+    {
+      "type": "select", "id": "hero_eyebrow_mod", "label": "Eyebrow style",
+      "options": [
+        { "value": "", "label": "Teal" },
+        { "value": "light", "label": "Light" },
+        { "value": "muted", "label": "Muted" }
+      ],
+      "default": ""
+    },
+    { "type": "text", "id": "hero_heading", "label": "Heading", "default": "Practical protection and care for pickleball equipment." },
+    {
+      "type": "select", "id": "hero_heading_tag", "label": "Heading tag",
+      "options": [ { "value": "h1", "label": "H1" }, { "value": "h2", "label": "H2" } ],
+      "default": "h1"
+    },
+    {
+      "type": "select", "id": "hero_heading_cls", "label": "Heading size",
+      "options": [
+        { "value": "cbx-h-hero", "label": "Hero (60px)" },
+        { "value": "cbx-h-xl", "label": "Large (50px)" }
+      ],
+      "default": "cbx-h-hero"
+    },
+    { "type": "textarea", "id": "hero_text", "label": "Supporting text", "default": "CARBEX LAB is a pickleball paddle care and protection brand. We make practical products that help players protect, clean, and maintain the equipment they use." },
+    { "type": "header", "content": "Buttons" },
+    { "type": "text", "id": "hero_btn1_label", "label": "Button 1 label", "default": "Shop Edge Guard" },
+    { "type": "url", "id": "hero_btn1_url", "label": "Button 1 link" },
+    {
+      "type": "select", "id": "hero_btn1_style", "label": "Button 1 style",
+      "options": [
+        { "value": "white", "label": "White" },
+        { "value": "ghost", "label": "Ghost" },
+        { "value": "dark", "label": "Dark" },
+        { "value": "outline", "label": "Outline" }
+      ],
+      "default": "white"
+    },
+    { "type": "text", "id": "hero_btn2_label", "label": "Button 2 label" },
+    { "type": "url", "id": "hero_btn2_url", "label": "Button 2 link" },
+    {
+      "type": "select", "id": "hero_btn2_style", "label": "Button 2 style",
+      "options": [
+        { "value": "white", "label": "White" },
+        { "value": "ghost", "label": "Ghost" },
+        { "value": "dark", "label": "Dark" },
+        { "value": "outline", "label": "Outline" }
+      ],
+      "default": "ghost"
+    },
+    { "type": "header", "content": "Media" },
+    { "type": "image_picker", "id": "hero_image", "label": "Desktop image" },
+    { "type": "image_picker", "id": "hero_image_m", "label": "Mobile image" },
+    {
+      "type": "select", "id": "hero_default", "label": "Default artwork",
+      "info": "Used when no image is picked",
+      "options": [
+        { "value": "home", "label": "Homepage" },
+        { "value": "about", "label": "About" },
+        { "value": "install", "label": "Installation" },
+        { "value": "faq", "label": "FAQ" },
+        { "value": "band", "label": "About band" }
+      ],
+      "default": "home"
+    },
+    { "type": "text", "id": "hero_focal", "label": "Image focal point", "default": "50% 50%", "info": "CSS object-position, e.g. '58% 40%'" },
+    {
+      "type": "range", "id": "hero_height_d", "label": "Desktop height",
+      "min": 360, "max": 900, "step": 20, "unit": "px", "default": 600
+    },
+    {
+      "type": "range", "id": "hero_height_m", "label": "Mobile image height",
+      "min": 240, "max": 700, "step": 10, "unit": "px", "default": 430
+    },
+    { "type": "header", "content": "Layout" },
+    { "type": "checkbox", "id": "hero_tight", "label": "Top-align copy", "default": false },
+    {
+      "type": "range", "id": "hero_pad_top", "label": "Copy top padding (desktop)",
+      "min": 40, "max": 300, "step": 10, "unit": "px", "default": 150,
+      "info": "Applies when top-align copy is on"
+    },
+    { "type": "checkbox", "id": "hero_dots", "label": "Show pagination dots (mobile)", "default": false },
+    { "type": "checkbox", "id": "hero_eager", "label": "Load image eagerly", "default": true }
+  ],
+  "presets": [ { "name": "Carbex hero band" } ]
+}
+{% endschema %}

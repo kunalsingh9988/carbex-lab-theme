@@ -82,6 +82,7 @@
   }
   .cbx-band__copy .cbx-btn-row { display: flex; gap: 20px; align-items: flex-start; margin-top: 10px; }
   .cbx-band--tight .cbx-band__copy { justify-content: flex-start; padding-top: var(--band-pt, 146px); }
+  .cbx-band__dots { display: none; }
 
   /* ---------- Section shells ---------- */
   .cbx-section { padding: 120px 200px; }
@@ -184,6 +185,10 @@
       height: var(--band-hm, 430px); width: 100%;
     }
     .cbx-band__grad { display: none; }
+    .cbx-band__dots {
+      display: block; position: absolute; bottom: 18px; left: 50%;
+      transform: translateX(-50%); width: 72px; height: 7px; z-index: 2;
+    }
 
     .cbx-reviews__grid { flex-direction: column; gap: 16px; margin-top: 34px; }
     .cbx-reviews__rating { flex-direction: column; gap: 12px; align-items: center; }

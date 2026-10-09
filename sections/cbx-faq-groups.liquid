@@ -1,0 +1,58 @@
+{%- render 'cbx-theme' -%}
+<div class="cbx-page">
+  {%- render 'cbx-sec-faqgroups', s: section.settings, blocks: section.blocks -%}
+</div>
+
+{% schema %}
+{
+  "name": "Carbex FAQ groups",
+  "tag": "section",
+  "class": "cbx-faqgroups-sec",
+  "settings": [
+    { "type": "text", "id": "label_sizing", "label": "Group 1 label", "default": "Sizing" },
+    { "type": "text", "id": "label_installation", "label": "Group 2 label", "default": "Installation" },
+    { "type": "text", "id": "label_care", "label": "Group 3 label", "default": "Care & replacement" },
+    { "type": "text", "id": "label_about", "label": "Group 4 label", "default": "About CARBEX LAB" }
+  ],
+  "blocks": [
+    {
+      "type": "faq_item",
+      "name": "Question",
+      "settings": [
+        {
+          "type": "select", "id": "group", "label": "Group",
+          "options": [
+            { "value": "sizing", "label": "Sizing" },
+            { "value": "installation", "label": "Installation" },
+            { "value": "care", "label": "Care & replacement" },
+            { "value": "about", "label": "About CARBEX LAB" }
+          ],
+          "default": "sizing"
+        },
+        { "type": "text", "id": "question", "label": "Question" },
+        { "type": "textarea", "id": "answer", "label": "Answer" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Carbex FAQ groups",
+      "blocks": [
+        { "type": "faq_item", "settings": { "group": "sizing", "question": "Which width do I need?", "answer": "30 mm tape for 16 mm paddles, 26 mm tape for 14 mm paddles. Measure your paddle's thickness first." } },
+        { "type": "faq_item", "settings": { "group": "sizing", "question": "How much tape is included?", "answer": "Each pack includes 4 strips of about 800 mm each — one strip covers one full paddle edge." } },
+        { "type": "faq_item", "settings": { "group": "sizing", "question": "Will it fit my paddle?", "answer": "It's made for standard 14 mm and 16 mm paddles. Pick the width that matches your paddle's thickness — 26 mm for 14 mm paddles, 30 mm for 16 mm paddles." } },
+        { "type": "faq_item", "settings": { "group": "installation", "question": "How do I install it?", "answer": "Clean the edge, peel back a short section of liner, center the tape over the edge, apply gradually around the paddle, then trim the excess at the throat. Full guide on the installation page." } },
+        { "type": "faq_item", "settings": { "group": "installation", "question": "How do I get it centered?", "answer": "Fold the strip in half to find the middle, then start at the center of the top edge so the notches line up with the corners." } },
+        { "type": "faq_item", "settings": { "group": "installation", "question": "Can I trim the tape?", "answer": "Yes — the strip is notched and made to be trimmed. Cut any excess at the throat with scissors for a clean finish." } },
+        { "type": "faq_item", "settings": { "group": "installation", "question": "Why is my tape lifting at the edge?", "answer": "The edge needs to be clean and fully dry before application. Peel back, clean again, and press firmly along the full strip." } },
+        { "type": "faq_item", "settings": { "group": "care", "question": "Will the tape scuff?", "answer": "Yes — that's the point. The tape takes the scuffs and scrapes so the paddle edge underneath stays clean." } },
+        { "type": "faq_item", "settings": { "group": "care", "question": "When should I replace it?", "answer": "Replace it when the surface looks worn, edges start lifting, or it stops sitting flush — most players get weeks of regular play per strip." } },
+        { "type": "faq_item", "settings": { "group": "care", "question": "How do I keep my paddle clean?", "answer": "Wipe the face and edge with a soft, slightly damp cloth after play. A dedicated paddle surface cleaner is coming soon." } },
+        { "type": "faq_item", "settings": { "group": "about", "question": "What is CARBEX LAB?", "answer": "CARBEX LAB makes straightforward products that help pickleball players protect, clean, and maintain their paddles." } },
+        { "type": "faq_item", "settings": { "group": "about", "question": "What products does CARBEX LAB currently offer?", "answer": "Our first product is replaceable edge guard tape in 26 mm and 30 mm widths. A paddle surface cleaner is coming soon." } },
+        { "type": "faq_item", "settings": { "group": "about", "question": "Is the paddle in your photos for sale?", "answer": "No — paddles shown in our photography are for demonstration only. We sell protective tape and care products, not paddles." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

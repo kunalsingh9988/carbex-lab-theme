@@ -1,0 +1,33 @@
+{%- render 'cbx-theme' -%}
+{%- render 'cbx-sec-imageband',
+  s: section.settings,
+  band_dd: 'cbx-about-band-desktop.png',
+  band_dm: 'cbx-about-band-mobile.png'
+-%}
+
+{% schema %}
+{
+  "name": "Carbex image band",
+  "tag": "section",
+  "class": "cbx-page cbx-image-band-sec",
+  "settings": [
+    { "type": "image_picker", "id": "band_image", "label": "Desktop image" },
+    { "type": "image_picker", "id": "band_image_m", "label": "Mobile image" },
+    { "type": "text", "id": "band_alt", "label": "Alt text", "default": "CARBEX LAB" },
+    {
+      "type": "range", "id": "band_height_d", "label": "Desktop height",
+      "min": 320, "max": 1000, "step": 20, "unit": "px", "default": 800
+    },
+    {
+      "type": "select", "id": "band_ratio_m", "label": "Mobile aspect ratio",
+      "options": [
+        { "value": "1:1", "label": "Square (1:1)" },
+        { "value": "4:3", "label": "Landscape (4:3)" },
+        { "value": "auto", "label": "Natural" }
+      ],
+      "default": "1:1"
+    }
+  ],
+  "presets": [ { "name": "Carbex image band" } ]
+}
+{% endschema %}

@@ -1,0 +1,44 @@
+{%- render 'cbx-theme' -%}
+{%- render 'cbx-sec-faqwrap',
+  s: section.settings,
+  blocks: section.blocks,
+  preset: section.settings.faq_preset,
+  mist: section.settings.faq_mist
+-%}
+
+{% schema %}
+{
+  "name": "Carbex FAQ accordion",
+  "tag": "section",
+  "class": "cbx-page cbx-faq-sec",
+  "settings": [
+    { "type": "text", "id": "faq_anchor", "label": "Anchor ID" },
+    { "type": "text", "id": "faq_heading", "label": "Heading", "default": "Frequently asked questions" },
+    { "type": "text", "id": "faq_more_label", "label": "More link label", "default": "See all FAQs →" },
+    { "type": "url", "id": "faq_more_url", "label": "More link URL" },
+    { "type": "checkbox", "id": "faq_open_first", "label": "Open first item", "default": true },
+    { "type": "checkbox", "id": "faq_mist", "label": "Mist background", "default": false },
+    {
+      "type": "select", "id": "faq_preset", "label": "Default questions",
+      "info": "Used until FAQ blocks are added",
+      "options": [
+        { "value": "", "label": "Product" },
+        { "value": "about", "label": "About" },
+        { "value": "install", "label": "Installation" }
+      ],
+      "default": ""
+    }
+  ],
+  "blocks": [
+    {
+      "type": "faq",
+      "name": "Question",
+      "settings": [
+        { "type": "text", "id": "question", "label": "Question" },
+        { "type": "textarea", "id": "answer", "label": "Answer" }
+      ]
+    }
+  ],
+  "presets": [ { "name": "Carbex FAQ accordion" } ]
+}
+{% endschema %}

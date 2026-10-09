@@ -1,0 +1,19 @@
+{%- render 'cbx-theme' -%}
+<div class="cbx-page">
+  {%- render 'cbx-sec-helpbox', s: section.settings -%}
+</div>
+
+{% schema %}
+{
+  "name": "Carbex help box",
+  "tag": "section",
+  "class": "cbx-helpbox-sec",
+  "settings": [
+    { "type": "text", "id": "help_heading", "label": "Heading", "default": "Still have a question?" },
+    { "type": "text", "id": "help_text", "label": "Text", "default": "Our team is happy to help." },
+    { "type": "text", "id": "help_label", "label": "Button label", "default": "Contact us" },
+    { "type": "url", "id": "help_link", "label": "Button link" }
+  ],
+  "presets": [ { "name": "Carbex help box" } ]
+}
+{% endschema %}

@@ -1,0 +1,16 @@
+{%- render 'cbx-theme' -%}
+{%- render 'cbx-sec-recs', product: product, s: section.settings -%}
+
+{% schema %}
+{
+  "name": "Carbex recommendations",
+  "tag": "section",
+  "class": "cbx-recs-sec",
+  "settings": [
+    { "type": "checkbox", "id": "show_recs", "label": "Show section", "default": true },
+    { "type": "text", "id": "recs_heading", "label": "Heading", "default": "You may also like" },
+    { "type": "collection", "id": "recs_collection", "label": "Fallback collection" }
+  ],
+  "presets": [ { "name": "Carbex recommendations" } ]
+}
+{% endschema %}

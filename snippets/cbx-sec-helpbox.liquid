@@ -1,0 +1,33 @@
+{% comment %}
+  Carbex "Still have a question?" CTA box.
+  Params: s — hash exposing help_heading, help_text, help_label, help_link.
+{% endcomment %}
+{%- assign s = s | default: section.settings -%}
+
+<div class="cbx-helpbox-wrap">
+  <div class="cbx-helpbox">
+    <div class="cbx-helpbox__text">
+      <p class="cbx-helpbox__title">{{ s.help_heading | default: 'Still have a question?' }}</p>
+      <p class="cbx-helpbox__sub">{{ s.help_text | default: 'Our team is happy to help.' }}</p>
+    </div>
+    <a class="cbx-helpbox__btn" href="{{ s.help_link | default: '/pages/contact' }}">{{ s.help_label | default: 'Contact us' }}</a>
+  </div>
+</div>
+
+<style>
+  .cbx-helpbox-wrap { padding: 0 200px 120px; }
+  .cbx-helpbox { background: var(--cbx-mist); border-radius: 10px; display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 40px 48px; width: 100%; }
+  .cbx-helpbox__title { font-size: 30px; font-weight: 500; line-height: 40px; margin: 0 0 6px; }
+  .cbx-helpbox__sub { font-size: 18px; line-height: 28px; color: var(--cbx-body); margin: 0; }
+  .cbx-helpbox__btn { background: var(--cbx-ink); color: #fff; font-size: 18px; line-height: 28px; padding: 10px 30px; border-radius: 24px; border: 1px solid rgba(2,2,2,.1); text-decoration: none; white-space: nowrap; transition: background .2s ease; }
+  .cbx-helpbox__btn:hover { background: var(--cbx-teal); }
+
+  @media screen and (max-width: 1280px) {
+    .cbx-helpbox-wrap { padding-left: 60px; padding-right: 60px; }
+  }
+  @media screen and (max-width: 989px) {
+    .cbx-helpbox-wrap { padding: 0 20px 56px; }
+    .cbx-helpbox { flex-direction: column; align-items: flex-start; padding: 28px 24px; }
+    .cbx-helpbox__title { font-size: 24px; line-height: 32px; }
+  }
+</style>

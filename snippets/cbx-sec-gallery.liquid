@@ -1,0 +1,52 @@
+{% comment %}
+  Carbex "On the court" gallery — 3×2 desktop grid, 2-col mobile grid.
+  Params: s — hash exposing:
+    gallery_heading     section heading (default 'On the court')
+    tile_1 .. tile_6    image pickers (fallback assets cbx-court-1..6.png)
+    gallery_credit      credit text (default 'Photo: Pickleland')
+    gallery_credit_url  optional credit link
+{% endcomment %}
+{%- assign s = s | default: section.settings -%}
+
+<section class="cbx-section cbx-gallery">
+  <h2 class="cbx-h-xl cbx-center">{{ s.gallery_heading | default: 'On the court' }}</h2>
+  <div class="cbx-gallery__grid">
+    {%- for i in (1..6) -%}
+      {%- assign key = 'tile_' | append: i -%}
+      {%- assign tile = s[key] -%}
+      <div class="cbx-gallery__tile">
+        {%- if tile != blank -%}
+          <img src="{{ tile | image_url: width: 980 }}" alt="CARBEX LAB on the court {{ i }}" width="490" height="490" loading="lazy">
+        {%- else -%}
+          <img src="{{ 'cbx-court-' | append: i | append: '.png' | asset_url }}" alt="CARBEX LAB on the court {{ i }}" width="490" height="490" loading="lazy">
+        {%- endif -%}
+      </div>
+    {%- endfor -%}
+  </div>
+  <div class="cbx-gallery__credit">
+    {%- if s.gallery_credit_url != blank -%}
+      <a href="{{ s.gallery_credit_url }}" target="_blank" rel="noopener">{{ s.gallery_credit | default: 'Photo: Pickleland' }}</a>
+    {%- else -%}
+      <span>{{ s.gallery_credit | default: 'Photo: Pickleland' }}</span>
+    {%- endif -%}
+  </div>
+</section>
+
+<style>
+  .cbx-gallery { display: flex; flex-direction: column; gap: 50px; align-items: center; }
+  .cbx-gallery__grid { display: grid; grid-template-columns: repeat(3, 490px); gap: 25px; }
+  .cbx-gallery__tile { overflow: hidden; aspect-ratio: 1; }
+  .cbx-gallery__tile img { width: 100%; height: 100%; object-fit: cover; }
+  .cbx-gallery__credit { width: 100%; }
+  .cbx-gallery__credit a, .cbx-gallery__credit span { font-size: 14px; line-height: 20px; color: var(--cbx-muted); }
+  .cbx-gallery__credit a:hover { color: var(--cbx-teal); }
+
+  @media screen and (max-width: 1280px) {
+    .cbx-gallery__grid { grid-template-columns: repeat(3, 1fr); width: 100%; }
+  }
+  @media screen and (max-width: 989px) {
+    .cbx-gallery { gap: 24px; }
+    .cbx-gallery__grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+    .cbx-gallery__credit a, .cbx-gallery__credit span { font-size: 12px; line-height: 18px; }
+  }
+</style>

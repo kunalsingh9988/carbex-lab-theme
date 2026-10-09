@@ -1,0 +1,72 @@
+{%- render 'cbx-sec-pdpmain', product: product, s: section.settings, blocks: section.blocks, section_id: section.id -%}
+
+{% schema %}
+{
+  "name": "Carbex product info",
+  "tag": "section",
+  "class": "cbx-pdp-sec",
+  "settings": [
+    { "type": "header", "content": "Buy box" },
+    { "type": "text", "id": "rating", "label": "Rating line", "default": "4.2 ★ · 206 ratings on Amazon" },
+    { "type": "textarea", "id": "description", "label": "Description override", "info": "Leave blank to use the product description" },
+    { "type": "text", "id": "width_hint", "label": "Width hint", "default": "30 mm tape for 16 mm paddles · 26 mm tape for 14 mm paddles. Measure your paddle's thickness before ordering." },
+    { "type": "checkbox", "id": "show_option_rows", "label": "Show color/width rows on single-option products", "default": true },
+    { "type": "text", "id": "color_value", "label": "Fallback color label", "default": "Carbon Blue" },
+    { "type": "text", "id": "width_value", "label": "Fallback width label", "default": "30 mm" },
+    { "type": "text", "id": "qty_label", "label": "Quantity label", "default": "Quantity" },
+    { "type": "text", "id": "add_to_cart_label", "label": "Add to cart label", "default": "Add to Cart" },
+    { "type": "text", "id": "sold_out_label", "label": "Sold out label", "default": "Sold out" },
+    { "type": "text", "id": "error_message", "label": "Error message", "default": "Something went wrong — please try again." },
+    { "type": "header", "content": "Quote" },
+    { "type": "textarea", "id": "quote", "label": "Quote", "default": "“I’ve been using it for 4months now and it is holding up very well.”" },
+    { "type": "text", "id": "quote_cite", "label": "Quote source", "default": "Vlad · Verified Amazon review" },
+    { "type": "header", "content": "Facts" },
+    { "type": "text", "id": "facts_heading", "label": "Facts heading", "default": "Confirmed product facts" },
+    { "type": "header", "content": "Bundle" },
+    { "type": "checkbox", "id": "show_bundle", "label": "Show bundle", "default": true },
+    { "type": "collection", "id": "bundle_collection", "label": "Bundle collection" },
+    { "type": "text", "id": "bundle_heading", "label": "Bundle heading", "default": "Make it a bundle" },
+    { "type": "header", "content": "Mechanism banner" },
+    { "type": "checkbox", "id": "show_mechanism", "label": "Show mechanism banner", "default": true },
+    { "type": "image_picker", "id": "mech_image", "label": "Desktop image" },
+    { "type": "image_picker", "id": "mech_image_m", "label": "Mobile image" },
+    { "type": "header", "content": "Sticky bar" },
+    { "type": "checkbox", "id": "show_sticky_atc", "label": "Show sticky add-to-cart (mobile)", "default": true }
+  ],
+  "blocks": [
+    {
+      "type": "fact",
+      "name": "Fact",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Label" },
+        { "type": "text", "id": "value", "label": "Value" }
+      ]
+    },
+    {
+      "type": "caption",
+      "name": "Mechanism caption",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Title" },
+        { "type": "textarea", "id": "text", "label": "Text" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Carbex product info",
+      "blocks": [
+        { "type": "fact", "settings": { "label": "Package", "value": "4 strips" } },
+        { "type": "fact", "settings": { "label": "Strip length", "value": "About 800 mm each" } },
+        { "type": "fact", "settings": { "label": "Coverage", "value": "One strip covers one paddle" } },
+        { "type": "fact", "settings": { "label": "Weight", "value": "About 0.25 oz per strip" } },
+        { "type": "fact", "settings": { "label": "Thickness", "value": "About 0.525 mm, excluding backing" } },
+        { "type": "fact", "settings": { "label": "Profile", "value": "Notched edge; trim to fit" } },
+        { "type": "fact", "settings": { "label": "Widths", "value": "26 mm (14 mm paddles) · 30 mm (16 mm paddles)" } },
+        { "type": "caption", "settings": { "title": "A replaceable protective layer", "text": "Takes routine wear and contact around the outside edge, helping keep it protected." } },
+        { "type": "caption", "settings": { "title": "Notched to lay flat", "text": "The cut edge follows the curves of the paddle head and lies flat." } },
+        { "type": "caption", "settings": { "title": "Trim to fit", "text": "Ends cleanly at the throat, cut to length during install." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

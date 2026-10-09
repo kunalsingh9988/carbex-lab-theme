@@ -17,18 +17,23 @@
     btn_label / btn_url / btn_style (white|ghost|dark|outline)
     btn2_label / btn2_url / btn2_style (optional second button)
     tight       - true = copy top-aligned w/ padding instead of vertically centered
+    band_cls    - extra class on the section wrapper (optional)
+    copy_cls    - extra class on the copy column (optional)
+    fetchpriority - 'high' for above-the-fold heroes (default none → lazy)
+    dots        - true = pagination dots overlay at media bottom (mobile only)
 {% endcomment %}
 {%- assign band_h = band_h | default: 600 -%}
 {%- assign band_hm = band_hm | default: 430 -%}
 {%- assign heading_tag = heading_tag | default: 'h2' -%}
 {%- assign heading_cls = heading_cls | default: 'cbx-h-xl' -%}
 {%- assign focal = focal | default: '50% 50%' -%}
+{%- assign band_pt = band_pt | default: 146 -%}
 {%- if img_m == blank -%}{%- assign img_m = img_d -%}{%- endif -%}
 
 <section
-  class="cbx-band cbx-on-dark{% if tight %} cbx-band--tight{% endif %}"
+  class="cbx-band cbx-on-dark{% if tight %} cbx-band--tight{% endif %}{% if band_cls %} {{ band_cls }}{% endif %}"
   {% if id %}id="{{ id }}"{% endif %}
-  style="--band-h: {{ band_h }}px; --band-hm: {{ band_hm }}px; --band-focal: {{ focal }};"
+  style="--band-h: {{ band_h }}px; --band-hm: {{ band_hm }}px; --band-focal: {{ focal }}; --band-pt: {{ band_pt }}px;"
 >
   <div class="cbx-band__media">
     <picture>
@@ -41,15 +46,18 @@
           srcset="{{ img_d | image_url: width: 1200 }} 1200w, {{ img_d | image_url: width: 1920 }} 1920w"
           sizes="100vw"
           alt="{{ img_d.alt | default: heading | escape }}"
-          width="1920" height="{{ band_h }}" loading="lazy"
+          width="1920" height="{{ band_h }}" loading="{% if fetchpriority == 'high' %}eager{% else %}lazy{% endif %}"{% if fetchpriority %} fetchpriority="{{ fetchpriority }}"{% endif %}
         >
       {%- else -%}
-        <img src="{{ img_d | asset_url }}" alt="{{ heading | escape }}" width="1920" height="{{ band_h }}" loading="lazy">
+        <img src="{{ img_d | asset_url }}" alt="{{ heading | escape }}" width="1920" height="{{ band_h }}" loading="{% if fetchpriority == 'high' %}eager{% else %}lazy{% endif %}"{% if fetchpriority %} fetchpriority="{{ fetchpriority }}"{% endif %}>
       {%- endif -%}
     </picture>
+    {%- if dots -%}
+      <img class="cbx-band__dots" src="{{ 'cbx-dots-2.svg' | asset_url }}" alt="" width="72" height="7" aria-hidden="true">
+    {%- endif -%}
   </div>
   <div class="cbx-band__grad"></div>
-  <div class="cbx-band__copy">
+  <div class="cbx-band__copy{% if copy_cls %} {{ copy_cls }}{% endif %}">
     {%- if eyebrow != blank -%}
       <p class="cbx-eyebrow{% if eyebrow_mod %} cbx-eyebrow--{{ eyebrow_mod }}{% endif %}">{{ eyebrow }}</p>
     {%- endif -%}

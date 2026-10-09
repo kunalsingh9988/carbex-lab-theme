@@ -1,0 +1,86 @@
+{% comment %}
+  Carbex hero / content band — wraps cbx-band with a settings-hash contract.
+  Params: s — hash exposing hero_* keys (all optional):
+    hero_anchor        anchor id for the section
+    hero_image         desktop image (image object or asset filename)
+    hero_image_m       mobile image (falls back to hero_image)
+    hero_height_d      desktop band height px (default 600)
+    hero_height_m      mobile image height px (default 430)
+    hero_focal         object-position (default '50% 50%')
+    hero_pad_top       desktop copy top padding when tight (default 146)
+    hero_tight         boolean — top-aligned copy instead of centered
+    hero_eyebrow       eyebrow text
+    hero_eyebrow_mod   'light' | 'muted' | '' (default teal)
+    hero_heading       heading text
+    hero_heading_tag   'h1' | 'h2' (default 'h1')
+    hero_heading_cls   'cbx-h-hero' | 'cbx-h-xl' (default 'cbx-h-hero')
+    hero_text          supporting paragraph
+    hero_btn1_label    primary button label
+    hero_btn1_url      primary button link
+    hero_btn1_style    white|ghost|dark|outline (default white)
+    hero_btn2_label    secondary button label
+    hero_btn2_url      secondary button link
+    hero_btn2_style    (default ghost)
+    hero_dots          boolean — mobile pagination dots at media bottom
+    hero_eager         boolean — eager/fetchpriority image loading
+    hero_default       'home'|'about'|'install'|'faq' — fallback artwork set
+{% endcomment %}
+{%- assign s = s | default: section.settings -%}
+{%- assign hero_dd = 'cbx-hero-desktop.png' -%}
+{%- assign hero_dm = 'cbx-hero-mobile.png' -%}
+{%- case s.hero_default -%}
+  {%- when 'about' -%}
+    {%- assign hero_dd = 'cbx-about-hero-desktop.png' -%}
+    {%- assign hero_dm = 'cbx-about-hero-mobile.png' -%}
+  {%- when 'install' -%}
+    {%- assign hero_dd = 'cbx-install-hero-desktop.png' -%}
+    {%- assign hero_dm = 'cbx-install-hero-mobile.png' -%}
+  {%- when 'faq' -%}
+    {%- assign hero_dd = 'cbx-faq-hero.png' -%}
+    {%- assign hero_dm = 'cbx-faq-hero.png' -%}
+  {%- when 'band' -%}
+    {%- assign hero_dd = 'cbx-band-about-desktop.png' -%}
+    {%- assign hero_dm = 'cbx-band-about-mobile.png' -%}
+{%- endcase -%}
+{%- if s.hero_eager -%}{%- assign hero_fp = 'high' -%}{%- endif -%}
+{%- assign hero_bd = s.hero_height_d | default: 600 -%}
+{%- assign hero_bm = s.hero_height_m | default: 430 -%}
+{%- assign hero_img_d = s.hero_image | default: hero_dd -%}
+{%- assign hero_img_m = s.hero_image_m | default: hero_dm -%}
+{%- assign hero_tag = s.hero_heading_tag | default: 'h1' -%}
+{%- assign hero_cls = s.hero_heading_cls | default: 'cbx-h-hero' -%}
+{%- render 'cbx-band',
+  id: s.hero_anchor,
+  band_cls: 'cbx-hero',
+  copy_cls: 'cbx-hero__copy',
+  band_h: hero_bd,
+  band_hm: hero_bm,
+  band_pt: s.hero_pad_top,
+  focal: s.hero_focal,
+  tight: s.hero_tight,
+  img_d: hero_img_d,
+  img_m: hero_img_m,
+  eyebrow: s.hero_eyebrow,
+  eyebrow_mod: s.hero_eyebrow_mod,
+  heading: s.hero_heading,
+  heading_tag: hero_tag,
+  heading_cls: hero_cls,
+  text: s.hero_text,
+  btn_label: s.hero_btn1_label,
+  btn_url: s.hero_btn1_url,
+  btn_style: s.hero_btn1_style,
+  btn2_label: s.hero_btn2_label,
+  btn2_url: s.hero_btn2_url,
+  btn2_style: s.hero_btn2_style,
+  dots: s.hero_dots,
+  fetchpriority: hero_fp
+-%}
+
+<style>
+  .cbx-hero__copy { gap: 30px; }
+  @media screen and (max-width: 989px) {
+    .cbx-hero__copy { gap: 16px; }
+    .cbx-hero__copy .cbx-h-hero { font-size: 36px; line-height: 44px; }
+    .cbx-hero__copy .cbx-h-xl { font-size: 30px; line-height: 40px; }
+  }
+</style>

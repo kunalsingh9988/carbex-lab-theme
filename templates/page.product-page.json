@@ -1,0 +1,9 @@
+{
+  "sections": {
+    "main": { "type": "cbx-product-info", "settings": {} },
+    "reviews": { "type": "cbx-reviews", "settings": { "mist": true } },
+    "recommendations": { "type": "cbx-recommendations", "settings": {} },
+    "closing": { "type": "cbx-closing", "settings": {} }
+  },
+  "order": ["main", "reviews", "recommendations", "closing"]
+}

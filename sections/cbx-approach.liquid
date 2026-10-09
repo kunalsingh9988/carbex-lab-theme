@@ -1,0 +1,17 @@
+{%- render 'cbx-theme' -%}
+{%- render 'cbx-sec-approach', s: section.settings -%}
+
+{% schema %}
+{
+  "name": "Carbex approach",
+  "tag": "section",
+  "class": "cbx-page cbx-approach-sec",
+  "settings": [
+    { "type": "text", "id": "approach_eyebrow", "label": "Eyebrow", "default": "Our approach" },
+    { "type": "textarea", "id": "approach_heading", "label": "Statement", "default": "GOOD PADDLE CARE DOESN'T NEED TO BE COMPLICATED." },
+    { "type": "textarea", "id": "approach_text", "label": "Body text", "default": "We look at how paddles actually wear: edge contact, scuffs and everyday grime. Then we build simple products around it that are easy to understand and easy to use. Clear sizing, honest details, and nothing overstated." },
+    { "type": "image_picker", "id": "approach_image", "label": "Side image" }
+  ],
+  "presets": [ { "name": "Carbex approach" } ]
+}
+{% endschema %}

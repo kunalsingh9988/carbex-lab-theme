@@ -1,0 +1,22 @@
+{%- render 'cbx-theme' -%}
+{%- render 'cbx-sec-gallery', s: section.settings -%}
+
+{% schema %}
+{
+  "name": "Carbex gallery",
+  "tag": "section",
+  "class": "cbx-page cbx-gallery-sec",
+  "settings": [
+    { "type": "text", "id": "gallery_heading", "label": "Heading", "default": "On the court" },
+    { "type": "image_picker", "id": "tile_1", "label": "Tile 1" },
+    { "type": "image_picker", "id": "tile_2", "label": "Tile 2" },
+    { "type": "image_picker", "id": "tile_3", "label": "Tile 3" },
+    { "type": "image_picker", "id": "tile_4", "label": "Tile 4" },
+    { "type": "image_picker", "id": "tile_5", "label": "Tile 5" },
+    { "type": "image_picker", "id": "tile_6", "label": "Tile 6" },
+    { "type": "text", "id": "gallery_credit", "label": "Photo credit", "default": "Photo: Pickleland" },
+    { "type": "url", "id": "gallery_credit_url", "label": "Credit link" }
+  ],
+  "presets": [ { "name": "Carbex gallery" } ]
+}
+{% endschema %}

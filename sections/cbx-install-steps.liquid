@@ -1,0 +1,42 @@
+{%- render 'cbx-theme' -%}
+{%- render 'cbx-sec-steps', s: section.settings, blocks: section.blocks -%}
+
+{% schema %}
+{
+  "name": "Carbex install steps",
+  "tag": "section",
+  "class": "cbx-page cbx-steps-sec",
+  "settings": [
+    { "type": "text", "id": "intro_heading", "label": "Heading", "default": "Install Your Edge Guard" },
+    { "type": "textarea", "id": "intro_text", "label": "Intro text", "default": "Each pack has 4 strips, one per paddle. Have a soft cloth and scissors ready." },
+    { "type": "image_picker", "id": "main_image", "label": "Main image (desktop)" },
+    { "type": "image_picker", "id": "main_image_m", "label": "Main image (mobile)" },
+    { "type": "header", "content": "Tip callout" },
+    { "type": "text", "id": "tip_label", "label": "Tip label", "default": "Step 3 tip" },
+    { "type": "textarea", "id": "tip_text", "label": "Tip text", "default": "Fold the strip in half to find the middle, then start at the center of the top edge so the notches line up with the corners." }
+  ],
+  "blocks": [
+    {
+      "type": "step",
+      "name": "Step",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Step image" },
+        { "type": "text", "id": "title", "label": "Title" },
+        { "type": "textarea", "id": "text", "label": "Text" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Carbex install steps",
+      "blocks": [
+        { "type": "step", "settings": { "title": "Clean", "text": "Clean and dry the paddle edge thoroughly before applying the tape." } },
+        { "type": "step", "settings": { "title": "Peel", "text": "Peel back a short section of the removable liner to begin." } },
+        { "type": "step", "settings": { "title": "Center", "text": "Center the tape over the paddle edge and press it firmly into place." } },
+        { "type": "step", "settings": { "title": "Apply", "text": "Continue gradually around the paddle, keeping the tape centered." } },
+        { "type": "step", "settings": { "title": "Trim", "text": "Trim any excess tape at the throat, then press firmly along the full installed edge." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

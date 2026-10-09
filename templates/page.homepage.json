@@ -1,0 +1,54 @@
+{
+  "sections": {
+    "hero": {
+      "type": "cbx-hero",
+      "settings": {
+        "hero_default": "home",
+        "hero_heading": "Practical protection and care for pickleball equipment.",
+        "hero_text": "CARBEX LAB is a pickleball paddle care and protection brand. We make practical products that help players protect, clean, and maintain the equipment they use.",
+        "hero_heading_tag": "h1",
+        "hero_btn1_label": "Shop Edge Guard",
+        "hero_btn1_style": "white",
+        "hero_btn2_label": "How It Works",
+        "hero_btn2_url": "/pages/installation",
+        "hero_btn2_style": "ghost",
+        "hero_height_d": 680,
+        "hero_height_m": 540,
+        "hero_pad_top": 110,
+        "hero_tight": true,
+        "hero_dots": true,
+        "hero_eager": true
+      }
+    },
+    "shop_cards": {
+      "type": "cbx-shop-cards",
+      "settings": {
+        "product_1": "carbex-lab-pickleball-paddle-edge-guard-tape"
+      }
+    },
+    "about_band": {
+      "type": "cbx-hero",
+      "settings": {
+        "hero_default": "band",
+        "hero_eyebrow": "About",
+        "hero_eyebrow_mod": "light",
+        "hero_heading": "Built Around Better Paddle Care",
+        "hero_heading_tag": "h2",
+        "hero_heading_cls": "cbx-h-xl",
+        "hero_text": "Simple products built around how paddles actually wear.",
+        "hero_btn1_label": "Learn More About Us",
+        "hero_btn1_url": "/pages/about-us",
+        "hero_btn1_style": "white",
+        "hero_height_d": 600,
+        "hero_height_m": 430,
+        "hero_focal": "58% 40%",
+        "hero_tight": true
+      }
+    },
+    "reviews": { "type": "cbx-reviews", "settings": { "mist": true } },
+    "gallery": { "type": "cbx-gallery", "settings": {} },
+    "faq": { "type": "cbx-faq-accordion", "settings": { "faq_mist": true } },
+    "closing": { "type": "cbx-closing", "settings": {} }
+  },
+  "order": ["hero", "shop_cards", "about_band", "reviews", "gallery", "faq", "closing"]
+}

@@ -9,180 +9,99 @@
  */
 {
   "sections": {
-    "carbex_homepage": {
-      "type": "carbex-homepage",
+    "hero": {
+      "type": "cbx-hero",
+      "settings": {
+        "hero_default": "home",
+        "hero_heading": "Practical protection and care for pickleball equipment.",
+        "hero_text": "CARBEX LAB is a pickleball paddle care and protection brand. We make practical products that help players protect, clean, and maintain the equipment they use.",
+        "hero_heading_tag": "h1",
+        "hero_heading_cls": "cbx-h-hero",
+        "hero_btn1_label": "Shop Edge Guard",
+        "hero_btn1_style": "white",
+        "hero_btn2_label": "How It Works",
+        "hero_btn2_url": "/pages/installation",
+        "hero_btn2_style": "ghost",
+        "hero_height_d": 680,
+        "hero_height_m": 540,
+        "hero_pad_top": 110,
+        "hero_tight": true,
+        "hero_dots": true,
+        "hero_eager": true
+      }
+    },
+    "shop_cards": {
+      "type": "cbx-shop-cards",
+      "settings": {
+        "product_1": "carbex-lab-pickleball-paddle-edge-guard-tape"
+      }
+    },
+    "about_band": {
+      "type": "cbx-hero",
+      "settings": {
+        "hero_default": "band",
+        "hero_eyebrow": "About",
+        "hero_eyebrow_mod": "light",
+        "hero_heading": "Built Around Better Paddle Care",
+        "hero_heading_tag": "h2",
+        "hero_heading_cls": "cbx-h-xl",
+        "hero_text": "Simple products built around how paddles actually wear.",
+        "hero_btn1_label": "Learn More About Us",
+        "hero_btn1_url": "/pages/about-us",
+        "hero_btn1_style": "white",
+        "hero_height_d": 600,
+        "hero_height_m": 430,
+        "hero_focal": "58% 40%",
+        "hero_tight": true,
+        "hero_eager": false
+      }
+    },
+    "reviews": {
+      "type": "cbx-reviews",
       "blocks": {
-        "trust_1": {
-          "type": "trust",
-          "settings": {
-            "icon_asset": "carbex-icon-court-tested",
-            "icon": "✓",
-            "title": "Court-tested protection",
-            "text": "Built for the impacts and wear of real play."
-          }
-        },
-        "trust_2": {
-          "type": "trust",
-          "settings": {
-            "icon_asset": "carbex-icon-fits-paddle",
-            "icon": "〰",
-            "title": "Fits your paddle, exactly",
-            "text": "Thoughtful products that work with your equipment."
-          }
-        },
-        "trust_3": {
-          "type": "trust",
-          "settings": {
-            "icon_asset": "carbex-icon-game-neutral",
-            "icon": "✦",
-            "title": "Doesn't change your game",
-            "text": "Easy to use and designed to stay out of your way."
-          }
-        },
-        "feature_1": {
-          "type": "feature",
-          "settings": {
-            "number": "01",
-            "title": "Impact layer",
-            "text": "Thoughtful construction that keeps your gear protected."
-          }
-        },
-        "feature_2": {
-          "type": "feature",
-          "settings": {
-            "number": "02",
-            "title": "Scalloped, trim-to-fit edge",
-            "text": "A clean fit that follows the shape of your paddle."
-          }
-        },
-        "feature_3": {
-          "type": "feature",
-          "settings": {
-            "number": "03",
-            "title": "High-adhesion backing",
-            "text": "Stays locked in through the toughest sessions."
-          }
-        },
-        "step_1": {
-          "type": "step",
-          "settings": {
-            "number": "Step 1",
-            "title": "Clean",
-            "text": "Clean and dry the edge thoroughly."
-          }
-        },
-        "step_2": {
-          "type": "step",
-          "settings": {
-            "number": "Step 2",
-            "title": "Peel",
-            "text": "Peel back a section of the removable liner."
-          }
-        },
-        "step_3": {
-          "type": "step",
-          "settings": {
-            "number": "Step 3",
-            "title": "Apply",
-            "text": "Center the tape and press firmly around the edge."
-          }
-        },
-        "compare_1": {
-          "type": "compare",
-          "settings": {
-            "left": "Quick to wear down",
-            "right": "Made to last through play"
-          }
-        },
-        "compare_2": {
-          "type": "compare",
-          "settings": {
-            "left": "Difficult to trim cleanly",
-            "right": "Scalloped, trim-to-fit design"
-          }
-        },
-        "compare_3": {
-          "type": "compare",
-          "settings": {
-            "left": "Generic adhesive",
-            "right": "High-adhesion backing"
-          }
-        },
         "review_1": {
           "type": "review",
           "settings": {
-            "source": "Google",
-            "title": "Great protection without affecting play",
-            "text": "The product has made a noticeable difference to my paddle.",
-            "author": "Verified player"
+            "quote": "“After using my paddle for a couple months my tape is in pretty rough shape, but the paddle underneath is still in great shape, so this tape has done its job.”",
+            "name": "Leighanne G.",
+            "meta": "Verified Amazon review"
           }
         },
         "review_2": {
           "type": "review",
           "settings": {
-            "source": "Google",
-            "title": "Genuinely impressed",
-            "text": "It stays put and looks great after multiple sessions.",
-            "author": "Verified player"
+            "quote": "“Put this around my new paddle & thankful that I did, cuz I scrapped the top of it but was saved by this guard.”",
+            "name": "RoseMary L.",
+            "meta": "Verified Amazon review"
           }
         },
         "review_3": {
           "type": "review",
           "settings": {
-            "source": "Google",
-            "title": "Solid tape and useful cleaner",
-            "text": "Easy to install, and my paddle feels better looked after.",
-            "author": "Verified player"
-          }
-        },
-        "faq_1": {
-          "type": "faq",
-          "settings": {
-            "question": "What is Carbex Lab?",
-            "answer": "<p>Carbex Lab makes practical care products for pickleball players.</p>"
-          }
-        },
-        "faq_2": {
-          "type": "faq",
-          "settings": {
-            "question": "How do I install the edge tape?",
-            "answer": "<p>Clean and dry the paddle edge, peel the liner, then press the tape around the edge.</p>"
-          }
-        },
-        "faq_3": {
-          "type": "faq",
-          "settings": {
-            "question": "Does Carbex affect paddle performance?",
-            "answer": "<p>The products are designed to protect and care for your equipment without changing how it plays.</p>"
+            "quote": "“I tend to scrape my paddle on the floor when picking up the ball a lot and the fence when shooting for ATPs at our local courts and it's holding up well.”",
+            "name": "Ash",
+            "meta": "Verified Amazon review"
           }
         }
       },
-      "block_order": [
-        "trust_1",
-        "trust_2",
-        "trust_3",
-        "feature_1",
-        "feature_2",
-        "feature_3",
-        "step_1",
-        "step_2",
-        "step_3",
-        "compare_1",
-        "compare_2",
-        "compare_3",
-        "review_1",
-        "review_2",
-        "review_3",
-        "faq_1",
-        "faq_2",
-        "faq_3"
-      ],
+      "block_order": ["review_1", "review_2", "review_3"],
+      "settings": { "mist": true }
+    },
+    "gallery": {
+      "type": "cbx-gallery",
+      "settings": {}
+    },
+    "faq": {
+      "type": "cbx-faq-accordion",
       "settings": {
-        "product_1": "carbex-lab-pickleball-paddle-edge-guard-tape"
+        "faq_mist": true,
+        "faq_anchor": "carbex-faq"
       }
+    },
+    "closing": {
+      "type": "cbx-closing",
+      "settings": {}
     }
   },
-  "order": [
-    "carbex_homepage"
-  ]
+  "order": ["hero", "shop_cards", "about_band", "reviews", "gallery", "faq", "closing"]
 }

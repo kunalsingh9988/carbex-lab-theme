@@ -1,16 +1,35 @@
 {
   "sections": {
-    "main": {
-      "type": "carbex-about-page",
-      "blocks": {
-        "craft-1": {"type": "craft_point", "settings": {"text": "Precision-cut widths for a factory-clean edge"}},
-        "craft-2": {"type": "craft_point", "settings": {"text": "Adhesive that holds — and removes cleanly"}},
-        "craft-3": {"type": "craft_point", "settings": {"text": "Carbon-fiber finish that matches premium paddles"}},
-        "craft-4": {"type": "craft_point", "settings": {"text": "Zero added bulk at the edge"}}
-      },
-      "block_order": ["craft-1", "craft-2", "craft-3", "craft-4"],
-      "settings": {}
-    }
+    "hero": {
+      "type": "cbx-hero",
+      "settings": {
+        "hero_default": "about",
+        "hero_heading": "Built for Better Paddle Care",
+        "hero_text": "CARBEX LAB creates straightforward products designed to help pickleball players protect, clean, and maintain their paddles.",
+        "hero_heading_tag": "h1",
+        "hero_height_d": 520,
+        "hero_height_m": 430,
+        "hero_focal": "58% 45%",
+        "hero_tight": true,
+        "hero_btn1_label": "",
+        "hero_eager": true
+      }
+    },
+    "statement": { "type": "cbx-statement", "settings": {} },
+    "image_band": {
+      "type": "cbx-image-band",
+      "settings": { "band_alt": "Pickleball players on court", "band_height_d": 800, "band_ratio_m": "4:3" }
+    },
+    "approach": { "type": "cbx-approach", "settings": {} },
+    "reviews": {
+      "type": "cbx-reviews",
+      "settings": { "reviews_heading": "Real feedback from real players", "mist": true }
+    },
+    "faq": {
+      "type": "cbx-faq-accordion",
+      "settings": { "faq_preset": "about", "faq_mist": false }
+    },
+    "closing": { "type": "cbx-closing", "settings": {} }
   },
-  "order": ["main"]
+  "order": ["hero", "statement", "image_band", "approach", "reviews", "faq", "closing"]
 }

@@ -3,13 +3,15 @@
   Figma About page body. Params: s = section.settings (optional — nil → defaults),
   blocks = section.blocks (optional, for review/faq overrides).
 {% endcomment %}
+{%- assign s = s | default: section.settings -%}
+{%- assign blocks = blocks | default: section.blocks -%}
 
 <div class="cbx-page cbx-about">
   {%- comment -%} 1 · HERO (520px) {%- endcomment -%}
   {%- assign hero_d = s.hero_image | default: 'cbx-about-hero-desktop.png' -%}
   {%- assign hero_m = s.hero_image_m | default: 'cbx-about-hero-mobile.png' -%}
-  {%- assign hero_heading_v = s.hero_heading | default: 'Built for Better Paddle Care' -%}
-  {%- assign hero_text_v = s.hero_text | default: 'CARBEX LAB creates straightforward products designed to help pickleball players protect, clean, and maintain their paddles.' -%}
+  {%- assign hero_head = s.hero_heading | default: 'Built for Better Paddle Care' -%}
+  {%- assign hero_txt = s.hero_text | default: 'CARBEX LAB creates straightforward products designed to help pickleball players protect, clean, and maintain their paddles.' -%}
   {%- render 'cbx-band',
     band_h: 520,
     band_hm: 430,
@@ -17,50 +19,26 @@
     tight: true,
     img_d: hero_d,
     img_m: hero_m,
-    heading: hero_heading_v,
+    heading: hero_head,
     heading_tag: 'h1',
     heading_cls: 'cbx-h-hero',
-    text: hero_text_v
+    text: hero_txt,
+    fetchpriority: 'high'
   -%}
 
   {%- comment -%} 2 · CENTERED STATEMENT {%- endcomment -%}
-  <section class="cbx-section cbx-about__center">
-    <div class="cbx-about__center-col">
-      <h2 class="cbx-h-xl cbx-center">{{ s.center_heading | default: 'Care Beyond the Game' }}</h2>
-      <div class="cbx-about__center-copy">
-        <p>{{ s.center_p1 | default: 'Your paddle is part of every point, every session, and every game. CARBEX LAB is focused on the simple things that help you take better care of it.' }}</p>
-        <p>{{ s.center_p2 | default: 'From replaceable edge protection to practical surface care, we create products around real paddle-maintenance needs.' }}</p>
-      </div>
-    </div>
-  </section>
+  {%- render 'cbx-sec-statement', s: s -%}
 
-  {%- comment -%} 3 · IMAGE-ONLY BAND (800px) {%- endcomment -%}
-  <section class="cbx-about__band">
-    <picture>
-      <source media="(max-width: 989px)" srcset="{% if s.band_image_m != blank %}{{ s.band_image_m | image_url: width: 1080 }}{% else %}{{ 'cbx-about-band-mobile.png' | asset_url }}{% endif %}">
-      {% if s.band_image != blank %}
-        <img src="{{ s.band_image | image_url: width: 1920 }}" alt="{{ s.center_heading | escape }}" width="1920" height="800" loading="lazy">
-      {% else %}
-        <img src="{{ 'cbx-about-band-desktop.png' | asset_url }}" alt="Pickleball players on court" width="1920" height="800" loading="lazy">
-      {% endif %}
-    </picture>
-  </section>
+  {%- comment -%} 3 · IMAGE-ONLY BAND {%- endcomment -%}
+  {%- render 'cbx-sec-imageband',
+    s: s,
+    band_dd: 'cbx-about-band-desktop.png',
+    band_dm: 'cbx-about-band-mobile.png',
+    band_rm: '4:3'
+  -%}
 
   {%- comment -%} 4 · OUR APPROACH {%- endcomment -%}
-  <section class="cbx-section cbx-approach">
-    <div class="cbx-approach__text">
-      <p class="cbx-eyebrow cbx-eyebrow--muted">{{ s.approach_eyebrow | default: 'Our approach' }}</p>
-      <h2 class="cbx-approach__statement">{{ s.approach_heading | default: "GOOD PADDLE CARE DOESN'T NEED TO BE COMPLICATED." }}</h2>
-      <p class="cbx-approach__body">{{ s.approach_text | default: 'We look at how paddles actually wear: edge contact, scuffs and everyday grime. Then we build simple products around it that are easy to understand and easy to use. Clear sizing, honest details, and nothing overstated.' }}</p>
-    </div>
-    <div class="cbx-approach__media">
-      {% if s.approach_image != blank %}
-        <img src="{{ s.approach_image | image_url: width: 776 }}" alt="{{ s.approach_heading | escape }}" width="388" height="660" loading="lazy">
-      {% else %}
-        <img src="{{ 'cbx-paddle-cutout.png' | asset_url }}" alt="CARBEX LAB paddle" width="388" height="660" loading="lazy">
-      {% endif %}
-    </div>
-  </section>
+  {%- render 'cbx-sec-approach', s: s -%}
 
   {%- comment -%} 5 · REVIEWS {%- endcomment -%}
   {%- assign review_blocks = blocks | where: 'type', 'review' -%}
@@ -71,81 +49,8 @@
 
   {%- comment -%} 6 · FAQ {%- endcomment -%}
   {%- assign faq_blocks = blocks | where: 'type', 'faq' -%}
-  <section class="cbx-section">
-    <div class="cbx-faqwrap">
-      <div class="cbx-faqwrap__side">
-        <h2 class="cbx-h-xl">{{ s.faq_heading | default: 'Frequently asked questions' }}</h2>
-        <a class="cbx-faqwrap__more" href="{{ routes.root_url }}pages/faq">{{ s.faq_more_label | default: 'See all FAQs →' }}</a>
-      </div>
-      <div class="cbx-faqwrap__acc">
-        {%- if faq_blocks.size > 0 -%}
-          {%- render 'cbx-faq-items', blocks: faq_blocks, open_first: true -%}
-        {%- else -%}
-          <div class="cbx-acc">
-            <div class="cbx-acc__line"></div>
-            <details class="cbx-acc__item" open>
-              <summary><p class="cbx-acc__q">What is CARBEX LAB?</p><span class="cbx-acc__icon"><img class="cbx-i-plus" src="{{ 'cbx-icon-add.svg' | asset_url }}" alt="" width="24" height="24"><img class="cbx-i-minus" src="{{ 'cbx-icon-minus.svg' | asset_url }}" alt="" width="24" height="24"></span></summary>
-              <p class="cbx-acc__a">CARBEX LAB is a pickleball paddle care and protection brand. We make practical products that help players protect, clean, and maintain the equipment they use.</p>
-            </details>
-            <div class="cbx-acc__line"></div>
-            <details class="cbx-acc__item">
-              <summary><p class="cbx-acc__q">What products does CARBEX LAB currently offer?</p><span class="cbx-acc__icon"><img class="cbx-i-plus" src="{{ 'cbx-icon-add.svg' | asset_url }}" alt="" width="24" height="24"><img class="cbx-i-minus" src="{{ 'cbx-icon-minus.svg' | asset_url }}" alt="" width="24" height="24"></span></summary>
-              <p class="cbx-acc__a">Paddle Edge Guard Tape in 26 mm and 30 mm widths. A paddle surface cleaner is coming soon.</p>
-            </details>
-            <div class="cbx-acc__line"></div>
-            <details class="cbx-acc__item">
-              <summary><p class="cbx-acc__q">Which width do I need?</p><span class="cbx-acc__icon"><img class="cbx-i-plus" src="{{ 'cbx-icon-add.svg' | asset_url }}" alt="" width="24" height="24"><img class="cbx-i-minus" src="{{ 'cbx-icon-minus.svg' | asset_url }}" alt="" width="24" height="24"></span></summary>
-              <p class="cbx-acc__a">30 mm tape for 16 mm paddles, 26 mm tape for 14 mm paddles. Measure your paddle's thickness first.</p>
-            </details>
-            <div class="cbx-acc__line"></div>
-            <details class="cbx-acc__item">
-              <summary><p class="cbx-acc__q">Is the paddle in your photos for sale?</p><span class="cbx-acc__icon"><img class="cbx-i-plus" src="{{ 'cbx-icon-add.svg' | asset_url }}" alt="" width="24" height="24"><img class="cbx-i-minus" src="{{ 'cbx-icon-minus.svg' | asset_url }}" alt="" width="24" height="24"></span></summary>
-              <p class="cbx-acc__a">The paddles shown are for demonstration. CARBEX LAB products protect the paddle you already play with.</p>
-            </details>
-            <div class="cbx-acc__line"></div>
-          </div>
-        {%- endif -%}
-      </div>
-    </div>
-  </section>
+  {%- render 'cbx-sec-faqwrap', s: s, blocks: faq_blocks, preset: 'about' -%}
 
   {%- comment -%} 7 · CLOSING BANNER {%- endcomment -%}
   {%- render 'cbx-closing', img_d: s.closing_image, img_m: s.closing_image_m -%}
 </div>
-
-<style>
-  .cbx-about__center { display: flex; justify-content: center; }
-  .cbx-about__center-col { width: 750px; max-width: 100%; display: flex; flex-direction: column; gap: 30px; align-items: center; }
-  .cbx-about__center-copy { display: flex; flex-direction: column; gap: 10px; }
-  .cbx-about__center-copy p { font-size: 24px; line-height: 34px; text-align: center; margin: 0; }
-
-  .cbx-about__band { height: 800px; background: var(--cbx-navy); overflow: hidden; }
-  .cbx-about__band img { width: 100%; height: 100%; object-fit: cover; }
-
-  .cbx-approach { display: flex; gap: 80px; align-items: center; }
-  .cbx-approach__text { width: 880px; display: flex; flex-direction: column; gap: 28px; }
-  .cbx-approach__statement {
-    font-size: 76px; font-weight: 700; line-height: 80px;
-    letter-spacing: -0.76px; margin: 0; max-width: 880px;
-  }
-  .cbx-approach__body { font-size: 18px; line-height: 30px; color: var(--cbx-body); margin: 0; max-width: 680px; }
-  .cbx-approach__media { flex: 1; display: flex; align-items: center; justify-content: center; }
-  .cbx-approach__media img { width: 388px; height: 660px; object-fit: contain; }
-
-  @media screen and (max-width: 1280px) {
-    .cbx-approach__text { width: 55%; }
-    .cbx-approach__statement { font-size: 56px; line-height: 62px; }
-    .cbx-about__band { height: 60vw; max-height: 800px; }
-  }
-  @media screen and (max-width: 989px) {
-    .cbx-about__center-col { width: 100%; gap: 16px; }
-    .cbx-about__center-copy p { font-size: 17px; line-height: 26px; }
-    .cbx-about__band { height: auto; aspect-ratio: 4 / 3; }
-    .cbx-approach { flex-direction: column; gap: 40px; align-items: flex-start; }
-    .cbx-approach__text { width: 100%; gap: 20px; }
-    .cbx-approach__statement { font-size: 30px; line-height: 38px; letter-spacing: -0.3px; }
-    .cbx-approach__body { font-size: 16px; line-height: 26px; max-width: none; }
-    .cbx-approach__media { width: 100%; }
-    .cbx-approach__media img { width: 240px; height: 408px; }
-  }
-</style>

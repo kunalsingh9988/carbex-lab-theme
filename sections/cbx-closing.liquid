@@ -1,0 +1,28 @@
+{%- render 'cbx-theme' -%}
+<div class="cbx-page">
+  {%- render 'cbx-closing',
+    heading: section.settings.closing_heading,
+    text: section.settings.closing_text,
+    btn_label: section.settings.closing_button_label,
+    btn_url: section.settings.closing_button_link,
+    img_d: section.settings.closing_image,
+    img_m: section.settings.closing_image_m
+  -%}
+</div>
+
+{% schema %}
+{
+  "name": "Carbex closing banner",
+  "tag": "section",
+  "class": "cbx-closing-sec",
+  "settings": [
+    { "type": "text", "id": "closing_heading", "label": "Heading" },
+    { "type": "textarea", "id": "closing_text", "label": "Text" },
+    { "type": "text", "id": "closing_button_label", "label": "Button label" },
+    { "type": "url", "id": "closing_button_link", "label": "Button link" },
+    { "type": "image_picker", "id": "closing_image", "label": "Desktop image" },
+    { "type": "image_picker", "id": "closing_image_m", "label": "Mobile image" }
+  ],
+  "presets": [ { "name": "Carbex closing banner" } ]
+}
+{% endschema %}

@@ -1,9 +1,43 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "main": {
-      "type": "carbex-product-page",
+      "type": "cbx-product-info",
+      "blocks": {
+        "fact_1": { "type": "fact", "settings": { "label": "Package", "value": "4 strips" } },
+        "fact_2": { "type": "fact", "settings": { "label": "Strip length", "value": "About 800 mm each" } },
+        "fact_3": { "type": "fact", "settings": { "label": "Coverage", "value": "One strip covers one paddle" } },
+        "fact_4": { "type": "fact", "settings": { "label": "Weight", "value": "About 0.25 oz per strip" } },
+        "fact_5": { "type": "fact", "settings": { "label": "Thickness", "value": "About 0.525 mm, excluding backing" } },
+        "fact_6": { "type": "fact", "settings": { "label": "Profile", "value": "Notched edge; trim to fit" } },
+        "fact_7": { "type": "fact", "settings": { "label": "Widths", "value": "26 mm (14 mm paddles) · 30 mm (16 mm paddles)" } },
+        "caption_1": { "type": "caption", "settings": { "title": "A replaceable protective layer", "text": "Takes routine wear and contact around the outside edge, helping keep it protected." } },
+        "caption_2": { "type": "caption", "settings": { "title": "Notched to lay flat", "text": "The cut edge follows the curves of the paddle head and lies flat." } },
+        "caption_3": { "type": "caption", "settings": { "title": "Trim to fit", "text": "Ends cleanly at the throat, cut to length during install." } }
+      },
+      "block_order": ["fact_1", "fact_2", "fact_3", "fact_4", "fact_5", "fact_6", "fact_7", "caption_1", "caption_2", "caption_3"],
+      "settings": {}
+    },
+    "reviews": {
+      "type": "cbx-reviews",
+      "settings": { "mist": true }
+    },
+    "recommendations": {
+      "type": "cbx-recommendations",
+      "settings": {}
+    },
+    "closing": {
+      "type": "cbx-closing",
       "settings": {}
     }
   },
-  "order": ["main"]
+  "order": ["main", "reviews", "recommendations", "closing"]
 }

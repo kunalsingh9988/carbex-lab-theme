@@ -1,0 +1,49 @@
+{% comment %}
+  Carbex image-only band — full-bleed picture with desktop/mobile sources.
+  Params: s — hash exposing:
+    band_image     desktop image (image object or asset filename)
+    band_image_m   mobile image (image object or asset filename)
+    band_alt       alt text
+    band_height_d  desktop height px (default 800)
+    band_ratio_m   mobile aspect ratio '1:1' | '4:3' | 'auto' (default '1:1')
+    band_dd / band_dm — optional default asset filenames when no picker image is set
+{% endcomment %}
+{%- assign s = s | default: section.settings -%}
+{%- assign band_hd = s.band_height_d | default: 800 -%}
+{%- assign band_rm = s.band_ratio_m | default: '1:1' -%}
+
+<section class="cbx-imageband" style="--ib-h: {{ band_hd }}px; --ib-ratio-m: {% if band_rm == 'auto' %}auto{% elsif band_rm == '4:3' %}4 / 3{% else %}1 / 1{% endif %};">
+  <picture>
+    {%- if s.band_image_m != blank -%}
+      {%- if s.band_image_m.width -%}
+        <source media="(max-width: 989px)" srcset="{{ s.band_image_m | image_url: width: 1080 }}">
+      {%- else -%}
+        <source media="(max-width: 989px)" srcset="{{ s.band_image_m | asset_url }}">
+      {%- endif -%}
+    {%- elsif band_dm != blank -%}
+      <source media="(max-width: 989px)" srcset="{{ band_dm | asset_url }}">
+    {%- endif -%}
+    {%- if s.band_image != blank -%}
+      {%- if s.band_image.width -%}
+        <img src="{{ s.band_image | image_url: width: 1920 }}" srcset="{{ s.band_image | image_url: width: 1200 }} 1200w, {{ s.band_image | image_url: width: 1920 }} 1920w" sizes="100vw" alt="{{ s.band_alt | default: 'CARBEX LAB' | escape }}" width="1920" height="{{ band_hd }}" loading="lazy">
+      {%- else -%}
+        <img src="{{ s.band_image | asset_url }}" alt="{{ s.band_alt | default: 'CARBEX LAB' | escape }}" width="1920" height="{{ band_hd }}" loading="lazy">
+      {%- endif -%}
+    {%- elsif band_dd != blank -%}
+      <img src="{{ band_dd | asset_url }}" alt="{{ s.band_alt | default: 'CARBEX LAB' | escape }}" width="1920" height="{{ band_hd }}" loading="lazy">
+    {%- endif -%}
+  </picture>
+</section>
+
+<style>
+  .cbx-imageband { height: var(--ib-h, 800px); background: var(--cbx-navy); overflow: hidden; }
+  .cbx-imageband img { width: 100%; height: 100%; object-fit: cover; }
+
+  @media screen and (max-width: 1280px) {
+    .cbx-imageband { height: 60vw; max-height: var(--ib-h, 800px); }
+  }
+  @media screen and (max-width: 989px) {
+    .cbx-imageband { height: auto; aspect-ratio: var(--ib-ratio-m, 1 / 1); }
+    .cbx-imageband img { height: 100%; }
+  }
+</style>

@@ -1,0 +1,30 @@
+{
+  "sections": {
+    "hero": {
+      "type": "cbx-hero",
+      "settings": {
+        "hero_default": "install",
+        "hero_heading": "Protect Your Paddle in Five Simple Steps",
+        "hero_text": "Clean the edge, position the tape, apply it gradually, and trim for a finished fit.",
+        "hero_heading_tag": "h1",
+        "hero_height_d": 560,
+        "hero_height_m": 290,
+        "hero_focal": "75% 55%",
+        "hero_tight": true,
+        "hero_btn1_label": "",
+        "hero_eager": true
+      }
+    },
+    "steps": { "type": "cbx-install-steps", "settings": {} },
+    "faq": {
+      "type": "cbx-faq-accordion",
+      "settings": {
+        "faq_preset": "install",
+        "faq_mist": true,
+        "faq_heading": "Installation questions"
+      }
+    },
+    "closing": { "type": "cbx-closing", "settings": {} }
+  },
+  "order": ["hero", "steps", "faq", "closing"]
+}

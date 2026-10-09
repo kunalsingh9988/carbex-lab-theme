@@ -1,0 +1,16 @@
+{%- render 'cbx-theme' -%}
+{%- render 'cbx-sec-statement', s: section.settings -%}
+
+{% schema %}
+{
+  "name": "Carbex statement",
+  "tag": "section",
+  "class": "cbx-page cbx-statement-sec",
+  "settings": [
+    { "type": "text", "id": "center_heading", "label": "Heading", "default": "Care Beyond the Game" },
+    { "type": "textarea", "id": "center_p1", "label": "Paragraph 1", "default": "Your paddle is part of every point, every session, and every game. CARBEX LAB is focused on the simple things that help you take better care of it." },
+    { "type": "textarea", "id": "center_p2", "label": "Paragraph 2", "default": "From replaceable edge protection to practical surface care, we create products around real paddle-maintenance needs." }
+  ],
+  "presets": [ { "name": "Carbex statement" } ]
+}
+{% endschema %}
