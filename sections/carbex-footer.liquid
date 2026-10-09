@@ -21,7 +21,8 @@
         {% if footer_shop_menu != blank %}
           {% for link in footer_shop_menu.links %}<li><a href="{{ link.url }}">{{ link.title }}</a></li>{% endfor %}
         {% else %}
-          <li><a href="{{ routes.root_url }}products/carbex-pouch-26-front">Edge Guard Tape</a></li>
+          {% assign footer_product = all_products['carbex-lab-pickleball-paddle-edge-guard-tape'] | default: collections.all.products.first %}
+          <li><a href="{{ footer_product.url | default: routes.all_products_collection_url }}">{{ footer_product.title | default: 'Shop products' | escape }}</a></li>
           <li><a href="{{ routes.all_products_collection_url }}">All Products</a></li>
           <li><a href="{{ routes.root_url }}pages/installation">Installation Guide</a></li>
         {% endif %}

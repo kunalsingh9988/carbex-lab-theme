@@ -14,23 +14,24 @@
 
   {%- comment -%} ============ RECOMMENDATIONS ============ {%- endcomment -%}
   {% if s.show_recs != false %}
-  <section class="cbx-page cbx-pdp__recs" data-recs data-recs-product="{{ product.id }}">
+  {% assign recs_shown = 0 %}
+  {% capture recs_cards %}
+    {% for item in recs_collection.products %}
+      {% if item.id != product.id and recs_shown < 4 %}
+        <a class="carbex-recs-card" href="{{ item.url }}">
+          <div class="carbex-recs-card__media">
+            {% if item.featured_image %}{{ item.featured_image | image_url: width: 800 | image_tag: loading: 'lazy', widths: '400,600,800', alt: item.title }}{% endif %}
+          </div>
+          <div class="carbex-recs-card__meta"><h3>{{ item.title | escape }}</h3><span>{{ item.price | money }}</span></div>
+        </a>
+        {% assign recs_shown = recs_shown | plus: 1 %}
+      {% endif %}
+    {% endfor %}
+  {% endcapture %}
+  <section class="cbx-page cbx-pdp__recs" data-recs data-recs-product="{{ product.id }}"{% if recs_shown == 0 %} hidden{% endif %}>
     <div class="cbx-pdp__recs-inner">
       <h2 class="cbx-h-xl cbx-center">{{ s.recs_heading | default: 'You may also like' | escape }}</h2>
-      <div class="cbx-pdp__recs-grid" data-recs-grid>
-        {% assign recs_shown = 0 %}
-        {% for item in recs_collection.products %}
-          {% if item.id != product.id and recs_shown < 4 %}
-            <a class="carbex-recs-card" href="{{ item.url }}">
-              <div class="carbex-recs-card__media">
-                {% if item.featured_image %}{{ item.featured_image | image_url: width: 800 | image_tag: loading: 'lazy', widths: '400,600,800', alt: item.title }}{% endif %}
-              </div>
-              <div class="carbex-recs-card__meta"><h3>{{ item.title | escape }}</h3><span>{{ item.price | money }}</span></div>
-            </a>
-            {% assign recs_shown = recs_shown | plus: 1 %}
-          {% endif %}
-        {% endfor %}
-      </div>
+      <div class="cbx-pdp__recs-grid" data-recs-grid>{{ recs_cards }}</div>
     </div>
   </section>
   {% endif %}
@@ -67,6 +68,7 @@
           const grid = recs.querySelector('[data-recs-grid]');
           grid.innerHTML = '';
           cards.forEach((card) => grid.appendChild(card));
+          recs.hidden = false;
         }
       })
       .catch(() => {});
