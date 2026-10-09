@@ -48,7 +48,7 @@
         {% else %}
           <li><a href="{{ routes.root_url }}pages/faq">FAQ</a></li>
           <li><a href="{{ routes.root_url }}pages/contact">Contact Us</a></li>
-          <li><a href="{{ routes.root_url }}pages/terms">Shipping &amp; Returns</a></li>
+          <li><a href="{{ routes.root_url }}pages/shipping-and-returns">Shipping &amp; Returns</a></li>
           <li><a href="{{ routes.root_url }}pages/contact">Track Order</a></li>
         {% endif %}
       </ul>
@@ -85,11 +85,11 @@
     <div class="cbx-footer__bottomrow">
       <p class="cbx-footer__copy">© {{ 'now' | date: '%Y' }} {{ section.settings.brand_name | escape }}. {{ section.settings.rights_text | escape }}</p>
       <div class="cbx-footer__policies">
-        <a href="{{ routes.root_url }}pages/privacy">{{ section.settings.privacy_label | escape }}</a>
+        <a href="{{ routes.root_url }}pages/privacy-policy">{{ section.settings.privacy_label | escape }}</a>
         <span>|</span>
         <a href="{{ routes.root_url }}pages/terms">{{ section.settings.terms_label | escape }}</a>
         <span>|</span>
-        <a href="{{ routes.root_url }}pages/terms">{{ section.settings.shipping_label | escape }}</a>
+        <a href="{{ routes.root_url }}pages/shipping-and-returns">{{ section.settings.shipping_label | escape }}</a>
       </div>
     </div>
   </div>

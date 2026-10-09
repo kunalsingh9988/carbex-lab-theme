@@ -1,11 +1,19 @@
 
 
-{% if page.handle == 'about-us' %}
+{% if page.handle == 'about-us' or page.handle == 'about' or page.handle == 'why-carbex-lab' %}
   {% render 'carbex-about-body' %}
 {% elsif page.handle == 'installation' or page.handle == 'install' or page.handle == 'installation-guide' or page.handle == 'install-guide' %}
   {% render 'cbx-install' %}
 {% elsif page.handle == 'faq' or page.handle == 'faqs' or page.handle == 'frequently-asked-questions' %}
   {% render 'cbx-faq' %}
+{% elsif page.handle == 'contact' or page.handle == 'contact-us' or page.handle == 'support' %}
+  {% render 'cbx-contact' %}
+{% elsif page.handle == 'shop' or page.handle == 'store' or page.handle == 'products' or page.handle == 'range' %}
+  {% render 'cbx-shop' %}
+{% elsif page.handle == 'homepage' or page.handle == 'home' %}
+  {% render 'cbx-home' %}
+{% elsif page.handle == 'product-page' or page.handle == 'product' or page.handle == 'product-detail' or page.handle == 'edge-guard' or page.handle == 'edge-guard-tape' %}
+  {% render 'cbx-pdp' %}
 {% else %}
   {% render 'carbex-simple-page' %}
 {% endif %}

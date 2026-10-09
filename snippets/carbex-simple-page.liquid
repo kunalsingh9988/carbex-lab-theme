@@ -1,3 +1,4 @@
+{%- render 'cbx-theme' -%}
 <div class="carbex-page">
   <div class="carbex-page__inner">
     <p class="carbex-page__eyebrow">{{ section.settings.eyebrow | default: 'Carbex Lab' | escape }}</p>
@@ -5,7 +6,7 @@
     <div class="carbex-page__content">
       {% if page.content != blank %}
         {{ page.content }}
-      {% elsif page.handle == 'privacy' %}
+      {% elsif page.handle == 'privacy' or page.handle == 'privacy-policy' or page.handle == 'privacy-notice' %}
         <p><em>Last updated: {{ 'now' | date: '%B %Y' }}. This is placeholder content — replace it with your full privacy policy in the page editor.</em></p>
         <h2>Information we collect</h2>
         <p>When you visit Carbex Lab or place an order, we collect the details needed to run the store: your name, email address, shipping and billing addresses, and order history. We also collect standard device and browsing data (IP address, browser type, pages visited) to keep the site fast and secure.</p>
@@ -25,7 +26,7 @@
         <p>We keep order records as long as needed for legal, tax, and warranty purposes. You can ask us to access, correct, or delete your personal data at any time by emailing us through the contact page.</p>
         <h2>Questions</h2>
         <p>For anything privacy-related, reach us via the <a href="/pages/contact">contact page</a> and we'll get back to you quickly.</p>
-      {% elsif page.handle == 'terms' %}
+      {% elsif page.handle == 'terms' or page.handle == 'terms-and-conditions' or page.handle == 'terms-of-service' %}
         <p><em>Last updated: {{ 'now' | date: '%B %Y' }}. This is placeholder content — replace it with your full terms of service in the page editor.</em></p>
         <h2>Overview</h2>
         <p>These terms govern your use of the Carbex Lab store and any purchase you make from it. By using the site or placing an order, you agree to these terms.</p>
@@ -47,6 +48,26 @@
         <p>Our products are designed to protect your paddle during normal play. We're not liable for damage caused by misuse, improper installation, or extreme conditions beyond normal court wear.</p>
         <h2>Changes &amp; contact</h2>
         <p>We may update these terms occasionally; the latest version always lives on this page. Questions? Reach us via the <a href="/pages/contact">contact page</a>.</p>
+      {% elsif page.handle == 'shipping-and-returns' or page.handle == 'shipping' or page.handle == 'returns' or page.handle == 'returns-exchanges' or page.handle == 'shipping-returns' %}
+        <p><em>Last updated: {{ 'now' | date: '%B %Y' }}. This is placeholder content — replace it with your full shipping &amp; returns policy in the page editor.</em></p>
+        <h2>Shipping</h2>
+        <p>Orders are packed and dispatched as quickly as possible — typically within 1–2 business days. Available shipping methods, carriers, and delivery estimates are shown at checkout and may vary by destination.</p>
+        <ul>
+          <li>Standard and expedited options are shown at checkout</li>
+          <li>Delivery estimates are guides, not guarantees — carrier delays can happen</li>
+          <li>Tracking details are emailed once your order ships</li>
+        </ul>
+        <h2>Returns</h2>
+        <p>We want you to be confident in every order. Unused products in their original packaging can be returned within 30 days of delivery.</p>
+        <ul>
+          <li>Applied or installed edge tape can't be returned</li>
+          <li>Refunds are issued to the original payment method once items arrive back</li>
+          <li>Return shipping is covered for defective or incorrect items</li>
+        </ul>
+        <h2>Start a return</h2>
+        <p>Email us through the <a href="/pages/contact">contact page</a> with your order number and we'll send return instructions. For order status, use the tracking link in your shipping confirmation email.</p>
+        <h2>Damaged or incorrect orders</h2>
+        <p>If something arrives damaged or wrong, contact us within 14 days of delivery with photos — we'll make it right with a replacement or refund.</p>
       {% else %}
         <p>{{ section.settings.fallback_one | default: "We're putting the finishing touches on this page. The details below are placeholder content and will be replaced with the full text shortly." }}</p>
         <p>{{ section.settings.fallback_two | default: 'In the meantime, the essentials stay the same: Carbex Lab makes practical protection and care products for players who want their equipment to perform and last — and we stand behind every order.' }}</p>
@@ -58,19 +79,19 @@
 </div>
 
 <style>
-  .carbex-page { background: #fff; padding: clamp(64px, 10vw, 140px) 0; }
+  .carbex-page { background: var(--cbx-paper, #fff); font-family: var(--cbx-font, 'Montserrat', sans-serif); padding: clamp(64px, 10vw, 140px) 0; }
   .carbex-page__inner { margin: 0 auto; width: min(780px, calc(100% - 48px)); }
-  .carbex-page__eyebrow { color: #6b7627; font-size: .72rem; font-weight: 700; letter-spacing: .16em; margin: 0 0 18px; text-transform: uppercase; }
-  .carbex-page h1 { border-bottom: 1px solid #d9dcd4; font-size: clamp(2.4rem, 5.5vw, 4.2rem); font-weight: 500; letter-spacing: 0; line-height: 1.02; margin: 0; padding-bottom: clamp(28px, 4vw, 48px); }
-  .carbex-page__content { color: #4c514b; font-size: 1rem; line-height: 1.8; padding-top: clamp(32px, 4vw, 52px); }
+  .carbex-page__eyebrow { color: var(--cbx-teal, #13a9bd); font-family: var(--cbx-mono, 'Roboto Mono', monospace); font-size: .72rem; font-weight: 700; letter-spacing: .16em; margin: 0 0 18px; text-transform: uppercase; }
+  .carbex-page h1 { border-bottom: 1px solid #e5e7eb; color: var(--cbx-ink, #020202); font-size: clamp(2.4rem, 5.5vw, 4.2rem); font-weight: 700; letter-spacing: -.02em; line-height: 1.02; margin: 0; padding-bottom: clamp(28px, 4vw, 48px); }
+  .carbex-page__content { color: var(--cbx-body, #3b3f45); font-size: 1rem; line-height: 1.8; padding-top: clamp(32px, 4vw, 52px); }
   .carbex-page__content p { margin: 0 0 1.4em; }
-  .carbex-page__content h2 { color: #151817; font-size: clamp(1.3rem, 2.4vw, 1.8rem); font-weight: 600; line-height: 1.2; margin: 2.2em 0 .8em; }
-  .carbex-page__content h3 { color: #151817; font-size: 1.1rem; font-weight: 700; margin: 2em 0 .7em; }
+  .carbex-page__content h2 { color: var(--cbx-ink, #020202); font-size: clamp(1.3rem, 2.4vw, 1.8rem); font-weight: 700; line-height: 1.2; margin: 2.2em 0 .8em; }
+  .carbex-page__content h3 { color: var(--cbx-ink, #020202); font-size: 1.1rem; font-weight: 700; margin: 2em 0 .7em; }
   .carbex-page__content ul, .carbex-page__content ol { margin: 0 0 1.4em; padding-left: 1.3em; }
   .carbex-page__content li { margin-bottom: .5em; }
-  .carbex-page__content a { color: #151817; text-decoration: underline; text-decoration-color: #c5e349; text-decoration-thickness: 2px; text-underline-offset: 3px; }
-  .carbex-page__cta { align-items: center; background: #151817; color: #fff; display: inline-flex; font-size: .8rem; font-weight: 700; margin-top: clamp(28px, 4vw, 44px); padding: 14px 26px; text-decoration: none; transition: background .2s ease, transform .2s ease; }
-  .carbex-page__cta:hover { background: #a9c72f; color: #151817; transform: translateY(-2px); }
+  .carbex-page__content a { color: var(--cbx-ink, #020202); text-decoration: underline; text-decoration-color: var(--cbx-teal, #13a9bd); text-decoration-thickness: 2px; text-underline-offset: 3px; }
+  .carbex-page__cta { align-items: center; background: var(--cbx-ink, #020202); border-radius: 999px; color: #fff; display: inline-flex; font-size: .8rem; font-weight: 700; margin-top: clamp(28px, 4vw, 44px); padding: 14px 26px; text-decoration: none; transition: background .2s ease, transform .2s ease; }
+  .carbex-page__cta:hover { background: var(--cbx-teal, #13a9bd); color: #fff; transform: translateY(-2px); }
   @media screen and (max-width: 749px) {
     .carbex-page { padding: 48px 0 72px; }
     .carbex-page__inner { width: min(100% - 36px, 780px); }

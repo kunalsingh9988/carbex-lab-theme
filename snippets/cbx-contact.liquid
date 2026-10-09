@@ -1,0 +1,119 @@
+{%- render 'cbx-theme' -%}
+{%- assign s = s | default: section.settings -%}
+
+<main class="cbx-page cbx-contact">
+  <section class="cbx-contact__wrap">
+    <div class="cbx-contact__col">
+      <p class="cbx-eyebrow">{{ s.eyebrow | default: 'Contact / Support' }}</p>
+      <h1 class="cbx-h-hero cbx-h-hero--black">{{ s.heading | default: "We're Here to Help" }}</h1>
+      <p class="cbx-lead cbx-lead--lg">{{ s.intro | default: "From choosing the right width to getting your installation right, send us your question and we'll help." }}</p>
+
+      {% form 'contact', class: 'cbx-cform' %}
+        {% if form.posted_successfully? %}
+          <p class="cbx-cform__success">{{ s.success_message | default: "Thanks — we've received your message and will get back to you soon." }}</p>
+        {% endif %}
+        {{ form.errors | default_errors }}
+
+        <div class="cbx-cform__fields">
+          <div class="cbx-cform__row">
+            <div class="cbx-cform__field">
+              <label for="cbx-first">{{ s.first_label | default: 'First name*' }}</label>
+              <input id="cbx-first" type="text" name="contact[first_name]" autocomplete="given-name" placeholder="{{ s.first_placeholder | default: 'Name' }}" required>
+            </div>
+            <div class="cbx-cform__field">
+              <label for="cbx-last">{{ s.last_label | default: 'Last name*' }}</label>
+              <input id="cbx-last" type="text" name="contact[last_name]" autocomplete="family-name" placeholder="{{ s.last_placeholder | default: 'Name' }}" required>
+            </div>
+          </div>
+
+          <div class="cbx-cform__field">
+            <label for="cbx-email">{{ s.email_label | default: 'Email address*' }}</label>
+            <input id="cbx-email" type="email" name="contact[email]" autocomplete="email" placeholder="{{ s.email_placeholder | default: 'you@example.com' }}" required>
+          </div>
+
+          <div class="cbx-cform__field">
+            <label for="cbx-topic">{{ s.topic_label | default: 'What can we help with?*' }}</label>
+            <div class="cbx-cform__select">
+              <select id="cbx-topic" name="contact[topic]" required>
+                <option value="" disabled selected>{{ s.topic_placeholder | default: 'Select' }}</option>
+                <option value="Sizing">Sizing</option>
+                <option value="Installation">Installation</option>
+                <option value="My order">My order</option>
+                <option value="Something else">Something else</option>
+              </select>
+              <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="m6 9 6 6 6-6" stroke="#020202" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+          </div>
+
+          <div class="cbx-cform__field">
+            <label for="cbx-msg">{{ s.message_label | default: 'Message*' }}</label>
+            <textarea id="cbx-msg" name="contact[body]" rows="6" placeholder="{{ s.message_placeholder | default: 'Tell us what you need help with' }}" required></textarea>
+          </div>
+        </div>
+
+        <button type="submit" class="cbx-cform__send">{{ s.button_label | default: 'Send message' }}</button>
+        <p class="cbx-cform__alt">{{ s.alt_text_prefix | default: 'Prefer email?' }} <a href="mailto:{{ s.alt_email | default: 'hello@carbexlab.com' }}">{{ s.alt_email | default: 'hello@carbexlab.com' }}</a></p>
+      {% endform %}
+    </div>
+
+    <div class="cbx-contact__photo">
+      {% if s.photo != blank %}
+        {{ s.photo | image_url: width: 1440 | image_tag: loading: 'lazy', widths: '720,1080,1440', alt: s.heading }}
+      {% else %}
+        <img src="{{ 'cbx-contact-photo.png' | asset_url }}" alt="{{ s.heading | escape }}" width="720" height="900" loading="lazy">
+      {% endif %}
+    </div>
+  </section>
+</main>
+
+<style>
+  .cbx-contact { background: #fff; }
+  .cbx-contact__wrap { display: flex; gap: 80px; align-items: flex-start; padding: 100px 200px 120px; }
+  .cbx-contact__col { flex: 0 1 740px; min-width: 0; display: flex; flex-direction: column; gap: 20px; }
+  .cbx-h-hero--black { color: var(--cbx-ink); }
+  .cbx-lead--lg { font-size: 20px; line-height: 32px; color: var(--cbx-body); margin: 0; }
+  .cbx-contact__col .cbx-cform { margin-top: 16px; }
+
+  .cbx-cform { display: flex; flex-direction: column; gap: 30px; width: 100%; }
+  .cbx-cform__fields { display: flex; flex-direction: column; gap: 30px; }
+  .cbx-cform__row { display: flex; gap: 30px; }
+  .cbx-cform__field { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 5px; }
+  .cbx-cform__field label { font-size: 18px; line-height: 28px; color: var(--cbx-ink); }
+  .cbx-cform__field input,
+  .cbx-cform__field select,
+  .cbx-cform__field textarea {
+    width: 100%; background: #fff; border: 1px solid rgba(2,2,2,.1); border-radius: 16px;
+    padding: 10px 20px; font-family: inherit; font-size: 18px; line-height: 28px; color: var(--cbx-ink);
+    appearance: none; outline: none; transition: border-color .2s ease;
+  }
+  .cbx-cform__field input::placeholder,
+  .cbx-cform__field textarea::placeholder { color: rgba(2,2,2,.5); }
+  .cbx-cform__field input:focus,
+  .cbx-cform__field select:focus,
+  .cbx-cform__field textarea:focus { border-color: var(--cbx-teal); }
+  .cbx-cform__field textarea { resize: vertical; min-height: 150px; }
+  .cbx-cform__select { position: relative; }
+  .cbx-cform__select select { width: 100%; cursor: pointer; }
+  .cbx-cform__select svg { position: absolute; right: 18px; top: 50%; transform: translateY(-50%); pointer-events: none; }
+  .cbx-cform__send { background: var(--cbx-ink); color: #fff; border: 0; border-radius: 28px; padding: 14px 30px; font-family: inherit; font-size: 18px; line-height: 28px; cursor: pointer; width: 100%; transition: background .2s ease; }
+  .cbx-cform__send:hover { background: var(--cbx-teal); }
+  .cbx-cform__alt { font-size: 16px; line-height: 26px; color: var(--cbx-body); margin: 0; text-align: center; }
+  .cbx-cform__alt a { color: var(--cbx-ink); font-weight: 600; text-decoration: underline; }
+  .cbx-cform__success { background: var(--cbx-teal-tint); border-left: 3px solid var(--cbx-teal); padding: 14px 18px; font-size: 16px; line-height: 26px; margin: 0; }
+  .cbx-cform .errors, .cbx-cform ul.errors { color: #b3261e; font-size: 15px; margin: 0; }
+
+  .cbx-contact__photo { flex: 0 0 auto; width: 720px; height: 900px; overflow: hidden; }
+  .cbx-contact__photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  @media screen and (max-width: 1280px) {
+    .cbx-contact__wrap { gap: 48px; }
+    .cbx-contact__photo { width: 480px; height: 640px; }
+  }
+  @media screen and (max-width: 989px) {
+    .cbx-contact__wrap { flex-direction: column; padding: 60px 20px 72px; }
+    .cbx-contact__col { flex: none; width: 100%; }
+    .cbx-contact__photo { display: none; }
+    .cbx-cform__row { flex-direction: column; gap: 30px; }
+    .cbx-lead--lg { font-size: 17px; line-height: 28px; }
+  }
+</style>
