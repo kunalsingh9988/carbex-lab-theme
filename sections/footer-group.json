@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "type": "footer",
   "name": "t:names.footer",
@@ -7,11 +16,11 @@
       "settings": {
         "brand_name": "CARBEX LAB",
         "brand_text": "Practical protection and care for the equipment you trust on court.",
-        "newsletter_kicker": "Stay match ready",
-        "newsletter_heading": "Good gear deserves good care.",
-        "newsletter_text": "Join for product drops, care notes, and player-first tips."
+        "newsletter_heading": "Good gear deserves good care."
       }
     }
   },
-  "order": ["carbex_footer"]
+  "order": [
+    "carbex_footer"
+  ]
 }
